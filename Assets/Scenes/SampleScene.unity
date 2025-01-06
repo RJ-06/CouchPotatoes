@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 226476737}
   - component: {fileID: 226476736}
   - component: {fileID: 226476735}
+  - component: {fileID: 226476740}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Player1
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &226476736
@@ -181,6 +182,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82bc6ba0a75092b4d96c4d63f2bcc1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseMoveSpeed: 7
+  baseHealthPoints: 2
+  baseDashSpeed: 12
+  baseAttackPoints: 1
 --- !u!114 &226476737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,8 +198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a1ab9fb149a6145b5278a7a000bc6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p: {fileID: 226476736}
-  rb: {fileID: 0}
+  pv: {fileID: 226476736}
+  rb: {fileID: 226476740}
 --- !u!212 &226476738
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -265,6 +270,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &226476740
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226476734}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +403,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

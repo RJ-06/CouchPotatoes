@@ -3,10 +3,10 @@ using UnityEngine;
 public class PlayerVals : MonoBehaviour
 {
     //start game with these values
-    float baseMoveSpeed;
-    int baseHealthPoints;
-    float baseDashSpeed;
-    int baseAttackPoints;
+    [SerializeField] float baseMoveSpeed;
+    [SerializeField] int baseHealthPoints;
+    [SerializeField] float baseDashSpeed;
+    [SerializeField] int baseAttackPoints;
 
     //start game with these values
     float currentMoveSpeed;
@@ -17,10 +17,10 @@ public class PlayerVals : MonoBehaviour
 
     private void Start()
     {
-        float currentMoveSpeed = baseMoveSpeed;
-        int currentHealthPoints = baseHealthPoints;
-        float currentDashSpeed = baseDashSpeed;
-        int currentAttackPoints = baseAttackPoints;
+        currentMoveSpeed = baseMoveSpeed;
+        currentHealthPoints = baseHealthPoints;
+        currentDashSpeed = baseDashSpeed;
+        currentAttackPoints = baseAttackPoints;
     }
 
     public float getMoveSpeed() { return currentMoveSpeed; }

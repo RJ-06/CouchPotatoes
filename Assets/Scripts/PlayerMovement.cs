@@ -11,20 +11,25 @@ public class PlayerMovement : MonoBehaviour
 
     PlayerInput playerInput;
 
-    private void Awake()
+    private void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
-        rb = GetComponent<Rigidbody2D>();
+
     }
 
-    private void OnMovement(InputAction.CallbackContext context) 
+    private void OnMovement(InputValue value) 
     {
-        movement = context.ReadValue<Vector2>();
+        movement = value.Get<Vector2>();
+    }
+
+    private void OnDash() 
+    {
+        Debug.Log(pv.getMoveSpeed());
     }
 
     private void FixedUpdate()
     {
         rb.linearVelocity = movement.normalized * pv.getMoveSpeed();
+        //Debug.Log(movement + "; " + rb.linearVelocity);
     }
 
 
