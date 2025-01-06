@@ -182,10 +182,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82bc6ba0a75092b4d96c4d63f2bcc1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMoveSpeed: 7
+  baseMoveSpeed: 8
   baseHealthPoints: 2
-  baseDashSpeed: 12
+  baseDashSpeed: 300
   baseAttackPoints: 1
+  baseDashCooldown: 0.8
+  baseAttackCooldown: 1
+  baseMaxSpeed: 16
 --- !u!114 &226476737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pv: {fileID: 226476736}
   rb: {fileID: 226476740}
+  dashCooldownTimer: 0
 --- !u!212 &226476738
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -283,7 +287,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.05
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

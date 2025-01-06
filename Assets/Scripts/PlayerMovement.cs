@@ -7,30 +7,50 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] PlayerVals pv;
     [SerializeField] Rigidbody2D rb;
-    Vector2 movement;
+    Vector2 moveDir;
 
     PlayerInput playerInput;
 
+    [SerializeField] float dashCooldownTimer;
+
     private void Start()
     {
-
-    }
-
-    private void OnMovement(InputValue value) 
-    {
-        movement = value.Get<Vector2>();
-    }
-
-    private void OnDash() 
-    {
-        Debug.Log(pv.getMoveSpeed());
+        dashCooldownTimer = pv.getDashCooldown();
     }
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = movement.normalized * pv.getMoveSpeed();
-        //Debug.Log(movement + "; " + rb.linearVelocity);
+        Debug.Log(rb.linearVelocity.magnitude);
+        dashCooldownTimer -= Time.fixedDeltaTime;
     }
+
+    private void OnMovement(InputValue value) 
+    {
+        moveDir = value.Get<Vector2>().normalized;
+        //if (Mathf.Sign(moveDir.x) == -Mathf.Sign(moveDir.x)) rb.linearVelocityX = 0;
+        //if (Mathf.Sign(moveDir.y) == -Mathf.Sign(moveDir.y)) rb.linearVelocityY = 0;
+
+        rb.linearVelocity = moveDir * pv.getMoveSpeed();
+        ClampSpeed();
+    }
+
+    private void OnDash() 
+    {
+        if (dashCooldownTimer > 0) return;
+        dashCooldownTimer = pv.getDashCooldown();
+
+        rb.AddForce(moveDir * pv.getDashSpeed());
+    }
+
+    private void ClampSpeed() 
+    {
+        if (rb.linearVelocity.magnitude > pv.getMaxSpeed()) 
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * pv.getMaxSpeed();
+        }
+    }
+
+    
 
 
 }
