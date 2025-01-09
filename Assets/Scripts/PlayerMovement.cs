@@ -12,16 +12,27 @@ public class PlayerMovement : MonoBehaviour
     PlayerInput playerInput;
 
     [SerializeField] float dashCooldownTimer;
+    [SerializeField] float dashTimer;
+    private bool dashInProgress = false;
 
     private void Start()
     {
         dashCooldownTimer = pv.getDashCooldown();
+        dashTimer = pv.getDashTime();
     }
 
     private void FixedUpdate()
     {
         Debug.Log(rb.linearVelocity.magnitude);
         dashCooldownTimer -= Time.fixedDeltaTime;
+
+        if (dashInProgress && Mathf.Abs(dashTimer) >= 0.0001) {
+            dashTimer -= Time.fixedDeltaTime;
+        } else if (dashInProgress) {
+            rb.AddForce(-1 * moveDir * pv.getDashSpeed());
+            dashInProgress = false;
+            dashTimer = pv.getDashTime();
+        }
     }
 
     private void OnMovement(InputValue value) 
@@ -40,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         dashCooldownTimer = pv.getDashCooldown();
 
         rb.AddForce(moveDir * pv.getDashSpeed());
+        dashInProgress = true;
     }
 
     private void ClampSpeed() 

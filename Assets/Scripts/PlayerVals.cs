@@ -8,6 +8,7 @@ public class PlayerVals : MonoBehaviour
     [SerializeField] float baseDashSpeed;
     [SerializeField] int baseAttackPoints;
     [SerializeField] float baseDashCooldown;
+    [SerializeField] float baseDashTime;
     [SerializeField] float baseAttackCooldown;
     [SerializeField] float baseMaxSpeed;
 
@@ -17,6 +18,7 @@ public class PlayerVals : MonoBehaviour
     float currentDashSpeed;
     int currentAttackPoints;
     float currentDashCooldown;
+    float currentDashTime;
     float currentAttackCooldown;
     float currentMaxSpeed;
     bool hasPotato = false;
@@ -28,6 +30,7 @@ public class PlayerVals : MonoBehaviour
         currentDashSpeed = baseDashSpeed;
         currentAttackPoints = baseAttackPoints;
         currentDashCooldown = baseDashCooldown;
+        currentDashTime = baseDashTime;
         currentAttackCooldown = baseAttackCooldown;
         currentMaxSpeed = baseMaxSpeed;
     }
@@ -44,6 +47,8 @@ public class PlayerVals : MonoBehaviour
 
     public float getDashCooldown() { return currentDashCooldown; }
     public void setDashCooldown(int newDashCooldown) { currentDashCooldown = newDashCooldown; }
+    public float getDashTime() { return currentDashTime; }
+    public void setDashTime(int newDashTime) { currentDashTime = newDashTime; }
     public float getAttackCooldown() { return currentAttackCooldown; }
 
     public void setAttackCooldown(int newAttackCooldown) { currentAttackCooldown = newAttackCooldown; }
