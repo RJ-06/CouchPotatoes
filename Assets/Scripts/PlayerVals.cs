@@ -56,4 +56,7 @@ public class PlayerVals : MonoBehaviour
     public float getMaxSpeed() { return currentMaxSpeed; }
     public void setMaxSpeed(float newMaxSpeed) { currentMaxSpeed = newMaxSpeed; }
 
+    public bool getHasPotato() { return hasPotato; }
+    public void setHasPotato(bool state) { hasPotato = state; }
+
 }
