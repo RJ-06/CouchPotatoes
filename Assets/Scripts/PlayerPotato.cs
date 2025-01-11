@@ -6,9 +6,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerPotato : MonoBehaviour
 {
+    [Header("put this on an empty with a collider attached that is then parented to the player")]
+
     [SerializeField] float detectRadius;
     [SerializeField] PlayerVals player;
 
+    [Tooltip("add in events")]
     public UnityEvent getPotato;
     [SerializeField] UnityEvent givePotato;
 
