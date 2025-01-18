@@ -31,5 +31,6 @@ public class ShockwaveAttack : MonoBehaviour
                     GetComponent<CircleCollider2D>().radius += 0.01f * shockwaveSpeed;
                 transform.localScale += 0.02f * scaleChange * shockwaveSpeed;
             }
+        Destroy(gameObject);
     }
 }
