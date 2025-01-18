@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dashCooldownTimer;
     [SerializeField] float dashTimer;
     private bool dashInProgress = false;
+    private Transform shockwaveItem;
+    [SerializeField] GameObject ShockwavePrefab;
 
     private void Start()
     {
@@ -52,6 +54,17 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(moveDir * pv.getDashSpeed());
         dashInProgress = true;
+    }
+
+    private void OnAttack()
+    {
+        shockwaveItem = transform.Find("ShockwaveItem(Clone)");
+
+        if(shockwaveItem != null)
+        {
+            Instantiate(ShockwavePrefab, transform.position, Quaternion.identity);
+            Debug.Log("Attacked");
+        }
     }
 
     private void OnInteract()
