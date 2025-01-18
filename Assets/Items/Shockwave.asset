@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e583fa6d6364ff9faaa8bd75744c25f, type: 3}
+  m_Name: Shockwave
+  m_EditorClassIdentifier: 
+  itemName: Shockwave
+  itemPrefab: {fileID: 4343722360355832344, guid: fbc68db6f47d0bad6b4bcc929f118e7a, type: 3}
+  pickupPrefab: {fileID: 1451091749043144713, guid: 3002575c9f6510830a0b1dec92ce5992, type: 3}

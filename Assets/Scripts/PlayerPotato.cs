@@ -56,7 +56,7 @@ public class PlayerPotato : MonoBehaviour
 
         if (playerFound = collision.TryGetComponent<PlayerPotato>(out PlayerPotato pot))
         {
-            p = pot;
+            // p = pot;
         }
     }
 }

@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(rb.linearVelocity.magnitude);
+        // Debug.Log(rb.linearVelocity.magnitude);
         dashCooldownTimer -= Time.fixedDeltaTime;
 
         if (dashInProgress && Mathf.Abs(dashTimer) >= 0.0001) {
@@ -52,6 +52,12 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(moveDir * pv.getDashSpeed());
         dashInProgress = true;
+    }
+
+    private void OnInteract()
+    {
+        Debug.Log("Interacted");
+        
     }
 
     private void ClampSpeed() 
