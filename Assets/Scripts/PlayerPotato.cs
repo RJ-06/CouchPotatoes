@@ -8,8 +8,8 @@ public class PlayerPotato : MonoBehaviour
 {
     [Header("put this on an empty with a collider attached that is then parented to the player")]
 
-    [SerializeField] float detectRadius;
     [SerializeField] PlayerVals player;
+    [SerializeField] GameObject potato;
 
     [Tooltip("add in events")]
     public UnityEvent getPotato;
@@ -23,6 +23,7 @@ public class PlayerPotato : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        getPotato.Invoke(); // temporary test
     }
 
     // Update is called once per frame
@@ -43,6 +44,7 @@ public class PlayerPotato : MonoBehaviour
     public void onGetPotato()
     {
         player.setHasPotato(true);
+        potato.SetActive(true);
     }
 
     public void onGivePotato()
