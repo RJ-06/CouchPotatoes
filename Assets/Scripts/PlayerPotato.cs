@@ -23,7 +23,6 @@ public class PlayerPotato : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        getPotato.Invoke(); // temporary test
     }
 
     // Update is called once per frame
