@@ -17,6 +17,7 @@ public class PlayerPotato : MonoBehaviour
 
     [SerializeField] PlayerPotato enemy;
 
+    bool startWithPotato = false;
     bool playerFound = false;
 
 
