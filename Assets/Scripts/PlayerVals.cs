@@ -21,10 +21,15 @@ public class PlayerVals : MonoBehaviour
     float currentDashTime;
     float currentAttackCooldown;
     float currentMaxSpeed;
+    public static int numPlayers = 0;
+    public int playerNum = -1;
     bool hasPotato = false;
 
     private void Start()
     {
+        ++numPlayers;
+        playerNum = numPlayers;
+
         currentMoveSpeed = baseMoveSpeed;
         currentHealthPoints = baseHealthPoints;
         currentDashSpeed = baseDashSpeed;

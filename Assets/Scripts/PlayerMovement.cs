@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private bool dashInProgress = false;
     private Transform shockwaveItem;
     [SerializeField] GameObject ShockwavePrefab;
+    [SerializeField] PlayerPotato player;
 
     private void Start()
     {
@@ -81,7 +82,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
+    private void OnStart()
+    {
+        int num = Random.Range(1, PlayerVals.numPlayers + 1);
+    }
 
 
 }
