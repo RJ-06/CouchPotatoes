@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db42b5834c0c2944990bc66a630a7883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCount: 2
+  startingPositions: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,11 +372,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4023494786468395139, guid: 3002575c9f6510830a0b1dec92ce5992, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 4.96
       objectReference: {fileID: 0}
     - target: {fileID: 4023494786468395139, guid: 3002575c9f6510830a0b1dec92ce5992, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: 4023494786468395139, guid: 3002575c9f6510830a0b1dec92ce5992, type: 3}
       propertyPath: m_LocalPosition.z
@@ -465,8 +465,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1372451332974015143, guid: 123fdb561338bd243a70322a94a29ee5, type: 3}
       propertyPath: m_JoinBehavior
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1372451332974015143, guid: 123fdb561338bd243a70322a94a29ee5, type: 3}
+      propertyPath: m_MaxPlayerCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372451332974015143, guid: 123fdb561338bd243a70322a94a29ee5, type: 3}
+      propertyPath: m_JoinAction.m_Reference
+      value: 
+      objectReference: {fileID: 6492571179039128107, guid: e4c101be63f88354eb6549bc5613ab2e, type: 3}
     - target: {fileID: 1372451332974015143, guid: 123fdb561338bd243a70322a94a29ee5, type: 3}
       propertyPath: m_JoinAction.m_UseReference
       value: 1

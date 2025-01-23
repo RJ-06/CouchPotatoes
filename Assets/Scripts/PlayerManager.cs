@@ -1,30 +1,42 @@
 using NUnit.Framework;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    ArrayList playerList = new ArrayList();
-    GameObject[] players;
+    public static int playerCount;
+    private List<PlayerInput> players = new List<PlayerInput>();
+    private PlayerInputManager playerInputManager;
+    [SerializeField] Transform[] startingPositions;
 
-    [SerializeField] int playerCount;
-    PlayerInputManager playerInputManager;
-
-    int chosenPlayer = 0;
-
-    bool joined = false;
-
-    void Start()
+    private void Awake()
     {
-        /*for (int i = 0; i < playerCount; i++) { playerInputManager.JoinPlayer(); }
-        var objects = FindObjectsByType<PlayerVals>(FindObjectsSortMode.None);
-        foreach (var p in objects) { playerList.Add(p.gameObject); }
-        chosenPlayer = Random.Range(0, playerList.Count);
+        playerInputManager = FindFirstObjectByType<PlayerInputManager>();
+        for (int i = 0; i < playerCount; i++) 
+        {
+            playerInputManager.JoinPlayer();
+        }
+    }
 
-        PlayerVals player = ((GameObject)playerList[chosenPlayer]).GetComponent<PlayerVals>();
-        player.setHasPotato(true);*/
+    private void OnEnable()
+    {
+        playerInputManager.onPlayerJoined += AddPlayer;
+    }
+
+    private void OnDisable()
+    {
+        playerInputManager.onPlayerJoined -= AddPlayer;
+    }
+
+    public void AddPlayer(PlayerInput player)
+    {
+        players.Add(player);
+
+        //need to use the parent due to the structure of the prefab
+        Transform playerParent = player.transform.parent;
+        playerParent.position = startingPositions[players.Count - 1].position;
 
     }
+
 }
