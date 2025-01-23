@@ -6,7 +6,11 @@ public class ShockwaveAttack : MonoBehaviour
     [SerializeField] CircleCollider2D shockwave;
     [SerializeField] float shockwaveRadius = 2f;
     [SerializeField] float shockwaveSpeed = 1f;
+    [SerializeField] float shockwaveStrength = 1f;
+
+
     Vector3 scaleChange = new Vector3(0, 0, 0);
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,6 +24,31 @@ public class ShockwaveAttack : MonoBehaviour
     void FixedUpdate()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("Player") && other.gameObject != transform.parent)
+        {
+            float xDist = other.gameObject.transform.position.x - transform.parent.gameObject.transform.position.x;
+            float yDist = other.gameObject.transform.position.y - transform.parent.gameObject.transform.position.y;
+            float angle;
+
+            if((xDist < 0 && yDist < 0) || xDist < 0)
+            {
+                angle = Mathf.Atan(yDist / xDist) + Mathf.PI;
+            } 
+            else if(yDist < 0)
+            {
+                angle = Mathf.Atan(yDist / xDist) + Mathf.PI * 2;
+            } 
+            else
+            {
+                angle = Mathf.Atan(yDist / xDist);
+            }
+            
+            Vector2 force = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(force * shockwaveStrength * 150);
+        }
     }
 
     private IEnumerator ExecuteShockwave()

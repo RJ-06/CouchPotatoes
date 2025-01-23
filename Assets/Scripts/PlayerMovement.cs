@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dashTimer;
     private bool dashInProgress = false;
     private Transform shockwaveItem;
+    [SerializeField] float shockwaveCooldown;
+    [SerializeField] float shockwaveCooldownTimer;
+    private bool shockwaveUsed = false;
     [SerializeField] GameObject ShockwavePrefab;
     [SerializeField] PlayerPotato player;
 
@@ -22,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     {
         dashCooldownTimer = pv.getDashCooldown();
         dashTimer = pv.getDashTime();
+        shockwaveCooldown = pv.getAttackCooldown();
     }
 
     private void FixedUpdate()
@@ -35,6 +39,12 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(-1 * moveDir * pv.getDashSpeed());
             dashInProgress = false;
             dashTimer = pv.getDashTime();
+        }
+
+        if (shockwaveUsed && Mathf.Abs(shockwaveCooldownTimer) >= 0.0001) {
+            shockwaveCooldownTimer -= Time.fixedDeltaTime;
+        } else if (shockwaveUsed) {
+            shockwaveUsed = false;
         }
     }
 
@@ -61,9 +71,11 @@ public class PlayerMovement : MonoBehaviour
     {
         shockwaveItem = transform.Find("ShockwaveItem(Clone)");
 
-        if(shockwaveItem != null)
+        if(shockwaveItem != null && !shockwaveUsed)
         {
-            Instantiate(ShockwavePrefab, transform.position, Quaternion.identity);
+            shockwaveUsed = true;
+            shockwaveCooldownTimer = shockwaveCooldown;
+            Instantiate(ShockwavePrefab, transform.position, Quaternion.identity, this.transform);
             Debug.Log("Attacked");
         }
     }
