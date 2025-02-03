@@ -188,6 +188,10 @@ PrefabInstance:
       propertyPath: baseAttackCooldown
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4184248540268549510, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 0946b8b349a9d22e99606bcb34f1fc82, type: 3}
     - target: {fileID: 4685031436231118590, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
@@ -389,6 +393,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4184248540268549510, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 0946b8b349a9d22e99606bcb34f1fc82, type: 3}
+    - target: {fileID: 4184248540268549510, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: 7f66b972-cd43-42ea-997a-4170b148afaa
+      objectReference: {fileID: 0}
     - target: {fileID: 4685031436231118590, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
