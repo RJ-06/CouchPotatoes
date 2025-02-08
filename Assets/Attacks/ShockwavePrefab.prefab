@@ -82,13 +82,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56f421a2e82beb9a94a0328c952c1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerVals: {fileID: 470051026499905831, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
   shockwave: {fileID: 3588859280043437282}
   shockwaveRadius: 6
   shockwaveSpeed: 1.5
   shockwaveStrength: 1
-  shockwaveCooldown: 0
-  shockwaveCooldownTimer: 0
 --- !u!212 &3503797232041605769
 SpriteRenderer:
   m_ObjectHideFlags: 0

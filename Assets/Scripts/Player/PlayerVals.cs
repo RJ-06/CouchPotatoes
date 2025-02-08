@@ -25,7 +25,7 @@ public class PlayerVals : MonoBehaviour
     public int playerNum = -1;
     bool hasPotato = false;
 
-    private void Start()
+    private void Awake()
     {
         ++numPlayers;
         playerNum = numPlayers;

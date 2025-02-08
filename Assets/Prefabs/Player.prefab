@@ -105,6 +105,8 @@ GameObject:
   - component: {fileID: 4184248540268549510}
   - component: {fileID: 9163911641456296774}
   - component: {fileID: 8020586627722750465}
+  - component: {fileID: 4245267014425260069}
+  - component: {fileID: 7046214573460959820}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -196,14 +198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a1ab9fb149a6145b5278a7a000bc6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pv: {fileID: 470051026499905831}
-  rb: {fileID: 9163911641456296774}
-  dashCooldownTimer: 0
-  dashTimer: 0
-  shockwaveCooldown: 0
-  shockwaveCooldownTimer: 0
-  ShockwavePrefab: {fileID: 9203247207447412739, guid: 699f35a124f56f398b0096574a65eb1a, type: 3}
-  player: {fileID: 0}
 --- !u!114 &470051026499905831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +322,36 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4245267014425260069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6144178735891011915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704b78011ead94d64924956a47f45faf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shockwaveCooldown: 1
+  shockwaveCooldownTimer: 0
+  ShockwavePrefab: {fileID: 9203247207447412739, guid: 699f35a124f56f398b0096574a65eb1a, type: 3}
+--- !u!114 &7046214573460959820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6144178735891011915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0cb607f560f241779891e22d11de25a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashCooldownTimer: 0
+  dashTimer: 0
+  player: {fileID: 0}
 --- !u!1 &9163911641456296775
 GameObject:
   m_ObjectHideFlags: 0
