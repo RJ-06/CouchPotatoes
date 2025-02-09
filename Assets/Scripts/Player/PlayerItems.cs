@@ -5,7 +5,7 @@ public class PlayerItems: MonoBehaviour
 {
     
     private Transform shockwaveItem;
-    [SerializeField] float shockwaveCooldown = 1f;
+    [SerializeField] float shockwaveCooldown;
     [SerializeField] float shockwaveCooldownTimer;
     private bool shockwaveUsed = false;
     [SerializeField] GameObject ShockwavePrefab;
