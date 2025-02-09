@@ -32,7 +32,21 @@ public class PlayerPotato : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!potatoThrown) rb.linearVelocity = transform.parent.GetComponent<Rigidbody2D>().linearVelocity;
+        if(!potatoThrown)
+        {
+            StartCoroutine(FollowPlayer());
+            Debug.Log("Coroutine started");
+        }
+
+        //if(!potatoThrown) rb.linearVelocity = transform.parent.GetComponent<Rigidbody2D>().linearVelocity;
+    }
+
+    private IEnumerator FollowPlayer()
+    {
+        Vector2 oldPlayerPosition = transform.parent.transform.position;
+        yield return new WaitForSeconds(0.05f);
+        Debug.Log("Waited");
+        potato.transform.position = oldPlayerPosition + new Vector2(0, 0.4f);
     }
 
     private void OnAttack()
