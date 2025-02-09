@@ -20,6 +20,7 @@ public class PlayerPotato : MonoBehaviour
     [SerializeField] PlayerPotato enemy;
 
     bool playerFound = false;
+    bool potatoThrown = false;
 
 
     // Start is called before the first frame update
@@ -29,14 +30,15 @@ public class PlayerPotato : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
+        if(!potatoThrown) rb.linearVelocity = transform.parent.GetComponent<Rigidbody2D>().linearVelocity;
     }
 
     private void OnAttack()
     {
         Debug.Log("Potato thrown");
+        potatoThrown = true;
         rb.AddForce(new Vector2(200f, 200f));
 
         /*if (!playerFound) return;
