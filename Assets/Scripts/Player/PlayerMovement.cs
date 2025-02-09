@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
+using Vector2 = UnityEngine.Vector2;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,6 +14,10 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerVals pv;
     private Rigidbody2D rb;
+    private BoxCollider2D coll;
+    
+    private bool canMove = true;
+    private bool pushed = false;
     
     [SerializeField] PlayerPotato player;
     
@@ -19,14 +27,26 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Update()
+    {
+        if (!pushed || !canMove)
+        {
+            Vector2 keep = Vector2.Dot(rb.linearVelocity, moveDir) * moveDir;
+            rb.linearVelocity = keep + (rb.linearVelocity - keep) * Mathf.Pow(0.1f, Time.deltaTime);
+        }
+    }
+
     private void OnMovement(InputValue value) 
     {
-        moveDir = value.Get<Vector2>().normalized;
-        //if (Mathf.Sign(moveDir.x) == -Mathf.Sign(moveDir.x)) rb.linearVelocityX = 0;
-        //if (Mathf.Sign(moveDir.y) == -Mathf.Sign(moveDir.y)) rb.linearVelocityY = 0;
+        if (canMove)
+        {
+            moveDir = value.Get<Vector2>().normalized;
+            //if (Mathf.Sign(moveDir.x) == -Mathf.Sign(moveDir.x)) rb.linearVelocityX = 0;
+            //if (Mathf.Sign(moveDir.y) == -Mathf.Sign(moveDir.y)) rb.linearVelocityY = 0;
 
-        rb.linearVelocity = moveDir * pv.getMoveSpeed();
-        ClampSpeed();
+            rb.linearVelocity = moveDir * pv.getMoveSpeed();
+            ClampSpeed();
+        }
     }
 
     private void OnInteract()
@@ -48,6 +68,18 @@ public class PlayerMovement : MonoBehaviour
         int num = Random.Range(1, PlayerVals.numPlayers + 1);
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        pushed = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        pushed = false;
+    }
+
     public Vector2 getMoveDir() => moveDir;
+    public void SetCanMove(bool canMove) => this.canMove = canMove;
+    
 
 }
