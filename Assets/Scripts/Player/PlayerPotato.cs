@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,7 @@ public class PlayerPotato : MonoBehaviour
 
     [SerializeField] PlayerVals player;
     [SerializeField] GameObject potato;
+    [SerializeField] Rigidbody2D rb;
 
     [Tooltip("add in events")]
     public UnityEvent getPotato;
@@ -23,7 +25,7 @@ public class PlayerPotato : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        onGetPotato();
+        if(transform.parent.name == "Player") getPotato.Invoke();
     }
 
     // Update is called once per frame
@@ -32,12 +34,15 @@ public class PlayerPotato : MonoBehaviour
 
     }
 
-    private void onAttack(InputValue val)
+    private void OnAttack()
     {
-        if (!playerFound) return;
+        Debug.Log("Potato thrown");
+        rb.AddForce(new Vector2(200f, 200f));
+
+        /*if (!playerFound) return;
 
         givePotato.Invoke();
-        enemy.getPotato.Invoke();
+        enemy.getPotato.Invoke();*/
 
     }
 
