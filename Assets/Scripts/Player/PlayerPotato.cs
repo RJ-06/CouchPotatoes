@@ -18,8 +18,9 @@ public class PlayerPotato : MonoBehaviour
     [SerializeField] UnityEvent givePotato;
 
     [SerializeField] PlayerPotato enemy;
-
+    Vector2 bobOffset;
     bool playerFound = false;
+    bool bobbing = false;
     bool potatoThrown = false;
 
 
@@ -34,6 +35,8 @@ public class PlayerPotato : MonoBehaviour
     {
         if(!potatoThrown)
         {
+            if(!bobbing) StartCoroutine(BobUpAndDown());
+            bobbing = true;
             StartCoroutine(FollowPlayer());
             Debug.Log("Coroutine started");
         }
@@ -41,12 +44,30 @@ public class PlayerPotato : MonoBehaviour
         //if(!potatoThrown) rb.linearVelocity = transform.parent.GetComponent<Rigidbody2D>().linearVelocity;
     }
 
+    private IEnumerator BobUpAndDown()
+    {
+        Vector2 corePos = potato.transform.position;
+        while(true)
+        {
+            for(float i = 1f; i <= 100f; ++i)
+            {
+                bobOffset = new Vector2(0, 0.15f * Mathf.Sin(0.02f * Mathf.PI * i));
+                if(potatoThrown)
+                {
+                    bobbing = false;
+                    yield break;
+                }
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+    }
+
     private IEnumerator FollowPlayer()
     {
         Vector2 oldPlayerPosition = transform.parent.transform.position;
         yield return new WaitForSeconds(0.05f);
         Debug.Log("Waited");
-        potato.transform.position = oldPlayerPosition + new Vector2(0, 0.4f);
+        potato.transform.position = oldPlayerPosition + new Vector2(0, 0.4f) + bobOffset;
     }
 
     private void OnAttack()
