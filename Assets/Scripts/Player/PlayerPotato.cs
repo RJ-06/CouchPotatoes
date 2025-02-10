@@ -72,7 +72,7 @@ public class PlayerPotato : MonoBehaviour
     private void OnAttack()
     {
         Debug.Log("Potato thrown");
-        rb.AddForce(500 * movement.moveDir);
+        rb.AddForce(500 * movement.lastMoveDir);
         potatoThrown = true;
 
         /*if (!playerFound) return;
