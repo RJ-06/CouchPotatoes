@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 470051026499905831}
+  movement: {fileID: 6475602217346035667}
   potato: {fileID: 1846692597506183403}
   rb: {fileID: 5852215728364785576}
   getPotato:

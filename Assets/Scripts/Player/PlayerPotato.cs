@@ -10,6 +10,7 @@ public class PlayerPotato : MonoBehaviour
     [Header("put this on an empty with a collider attached that is then parented to the player")]
 
     [SerializeField] PlayerVals player;
+    [SerializeField] PlayerMovement movement;
     [SerializeField] GameObject potato;
     [SerializeField] Rigidbody2D rb;
 
@@ -38,7 +39,6 @@ public class PlayerPotato : MonoBehaviour
             if(!bobbing) StartCoroutine(BobUpAndDown());
             bobbing = true;
             StartCoroutine(FollowPlayer());
-            Debug.Log("Coroutine started");
         }
 
         //if(!potatoThrown) rb.linearVelocity = transform.parent.GetComponent<Rigidbody2D>().linearVelocity;
@@ -66,15 +66,14 @@ public class PlayerPotato : MonoBehaviour
     {
         Vector2 oldPlayerPosition = transform.parent.transform.position;
         yield return new WaitForSeconds(0.05f);
-        Debug.Log("Waited");
         potato.transform.position = oldPlayerPosition + new Vector2(0, 0.4f) + bobOffset;
     }
 
     private void OnAttack()
     {
         Debug.Log("Potato thrown");
+        rb.AddForce(500 * movement.moveDir);
         potatoThrown = true;
-        rb.AddForce(new Vector2(200f, 200f));
 
         /*if (!playerFound) return;
 
