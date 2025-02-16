@@ -7,7 +7,6 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] float dashTimer;
     private bool dashInProgress = false;
     private float originalMovesSpeed;
-    private float dashSpeedMultiplier = 2.0f;
 
     private PlayerVals pv;
     private PlayerInput playerInput;

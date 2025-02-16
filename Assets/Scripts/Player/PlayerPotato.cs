@@ -38,7 +38,7 @@ public class PlayerPotato : MonoBehaviour
             if(!bobbing) StartCoroutine(BobUpAndDown());
             bobbing = true;
             StartCoroutine(FollowPlayer());
-            Debug.Log("Coroutine started");
+            // Debug.Log("Coroutine started");
         }
 
         //if(!potatoThrown) rb.linearVelocity = transform.parent.GetComponent<Rigidbody2D>().linearVelocity;
@@ -66,7 +66,7 @@ public class PlayerPotato : MonoBehaviour
     {
         Vector2 oldPlayerPosition = transform.parent.transform.position;
         yield return new WaitForSeconds(0.05f);
-        Debug.Log("Waited");
+        // Debug.Log("Waited");
         potato.transform.position = oldPlayerPosition + new Vector2(0, 0.4f) + bobOffset;
     }
 
