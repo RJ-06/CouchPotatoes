@@ -290,7 +290,7 @@ PrefabInstance:
     - target: {fileID: 4719406138534213969, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
       propertyPath: getPotato.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1173038952}
+      objectReference: {fileID: 0}
     - target: {fileID: 4719406138534213969, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
       propertyPath: getPotato.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -306,6 +306,10 @@ PrefabInstance:
     - target: {fileID: 4719406138534213969, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
       propertyPath: getPotato.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870009079913388645, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6144178735891011915, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
       propertyPath: m_Name
@@ -356,17 +360,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
---- !u!114 &1173038952 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4719406138534213969, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
-  m_PrefabInstance: {fileID: 1173038950}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8a96d53afae14fb2a0046e8595be706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1204372162
 GameObject:
   m_ObjectHideFlags: 0
