@@ -28,7 +28,7 @@ public class PlayerPotato : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(transform.parent.name == "Player") getPotato.Invoke();
+        if(gameObject.name == "Player") getPotato.Invoke();
     }
 
     // Update is called once per frame
@@ -73,12 +73,11 @@ public class PlayerPotato : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         float mult = 50f;
-        while(potato.transform.position.x - transform.position.x >= 0.1 || potato.transform.position.y - transform.position.y >= 0.1)
+        while(Mathf.Abs(potato.transform.position.x - transform.position.x) >= 0.5 || Mathf.Abs(potato.transform.position.y - (transform.position.y + 0.5f)) >= 0.5)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.02f);
             Vector2 returnForce = mult * new Vector2(transform.position.x - potato.transform.position.x, transform.position.y - potato.transform.position.y).normalized;
             rb.AddForce(returnForce);
-            Debug.Log(rb.linearVelocity);
         }
         rb.linearVelocity = new Vector2(0,0);
         potatoThrown = false;
