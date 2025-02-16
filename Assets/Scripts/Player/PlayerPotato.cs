@@ -11,8 +11,8 @@ public class PlayerPotato : MonoBehaviour
 
     [SerializeField] PlayerVals player;
     [SerializeField] PlayerMovement movement;
-    [SerializeField] GameObject potato;
     [SerializeField] Rigidbody2D rb;
+    [SerializeField] GameObject potato;
 
     [Tooltip("add in events")]
     public UnityEvent getPotato;
@@ -64,15 +64,33 @@ public class PlayerPotato : MonoBehaviour
 
     private IEnumerator FollowPlayer()
     {
-        Vector2 oldPlayerPosition = transform.parent.transform.position;
+        Vector2 oldPlayerPosition = transform.position;
         yield return new WaitForSeconds(0.05f);
         potato.transform.position = oldPlayerPosition + new Vector2(0, 0.4f) + bobOffset;
+    }
+
+    private IEnumerator ReturnToPlayer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        float mult = 50f;
+        while(potato.transform.position.x - transform.position.x >= 0.1 || potato.transform.position.y - transform.position.y >= 0.1)
+        {
+            yield return new WaitForSeconds(0.1f);
+            Vector2 returnForce = mult * new Vector2(transform.position.x - potato.transform.position.x, transform.position.y - potato.transform.position.y).normalized;
+            rb.AddForce(returnForce);
+            Debug.Log(rb.linearVelocity);
+        }
+        rb.linearVelocity = new Vector2(0,0);
+        potatoThrown = false;
+        yield break;
     }
 
     private void OnAttack()
     {
         Debug.Log("Potato thrown");
+        StopCoroutine(FollowPlayer());
         rb.AddForce(500 * movement.lastMoveDir);
+        StartCoroutine(ReturnToPlayer());
         potatoThrown = true;
 
         /*if (!playerFound) return;
@@ -93,7 +111,7 @@ public class PlayerPotato : MonoBehaviour
         player.setHasPotato(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!player.getHasPotato()) return;
 
@@ -101,5 +119,5 @@ public class PlayerPotato : MonoBehaviour
         {
             // p = pot;
         }
-    }
+    }*/
 }
