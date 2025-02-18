@@ -298,7 +298,19 @@ MonoBehaviour:
         m_CallState: 2
   givePotato:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6846404631014936663}
+        m_TargetAssemblyTypeName: PlayerPotato, Assembly-CSharp
+        m_MethodName: onGivePotato
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   enemy: {fileID: 0}
 --- !u!58 &5870009079913388645
 CircleCollider2D:

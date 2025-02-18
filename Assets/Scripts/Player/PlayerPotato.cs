@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Events;
@@ -47,8 +48,6 @@ public class PlayerPotato : MonoBehaviour
             yShift = yOffset / 10;
             StartCoroutine(FollowPlayer());
         }
-
-        //if(!potatoThrown) rb.linearVelocity = transform.parent.GetComponent<Rigidbody2D>().linearVelocity;
     }
 
     private IEnumerator BobUpAndDown()
@@ -73,6 +72,7 @@ public class PlayerPotato : MonoBehaviour
     {
         Vector2 oldPlayerPosition = transform.position;
         yield return new WaitForSeconds(0.05f);
+        // Set position to just behind the player, incorporating the bobbing and smooth return if needed
         if(initYOffset != 0)
         {
             Debug.Log(0.5f * ((initYOffset - yOffset) / initYOffset));
@@ -102,14 +102,7 @@ public class PlayerPotato : MonoBehaviour
         }
         rb.linearVelocity = new Vector2(0,0);
 
-        // After potato is close to player manually return it to its exact position for smoothness
-        /*float xMove = (transform.position.x - potato.transform.position.x) / 10f;
-        float yMove = (transform.position.y + 0.5f - potato.transform.position.y) / 10f;
-        while(Mathf.Abs(transform.position.x - potato.transform.position.x) >= 0.05f || Mathf.Abs(transform.position.y - potato.transform.position.y) >= 0.05f)
-        {
-            yield return new WaitForSeconds(0.01f);
-            potato.transform.position = new Vector2(potato.transform.position.x + xMove, potato.transform.position.y + yMove);
-        }*/
+        // Set up offsets to manually return potato into position once it's close (for smoothness)
         xOffset = potato.transform.position.x - transform.position.x;
         yOffset = potato.transform.position.y - transform.position.y;
         initYOffset = yOffset;
@@ -126,12 +119,6 @@ public class PlayerPotato : MonoBehaviour
             StartCoroutine(ReturnToPlayer());
             potatoThrown = true;
         }
-
-        /*if (!playerFound) return;
-
-        givePotato.Invoke();
-        enemy.getPotato.Invoke();*/
-
     }
 
     public void onGetPotato()
@@ -143,6 +130,7 @@ public class PlayerPotato : MonoBehaviour
     public void onGivePotato()
     {
         player.setHasPotato(false);
+        potato.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -150,6 +138,12 @@ public class PlayerPotato : MonoBehaviour
         if(potatoThrown && other.CompareTag("Potato") && other.transform.parent.gameObject == gameObject)
         {
             atPlayer = true;
+        }
+        else if(potatoThrown && other.CompareTag("Potato"))
+        {
+            PlayerPotato giver = other.transform.parent.GetComponent<PlayerPotato>();
+            giver.givePotato.Invoke();
+            getPotato.Invoke();
         }
     }
 
