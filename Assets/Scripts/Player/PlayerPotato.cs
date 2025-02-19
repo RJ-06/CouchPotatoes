@@ -23,7 +23,7 @@ public class PlayerPotato : MonoBehaviour
 
     [SerializeField] PlayerPotato enemy;
     Vector2 bobOffset;
-    float xOffset = 0f, yOffset = 0f, initYOffset, xShift, yShift;
+    float xOffset = 0f, yOffset = 0f, initYOffset, xShift, yShift, maxVelocity = 15f;
     bool playerFound = false;
     bool bobbing = false;
     bool potatoThrown = false;
@@ -47,6 +47,14 @@ public class PlayerPotato : MonoBehaviour
             xShift = xOffset / 10;
             yShift = yOffset / 10;
             StartCoroutine(FollowPlayer());
+        }
+        else
+        {
+            float totalVelocity = Mathf.Sqrt(Mathf.Pow(rb.linearVelocityX, 2) + Mathf.Pow(rb.linearVelocityY, 2));
+            if(totalVelocity >= maxVelocity)
+            {
+                rb.linearVelocity = maxVelocity * rb.linearVelocity.normalized; //finish
+            }
         }
     }
 
@@ -124,6 +132,7 @@ public class PlayerPotato : MonoBehaviour
     public void onGetPotato()
     {
         player.setHasPotato(true);
+        potato.transform.position = new Vector2(0, 0.5f);
         potato.SetActive(true);
     }
 
