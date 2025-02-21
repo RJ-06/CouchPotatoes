@@ -1,139 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1915409764340145391
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6039347151851967461}
-  - component: {fileID: 2339140507989181283}
-  - component: {fileID: 4719406138534213969}
-  - component: {fileID: 8636551782852680605}
-  m_Layer: 0
-  m_Name: Potato Collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6039347151851967461
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915409764340145391}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4685031436231118590}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &2339140507989181283
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915409764340145391}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 2.5
---- !u!114 &4719406138534213969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915409764340145391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8a96d53afae14fb2a0046e8595be706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 470051026499905831}
-  potato: {fileID: 1846692597506183403}
-  rb: {fileID: 5852215728364785576}
-  getPotato:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4719406138534213969}
-        m_TargetAssemblyTypeName: PlayerPotato, Assembly-CSharp
-        m_MethodName: onGetPotato
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  givePotato:
-    m_PersistentCalls:
-      m_Calls: []
-  enemy: {fileID: 0}
---- !u!114 &8636551782852680605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915409764340145391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 0946b8b349a9d22e99606bcb34f1fc82, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player1
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &6144178735891011915
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,6 +17,8 @@ GameObject:
   - component: {fileID: 8020586627722750465}
   - component: {fileID: 4245267014425260069}
   - component: {fileID: 7046214573460959820}
+  - component: {fileID: 6846404631014936663}
+  - component: {fileID: 5870009079913388645}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -171,7 +39,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6039347151851967461}
   - {fileID: 5846119943237020874}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -242,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a1ab9fb149a6145b5278a7a000bc6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastMoveDir: {x: 0, y: 0}
   player: {fileID: 0}
 --- !u!114 &470051026499905831
 MonoBehaviour:
@@ -396,6 +264,90 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashCooldownTimer: 0
   dashTimer: 0
+--- !u!114 &6846404631014936663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6144178735891011915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a96d53afae14fb2a0046e8595be706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 470051026499905831}
+  movement: {fileID: 6475602217346035667}
+  rb: {fileID: 5852215728364785576}
+  potato: {fileID: 1846692597506183403}
+  potatoChecker: {fileID: 5870009079913388645}
+  getPotato:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6846404631014936663}
+        m_TargetAssemblyTypeName: PlayerPotato, Assembly-CSharp
+        m_MethodName: onGetPotato
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  givePotato:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6846404631014936663}
+        m_TargetAssemblyTypeName: PlayerPotato, Assembly-CSharp
+        m_MethodName: onGivePotato
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  enemy: {fileID: 0}
+--- !u!58 &5870009079913388645
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6144178735891011915}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.5}
+  m_Radius: 0.5
 --- !u!1001 &3126214199524790833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -451,13 +403,46 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3657572031765283546, guid: be1adcc318912cfbeaa145af8bbafb4d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1675882600435891376}
   m_SourcePrefab: {fileID: 100100000, guid: be1adcc318912cfbeaa145af8bbafb4d, type: 3}
 --- !u!1 &1846692597506183403 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3657572031765283546, guid: be1adcc318912cfbeaa145af8bbafb4d, type: 3}
   m_PrefabInstance: {fileID: 3126214199524790833}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1675882600435891376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846692597506183403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 0946b8b349a9d22e99606bcb34f1fc82, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player1
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!4 &5846119943237020874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8809916481900723963, guid: be1adcc318912cfbeaa145af8bbafb4d, type: 3}

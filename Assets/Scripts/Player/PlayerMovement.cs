@@ -9,6 +9,7 @@ using Vector2 = UnityEngine.Vector2;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Vector2 lastMoveDir;
     Vector2 moveDir;
 
     private PlayerInput playerInput;
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     {
         pv = GetComponent<PlayerVals>();
         rb = GetComponent<Rigidbody2D>();
+        lastMoveDir = new Vector2(0, -1);
     }
 
     private void Update()
@@ -48,8 +50,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnMovement(InputValue value)
     {
         if (canMove)
-        {
-            moveDir = value.Get<Vector2>().normalized;
+        {            
+            // Move player
+            if(value.Get<Vector2>() != new Vector2(0, 0))
+            {
+                moveDir = value.Get<Vector2>().normalized;
+                lastMoveDir = value.Get<Vector2>().normalized;
+            }
+            else moveDir = new Vector2(0, 0);
             //if (Mathf.Sign(moveDir.x) == -Mathf.Sign(moveDir.x)) rb.linearVelocityX = 0;
             //if (Mathf.Sign(moveDir.y) == -Mathf.Sign(moveDir.y)) rb.linearVelocityY = 0;
 
