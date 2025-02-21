@@ -43,8 +43,6 @@ public class PlayerMovement : MonoBehaviour
             pushedVelocity = keep + (pushedVelocity - keep) * Mathf.Pow(0.1f, Time.deltaTime);
             rb.linearVelocity = pushedVelocity;
         }
-
-        Debug.Log("Velocity: " + rb.linearVelocity);
     }
 
     private void OnMovement(InputValue value)
