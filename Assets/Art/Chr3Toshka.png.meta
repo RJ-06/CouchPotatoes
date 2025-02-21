@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Chr3Toshka_0: -8745098945708254588
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
