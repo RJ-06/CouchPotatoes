@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: eee443f66d5b29b2ca153b5effbd9a0a
+guid: 5dc9f4822c876834ca2f7910144d7a2c
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -125,7 +125,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Chr3Toshka
     originalName: 
-    pivot: {x: 0.5, y: -0.10344827}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -133,9 +133,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 28
-      height: 29
-    spriteID: d18795907d353feba85cdf5cbb381ad4
+      width: 30
+      height: 32
+    spriteID: 9e25723334bb3da4fae8440b9f9306a2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -157,11 +157,11 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 2
-        y: 3
-        width: 28
-        height: 29
-      spriteId: d18795907d353feba85cdf5cbb381ad4
+        x: 1
+        y: 0
+        width: 30
+        height: 32
+      spriteId: 9e25723334bb3da4fae8440b9f9306a2
     linkedCells: []
     parentIndex: -1
   platformSettings:

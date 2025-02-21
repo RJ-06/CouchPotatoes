@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 753e563329de94d74a988a40b7260c0d
+guid: 2ac083176b4c5ba40bb8c2452ffde859
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -125,7 +125,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Chr6Murphy
     originalName: 
-    pivot: {x: 0.4827586, y: -0.107142866}
+    pivot: {x: 0.48387095, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -133,9 +133,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 29
-      height: 28
-    spriteID: effbcd5c2ce0de0298852259cc6e81fc
+      width: 31
+      height: 31
+    spriteID: 46b2a34b2cfc7cb4fa52b787eba58872
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -157,11 +157,11 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 2
-        y: 3
-        width: 29
-        height: 28
-      spriteId: effbcd5c2ce0de0298852259cc6e81fc
+        x: 1
+        y: 0
+        width: 31
+        height: 31
+      spriteId: 46b2a34b2cfc7cb4fa52b787eba58872
     linkedCells: []
     parentIndex: -1
   platformSettings:

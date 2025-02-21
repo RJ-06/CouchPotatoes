@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1cd0c78d576405d0e9a3c600099d201d
+guid: 49f79e5b24ae9284cb958badafca29ee
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -125,7 +125,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Chr1Karter
     originalName: 
-    pivot: {x: 0.4074074, y: -0.11111111}
+    pivot: {x: 0.44827586, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -133,9 +133,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 27
-      height: 27
-    spriteID: 9ea404beb0309b3f09ef8fd5d637a59f
+      width: 29
+      height: 30
+    spriteID: 6a4cccc2ba8e50049b941065b8bb39d8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -157,11 +157,11 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 5
-        y: 3
-        width: 27
-        height: 27
-      spriteId: 9ea404beb0309b3f09ef8fd5d637a59f
+        x: 3
+        y: 0
+        width: 29
+        height: 30
+      spriteId: 6a4cccc2ba8e50049b941065b8bb39d8
     linkedCells: []
     parentIndex: -1
   platformSettings:
