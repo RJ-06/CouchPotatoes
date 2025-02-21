@@ -125,7 +125,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Chr1Karter
     originalName: 
-    pivot: {x: 0.44827586, y: 0}
+    pivot: {x: 0.4074074, y: -0.11111111}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -133,8 +133,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 29
-      height: 30
+      width: 27
+      height: 27
     spriteID: 6a4cccc2ba8e50049b941065b8bb39d8
     spriteBone: []
     spriteOutline: []
@@ -157,10 +157,10 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 3
-        y: 0
-        width: 29
-        height: 30
+        x: 5
+        y: 3
+        width: 27
+        height: 27
       spriteId: 6a4cccc2ba8e50049b941065b8bb39d8
     linkedCells: []
     parentIndex: -1
