@@ -25,7 +25,7 @@ public class CharacterSelectMenu : MonoBehaviour
 
     public void OnNextSceneClick() 
     {
-        PlayerManager.playerCount = playerCount;
+        PlayerManager.playerCount = playerCount;   
         SceneManager.LoadScene(nextScene);
     }
     

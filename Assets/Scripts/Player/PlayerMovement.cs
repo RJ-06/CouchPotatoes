@@ -9,47 +9,58 @@ using Vector2 = UnityEngine.Vector2;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Vector2 lastMoveDir;
     Vector2 moveDir;
-    
+
     private PlayerInput playerInput;
     private PlayerVals pv;
     private Rigidbody2D rb;
     private BoxCollider2D coll;
-    
+
     private bool canMove = true;
     private bool pushed = false;
+    private bool isPusher = false;
 
     private bool isDashing = false;
     private float dashSpeedMultiplier = 2.0f;
+    private Vector2 pushedVelocity;
 
-    
+
     [SerializeField] PlayerPotato player;
-    
+
     private void Start()
     {
         pv = GetComponent<PlayerVals>();
         rb = GetComponent<Rigidbody2D>();
+        lastMoveDir = new Vector2(0, -1);
     }
 
     private void Update()
     {
-        if (!pushed || !canMove)
+        if (!pushed && moveDir == Vector2.zero && !isPusher)
         {
-            Vector2 keep = Vector2.Dot(rb.linearVelocity, moveDir) * moveDir;
-            rb.linearVelocity = keep + (rb.linearVelocity - keep) * Mathf.Pow(0.1f, Time.deltaTime);
+            Vector2 keep = Vector2.Dot(pushedVelocity, moveDir) * moveDir;
+            pushedVelocity = keep + (pushedVelocity - keep) * Mathf.Pow(0.1f, Time.deltaTime);
+            rb.linearVelocity = pushedVelocity;
         }
     }
 
-    private void OnMovement(InputValue value) 
+    private void OnMovement(InputValue value)
     {
         if (canMove)
-        {
-            moveDir = value.Get<Vector2>().normalized;
+        {            
+            // Move player
+            if(value.Get<Vector2>() != new Vector2(0, 0))
+            {
+                moveDir = value.Get<Vector2>().normalized;
+                lastMoveDir = value.Get<Vector2>().normalized;
+            }
+            else moveDir = new Vector2(0, 0);
             //if (Mathf.Sign(moveDir.x) == -Mathf.Sign(moveDir.x)) rb.linearVelocityX = 0;
             //if (Mathf.Sign(moveDir.y) == -Mathf.Sign(moveDir.y)) rb.linearVelocityY = 0;
 
-            rb.linearVelocity = moveDir * pv.getMoveSpeed();
-            ClampSpeed();
+            // rb.linearVelocity = moveDir * pv.getMoveSpeed();
+            // ClampSpeed();
 
             ApplyMovementSpeed();
         }
@@ -66,12 +77,14 @@ public class PlayerMovement : MonoBehaviour
             speed = pv.getMoveSpeed();
 
         rb.linearVelocity = moveDir * speed;
+
+
         ClampSpeed();
     }
 
-    private void ClampSpeed() 
+    private void ClampSpeed()
     {
-        if (rb.linearVelocity.magnitude > pv.getMaxSpeed()) 
+        if (rb.linearVelocity.magnitude > pv.getMaxSpeed())
         {
             rb.linearVelocity = rb.linearVelocity.normalized * pv.getMaxSpeed();
         }
@@ -80,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnInteract()
     {
         Debug.Log("Interacted");
-        
+
     }
 
     private void OnStart()
@@ -90,7 +103,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+
+        if (moveDir != Vector2.zero){
+            isPusher = true;
+        }
+        else
+        {
+            isPusher = false;
+        }
+
         pushed = true;
+        // Store pushed velocity
+        pushedVelocity = rb.linearVelocity;
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -102,12 +126,13 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 getMoveDir() => moveDir;
     public void SetCanMove(bool canMove) => this.canMove = canMove;
 
-    public void setDashing(bool dashing) {
-        isDashing = dashing; 
+    public void setDashing(bool dashing)
+    {
+        isDashing = dashing;
         ApplyMovementSpeed();
     }
 
     public void ForceSpeedUpdate() => ApplyMovementSpeed();     // Allow external script to force an immediate speed update.
-    
+
 
 }

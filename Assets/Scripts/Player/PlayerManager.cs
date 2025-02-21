@@ -10,6 +10,8 @@ public class PlayerManager : MonoBehaviour
     private PlayerInputManager playerInputManager;
     [SerializeField] Transform[] startingPositions;
 
+    public static List<GameObject> playerList = new List<GameObject>(); // temporary
+
     private void Awake()
     {
         playerInputManager = FindFirstObjectByType<PlayerInputManager>();
