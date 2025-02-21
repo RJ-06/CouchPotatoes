@@ -125,7 +125,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Chr2Yammy
     originalName: 
-    pivot: {x: 0.44444445, y: 0}
+    pivot: {x: 0.44444445, y: -0.107142866}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -134,7 +134,7 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 27
-      height: 31
+      height: 28
     spriteID: d2d68cf29db40b750a3e56251ddad673
     spriteBone: []
     spriteOutline: []
@@ -158,9 +158,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 4
-        y: 0
+        y: 3
         width: 27
-        height: 31
+        height: 28
       spriteId: d2d68cf29db40b750a3e56251ddad673
     linkedCells: []
     parentIndex: -1
