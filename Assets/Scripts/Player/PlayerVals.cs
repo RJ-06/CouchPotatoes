@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerVals : MonoBehaviour
 {
@@ -23,7 +25,7 @@ public class PlayerVals : MonoBehaviour
     float currentMaxSpeed;
     public static int numPlayers = 0;
     public int playerNum = -1;
-    bool hasPotato = false;
+    public bool hasPotato = false;
 
     private void Awake()
     {
