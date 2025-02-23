@@ -132,6 +132,7 @@ MonoBehaviour:
   baseAttackCooldown: 1
   baseMaxSpeed: 16
   playerNum: -1
+  hasPotato: 0
 --- !u!114 &4184248540268549510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +251,9 @@ MonoBehaviour:
   shockwaveCooldown: 1
   shockwaveCooldownTimer: 0
   ShockwavePrefab: {fileID: 9203247207447412739, guid: 699f35a124f56f398b0096574a65eb1a, type: 3}
+  weakAttackPrefab: {fileID: 706087334615091427, guid: 4ec413589416a6d41a4b120123028c5d, type: 3}
+  weakCooldown: 0
+  weakCooldownTimer: 0
 --- !u!114 &7046214573460959820
 MonoBehaviour:
   m_ObjectHideFlags: 0
