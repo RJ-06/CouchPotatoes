@@ -10,12 +10,12 @@ public class FXManager : MonoBehaviour
     
 
     [Tooltip("Drag in the Camera")]
-    [SerializeField] CinemachineCamera c;
+    //[SerializeField] CinemachineCamera c;
     [SerializeField] CinemachineBasicMultiChannelPerlin cmcp;
     private float timer;
     [Tooltip("Audio Source - create and attach to this obj")]
-    [SerializeField] AudioSource audioSource;
-    [InspectorLabel("Note - fx name, particle effect, and audio clip must be paired by index")]
+    private AudioSource audioSource;
+    [Header("Note - fx name, particle effect, and audio clip must be paired by index")]
     [Tooltip("List of overall effect names")]
     [SerializeField] string[] fxType;
     [Tooltip("list of particle effects")]
@@ -31,6 +31,7 @@ public class FXManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehavior is created
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         for (int i = 0; i < fxType.Length; i++) 
         {
             particleDict.Add(fxType[i], particleList[i]);
