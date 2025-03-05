@@ -132,7 +132,6 @@ public class PlayerPotato : MonoBehaviour
     public void onGetPotato()
     {
         player.setHasPotato(true);
-        potato.transform.position = new Vector2(0, 0.5f);
         potato.SetActive(true);
     }
 
@@ -144,13 +143,17 @@ public class PlayerPotato : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(potatoThrown && other.CompareTag("Potato") && other.transform.parent.gameObject == gameObject)
+        if(potatoThrown && other.CompareTag("Potato") && other.transform.parent.gameObject == transform.gameObject)
         {
             atPlayer = true;
         }
         else if(potatoThrown && other.CompareTag("Potato"))
         {
             PlayerPotato giver = other.transform.parent.GetComponent<PlayerPotato>();
+
+            float transferX = giver.potato.transform.position.x;
+            float transferY = giver.potato.transform.position.y;
+            GetComponent<PlayerPotato>().potato.transform.position = new Vector2(transferX, transferY);
             giver.givePotato.Invoke();
             getPotato.Invoke();
         }
