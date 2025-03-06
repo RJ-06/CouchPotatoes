@@ -127,7 +127,7 @@ public class PlayerPotato : MonoBehaviour
         yield break;
     }
 
-    private void OnAttack()
+    private void OnThrow()
     {
         if(!potatoThrown && player.getHasPotato())
         {
