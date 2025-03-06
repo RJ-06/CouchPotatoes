@@ -134,7 +134,6 @@ public class PlayerPotato : MonoBehaviour
             StopCoroutine(FollowPlayer());
             rb.AddForce(750 * movement.lastMoveDir);
             StartCoroutine(ReturnToPlayer());
-            Debug.Log("Return to player started for " + transform.gameObject);
             potatoThrown = true;
         }
     }
@@ -162,7 +161,6 @@ public class PlayerPotato : MonoBehaviour
         }
         else if(!player.getHasPotato() && other.CompareTag("Potato") && other.transform.parent.GetComponent<PlayerPotato>().getPotatoThrown())
         {
-            Debug.Log("Branch taken");
             PlayerPotato giver = other.transform.parent.GetComponent<PlayerPotato>();
 
             float transferX = giver.potato.transform.position.x;
