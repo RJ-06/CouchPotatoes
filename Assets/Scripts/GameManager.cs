@@ -39,7 +39,9 @@ public class GameManager : MonoBehaviour
 
     void Explode()
     {
-
+        for (int i = 0; i < players.Count; ++i) {
+            if (players[i].transform.GetComponent<PlayerPotato>().Potato().activeSelf) Destroy(players[i]);
+        }
 
         exploded = true;
         Debug.Log("Potato exploded");

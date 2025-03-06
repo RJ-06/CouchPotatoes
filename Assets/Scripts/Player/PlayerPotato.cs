@@ -171,4 +171,9 @@ public class PlayerPotato : MonoBehaviour
             StartCoroutine(SmoothReturn());
         }
     }
+
+    public GameObject Potato()
+    {
+        return potato;
+    }
 }
