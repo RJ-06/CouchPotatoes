@@ -152,13 +152,15 @@ public class PlayerPotato : MonoBehaviour
         potato.SetActive(false);
     }
 
+    public bool getPotatoThrown() { return potatoThrown; }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(potatoThrown && other.CompareTag("Potato") && other.transform.parent.gameObject == transform.gameObject)
         {
             atPlayer = true;
         }
-        else if(!player.getHasPotato() && other.CompareTag("Potato"))
+        else if(!player.getHasPotato() && other.CompareTag("Potato") && other.transform.parent.GetComponent<PlayerPotato>().getPotatoThrown())
         {
             Debug.Log("Branch taken");
             PlayerPotato giver = other.transform.parent.GetComponent<PlayerPotato>();
