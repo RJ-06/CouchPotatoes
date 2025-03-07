@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "changeSkin",
+                    "type": "Button",
+                    "id": "86469bec-f28e-4cd4-b9c1-f64595dbde58",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -214,6 +223,28 @@
                     "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf4db931-3785-4edb-a73a-3d574772be4a",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "changeSkin",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "23fe9401-5107-4419-bb34-20f4124e259d",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "changeSkin",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -229,6 +260,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "changeSkin",
+                    "type": "Button",
+                    "id": "df477df4-5dc5-4dc0-9967-3e9a57c055a6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Interact",
@@ -389,6 +429,17 @@
                 },
                 {
                     "name": "",
+                    "id": "fb5b017c-c073-45bb-bb9a-70af3f7d5f53",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "changeSkin",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c278efc1-90a1-4dc8-8d4a-8278a5b6341b",
                     "path": "<Keyboard>/c",
                     "interactions": "",
@@ -513,6 +564,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "changeSkin",
+                    "type": "Button",
+                    "id": "edf27438-f6d1-46a2-93e9-f9abf2c6f567",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Throw",
                     "type": "Button",
                     "id": "fcca593d-be8d-493a-aac6-4050e412634c",
@@ -577,6 +637,17 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "dbd7ec0f-864d-4b80-bfc6-5ea261761b6f",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "changeSkin",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",

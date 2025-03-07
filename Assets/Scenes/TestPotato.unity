@@ -363,6 +363,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2521397640497882744, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
+      propertyPath: 'sprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6701048276237090433, guid: 2ac083176b4c5ba40bb8c2452ffde859, type: 3}
+    - target: {fileID: 2521397640497882744, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
+      propertyPath: 'sprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: -5878071477452753111, guid: 5dc9f4822c876834ca2f7910144d7a2c, type: 3}
     - target: {fileID: 2863667824275410827, guid: 3eebc9771bfca1a5c8f8dadc9640fa0f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -847,6 +855,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d40dcaaa33f7a34db093091d0f09c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expressionlessPotato: {fileID: 0}
+  redPotato: {fileID: 0}
+  veryRedPotato: {fileID: 0}
   timer: {fileID: 351593604}
   timeToExplode: 30
 --- !u!4 &1891085702
