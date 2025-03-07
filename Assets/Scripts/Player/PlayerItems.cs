@@ -76,14 +76,14 @@ public class PlayerItems: MonoBehaviour
 
     private void WeakAttack()
     {
-        Debug.Log("Weak Attack");
+        //Debug.Log("Weak Attack");
         Vector3 attackPos = new Vector3(
             transform.position.x + transform.forward.x, 
             transform.position.y + 1f, 
             transform.position.z + transform.forward.z
         );        
-        Debug.Log(attackPos);
-        Debug.Log(transform.position);
+        //Debug.Log(attackPos);
+        //Debug.Log(transform.position);
         GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, Quaternion.identity);
         Destroy(weakAttack, 1f);
         // Vector3 dirAtk = transform.forward;
