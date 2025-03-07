@@ -6,9 +6,13 @@ using Random=UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    SpriteRenderer potatoSprite;
+    [SerializeField] Sprite expressionlessPotato, redPotato, veryRedPotato;
     [SerializeField] TextMeshProUGUI timer;
     [SerializeField] float timeToExplode = 10f;
+    float time;
     List<GameObject> players = new List<GameObject>();
+    GameObject currentPlayer;
     bool exploded = false;
 
     void Start()
@@ -19,21 +23,41 @@ public class GameManager : MonoBehaviour
                 players.Add(child.gameObject);
         }
 
+        time = timeToExplode;
+
         // Give a random player a potato
         ChoosePlayerToGivePotato();
+
+        currentPlayer = PlayerWithPotato();
+        potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
     {
+        // Update potato sprite if potato transfers
+        if (!exploded && PlayerWithPotato() != currentPlayer) {
+            currentPlayer = PlayerWithPotato();
+            potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
+        }
+
         if (!exploded) {
             // Potato explodes on 0
-            if (timeToExplode <= 0f) {
+            if (time <= 0f) {
                 timer.text = "0";
                 Explode();
             // Update timer otherwise
             } else {
-                timer.text = timeToExplode.ToString();
-                timeToExplode -= Time.fixedDeltaTime;
+                timer.text = time.ToString();
+                time -= Time.fixedDeltaTime;
+            }
+
+            // Change sprite at halfway point
+            if (time / timeToExplode <= 0.1f) {
+                potatoSprite.sprite = veryRedPotato;
+            } else if (time / timeToExplode <= 0.333f) {
+                potatoSprite.sprite = redPotato;
+            } else if (time / timeToExplode <= 0.5f) {
+                potatoSprite.sprite = expressionlessPotato;
             }
         }
     }
@@ -49,11 +73,18 @@ public class GameManager : MonoBehaviour
     void Explode()
     {
         // Explode, killing player with the potato
-        for (int i = 0; i < players.Count; ++i) {
-            if (players[i].transform.GetComponent<PlayerPotato>().Potato().activeSelf) Destroy(players[i]);
-        }
+        PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
+        Destroy(PlayerWithPotato());
 
         exploded = true;
         Debug.Log("Potato exploded");
+    }
+
+    GameObject PlayerWithPotato() {
+        for (int i = 0; i < players.Count; ++i) {
+            if (players[i].transform.GetComponent<PlayerPotato>().Potato().activeSelf) return players[i];
+        }
+        Debug.Log("Player with potato was not found!");
+        return null;
     }
 }

@@ -32,7 +32,7 @@ public class PlayerPotato : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -169,6 +169,10 @@ public class PlayerPotato : MonoBehaviour
             getPotato.Invoke();
             StartCoroutine(SmoothReturn());
         }
+    }
+
+    public void ExplodePotato() {
+        
     }
 
     public GameObject Potato()
