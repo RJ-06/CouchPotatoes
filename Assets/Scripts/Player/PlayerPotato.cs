@@ -32,8 +32,7 @@ public class PlayerPotato : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(gameObject.name == "Player") getPotato.Invoke();
-        potatoChecker.enabled = false;
+        
     }
 
     // Update is called once per frame
