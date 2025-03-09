@@ -8,6 +8,7 @@ public class ShockwaveAttack : MonoBehaviour
     [SerializeField] float shockwaveRadius = 2f;
     [SerializeField] float shockwaveSpeed = 1f;
     [SerializeField] float shockwaveStrength = 1f;
+    [SerializeField] bool poweredUp = false;
 
     private HashSet<PlayerMovement> playerMovements = new HashSet<PlayerMovement>();
 
@@ -57,6 +58,8 @@ public class ShockwaveAttack : MonoBehaviour
             var target = other.GetComponent<PlayerMovement>();
             playerMovements.Add(target);
             target.SetCanMove(false);
+
+            
         }
     }
 

@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class FireItem : ItemAttributes
 {
-    [SerializeField] private ItemManager itemManager;
+    [SerializeField] ItemManager itemManager;
+    [SerializeField] FireEffect fireEffect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,8 +16,16 @@ public class FireItem : ItemAttributes
         
     }
     public void ApplyPowerUp(){
-        foreach (ItemSO item in itemManager.getItems())
+        foreach (ItemAttributes item in itemManager.GetAttributes())
         {
+            if (item.AffectedByFire())
+            {
+                Debug.Log($"Applying fire effect to {item.name}");
+                // Apply fire effect to the relevant weapon
+                // Change the 2d collision detection so that it also 
+                // adds burning status to the affected player(s)
+
+            }
         }
 
     }
