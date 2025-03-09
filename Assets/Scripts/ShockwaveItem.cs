@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShockwaveItem : MonoBehaviour
+public class ShockwaveItem : ItemAttributes
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

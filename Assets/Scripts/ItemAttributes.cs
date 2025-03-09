@@ -1,11 +1,8 @@
 using UnityEngine;
 
-public class FireItem : ItemAttributes
+public class ItemAttributes : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void ApplyPowerUp(){
-        // add fire to the weapon
-    }
     void Start()
     {
         
@@ -17,5 +14,3 @@ public class FireItem : ItemAttributes
         
     }
 }
-
-
