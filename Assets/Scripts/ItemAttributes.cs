@@ -13,4 +13,8 @@ public class ItemAttributes : MonoBehaviour
     {
         
     }
+    // check if something can be used with fire powerup using ItemManager
+    public virtual bool AffectedByFire(){
+        return false;
+    }
 }

@@ -13,4 +13,7 @@ public class ShockwaveItem : ItemAttributes
     {
         
     }
+    public override bool AffectedByFire(){
+        return true;
+    }
 }
