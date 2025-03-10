@@ -65,8 +65,6 @@ public class GameManager : MonoBehaviour
     void ChoosePlayerToGivePotato()
     {
         int num = Random.Range(0, players.Count);
-        Debug.Log("Random number between 0 and " + (players.Count - 1) + " is");
-        Debug.Log(num);
         players[num].GetComponent<PlayerPotato>().getPotato.Invoke();
     }
 

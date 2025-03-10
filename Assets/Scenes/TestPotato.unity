@@ -855,11 +855,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d40dcaaa33f7a34db093091d0f09c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
   expressionlessPotato: {fileID: 0}
   redPotato: {fileID: 0}
   veryRedPotato: {fileID: 0}
+=======
+  expressionlessPotato: {fileID: 8326833068740448563, guid: 32402aea599fe0b4cbee18954715688a, type: 3}
+  redPotato: {fileID: 1852144731128739645, guid: 32402aea599fe0b4cbee18954715688a, type: 3}
+  veryRedPotato: {fileID: 6707860808816820841, guid: 32402aea599fe0b4cbee18954715688a, type: 3}
+>>>>>>> Stashed changes
   timer: {fileID: 351593604}
-  timeToExplode: 30
+  timeToExplode: 45
 --- !u!4 &1891085702
 Transform:
   m_ObjectHideFlags: 0
