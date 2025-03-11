@@ -6,27 +6,59 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject mainMenu;
     public GameObject optionsMenu;
-    
-    public void GoToScene(string sceneName) {
-        SceneManager.LoadScene(sceneName);
-        
+
+    private GameObject lastSelectedButton;
+    private MenuState currentState = MenuState.Main;
+    private enum MenuState
+    {
+        Main,
+        Options
     }
 
-    public void OpenOptions(GameObject defaultButton) {
+    private void Start()
+    {
+        mainMenu.SetActive(true);
+        optionsMenu.SetActive(false);        
+    }
+
+    public void GoToScene(string sceneName)
+    {
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            Debug.LogError("Scene name cannot be empty!");
+            return;
+        }
+
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void OpenOptions(GameObject defaultButton)
+    {
+        if (currentState != MenuState.Main) return;
+        
+        lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         optionsMenu.SetActive(true);
         mainMenu.SetActive(false);
         EventSystem.current.SetSelectedGameObject(defaultButton);
+
+        currentState = MenuState.Options;
     }
 
-    public void CloseOptions(GameObject defaultButton) {
+    public void CloseOptions(GameObject defaultButton)
+    {
+        if (currentState != MenuState.Options) return;
+
         optionsMenu.SetActive(false);
         mainMenu.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(defaultButton);
+        EventSystem.current.SetSelectedGameObject(lastSelectedButton ?? defaultButton);
+
+        currentState = MenuState.Main;
     }
 
 
-    public void QuitApp() {
+    public void QuitApp()
+    {
+        Debug.Log("Application has quit");
         Application.Quit();
-        Debug.Log("Application has quited");
     }
 }
