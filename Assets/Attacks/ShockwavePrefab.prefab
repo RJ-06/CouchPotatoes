@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3503797232041605769}
   m_Layer: 0
   m_Name: ShockwavePrefab
-  m_TagString: Untagged
+  m_TagString: Shockwave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,8 +84,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shockwave: {fileID: 3588859280043437282}
   shockwaveRadius: 6
-  shockwaveSpeed: 1.2
-  shockwaveStrength: 3
+  shockwaveSpeed: 2
+  shockwaveStrength: 5
+  poweredUp: 0
 --- !u!212 &3503797232041605769
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -131,7 +132,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.05882353}
+  m_Color: {r: 0, g: 0.87378645, b: 1, a: 0.11764706}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

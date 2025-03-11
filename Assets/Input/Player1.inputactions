@@ -172,7 +172,7 @@
                 {
                     "name": "",
                     "id": "7659475f-7249-4626-a638-4a8106f450d7",
-                    "path": "<Keyboard>/x",
+                    "path": "<Keyboard>/v",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -485,7 +485,7 @@
                 {
                     "name": "",
                     "id": "c0c4302a-80ce-4f22-9666-719ca068552e",
-                    "path": "<Keyboard>/x",
+                    "path": "<Keyboard>/numpadPeriod",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
