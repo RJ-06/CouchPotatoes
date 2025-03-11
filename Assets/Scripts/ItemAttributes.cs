@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShockwaveItem : ItemAttributes
+public class ItemAttributes : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,7 +13,8 @@ public class ShockwaveItem : ItemAttributes
     {
         
     }
-    public override bool AffectedByFire(){
-        return true;
+    // check if something can be used with fire powerup using ItemManager
+    public virtual bool AffectedByFire(){
+        return false;
     }
 }

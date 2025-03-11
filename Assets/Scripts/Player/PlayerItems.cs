@@ -84,7 +84,7 @@ public class PlayerItems: MonoBehaviour
         );        
         //Debug.Log(attackPos);
         //Debug.Log(transform.position);
-        GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, Quaternion.identity);
+        GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, Quaternion.identity, transform.gameObject.transform);
         Destroy(weakAttack, 1f);
         // Vector3 dirAtk = transform.forward;
         // // get the angle between each ray
