@@ -58,8 +58,7 @@ public class ShockwaveAttack : MonoBehaviour
             var target = other.GetComponent<PlayerMovement>();
             playerMovements.Add(target);
             target.SetCanMove(false);
-
-            
+            target.GetComponent<PlayerMovement>().SetHitByShockwave(true);
         }
     }
 
@@ -67,7 +66,7 @@ public class ShockwaveAttack : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
-        yield return null;
+        yield return new WaitForSeconds(0.5f); // Stun time after shockwave
         foreach (var player in playerMovements)
         {
             player.SetCanMove(true);

@@ -63,9 +63,7 @@ public class PlayerItems: MonoBehaviour
         {
             shockwaveUsed = true;
             shockwaveCooldownTimer = shockwaveCooldown;
-            Debug.Log(shockwaveCooldownTimer + ", " + shockwaveCooldown);
             Instantiate(ShockwavePrefab, transform.position, Quaternion.identity, this.transform);
-            Debug.Log("Attacked");
         }
         else if(shockwaveItem == null && !weakUsed)
         {

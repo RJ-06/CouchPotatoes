@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isPusher = false;
 
     private bool isDashing = false;
+    private bool hitByShockwave = false;
     private float dashSpeedMultiplier = 2.0f;
     private Vector2 pushedVelocity;
 
@@ -35,13 +36,19 @@ public class PlayerMovement : MonoBehaviour
         lastMoveDir = new Vector2(0, -1);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (!pushed && moveDir == Vector2.zero && !isPusher)
-        {
-            Vector2 keep = Vector2.Dot(pushedVelocity, moveDir) * moveDir;
-            pushedVelocity = keep + (pushedVelocity - keep) * Mathf.Pow(0.1f, Time.deltaTime);
-            rb.linearVelocity = pushedVelocity;
+        if (!pushed && moveDir == Vector2.zero && !isPusher && !hitByShockwave) {
+            // Store pushed velocity before executing the push
+            pushedVelocity = rb.linearVelocity;
+            ExecutePush(0.9f);
+        } else if (hitByShockwave) {
+            pushedVelocity = rb.linearVelocity;
+            ExecutePush(0.2f);
+            Debug.Log("Shockwave push done");
+        // If player moves make sure push force is canceled
+        } else if (moveDir != Vector2.zero) {
+            pushedVelocity = Vector2.zero;
         }
     }
 
@@ -104,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
 
-        if (moveDir != Vector2.zero){
+        if (moveDir != Vector2.zero && other.gameObject.CompareTag("Player")){
             isPusher = true;
         }
         else
@@ -113,8 +120,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         pushed = true;
-        // Store pushed velocity
-        pushedVelocity = rb.linearVelocity;
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -122,9 +127,23 @@ public class PlayerMovement : MonoBehaviour
         pushed = false;
     }
 
+    // Lower stopFactor equates to a faster stop
+    private void ExecutePush(float stopFactor)
+    {
+        Vector2 keep = Vector2.Dot(pushedVelocity, moveDir) * moveDir;
+        pushedVelocity = keep + (pushedVelocity - keep) * stopFactor;
+        rb.linearVelocity = pushedVelocity;
+
+        if (pushedVelocity.x <= 0.001f && pushedVelocity.y <= 0.001f) {
+            hitByShockwave = false;
+        }
+    }
+
 
     public Vector2 getMoveDir() => moveDir;
     public void SetCanMove(bool canMove) => this.canMove = canMove;
+
+    public void SetHitByShockwave(bool b) => hitByShockwave = b;
 
     public void setDashing(bool dashing)
     {
