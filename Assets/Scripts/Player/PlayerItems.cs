@@ -63,9 +63,7 @@ public class PlayerItems: MonoBehaviour
         {
             shockwaveUsed = true;
             shockwaveCooldownTimer = shockwaveCooldown;
-            Debug.Log(shockwaveCooldownTimer + ", " + shockwaveCooldown);
             Instantiate(ShockwavePrefab, transform.position, Quaternion.identity, this.transform);
-            Debug.Log("Attacked");
         }
         else if(shockwaveItem == null && !weakUsed)
         {
@@ -84,7 +82,7 @@ public class PlayerItems: MonoBehaviour
         );        
         //Debug.Log(attackPos);
         //Debug.Log(transform.position);
-        GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, Quaternion.identity);
+        GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, Quaternion.identity, transform.gameObject.transform);
         Destroy(weakAttack, 1f);
         // Vector3 dirAtk = transform.forward;
         // // get the angle between each ray

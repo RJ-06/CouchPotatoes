@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704b78011ead94d64924956a47f45faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shockwaveCooldown: 1
+  shockwaveCooldown: 5
   shockwaveCooldownTimer: 0
   ShockwavePrefab: {fileID: 9203247207447412739, guid: 699f35a124f56f398b0096574a65eb1a, type: 3}
   weakAttackPrefab: {fileID: 706087334615091427, guid: 4ec413589416a6d41a4b120123028c5d, type: 3}
@@ -365,10 +365,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201f3805c0feb614abb69232d5fd265a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRend: {fileID: 0}
   sprites:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5127344899908221559, guid: f7253360be42dd9f4944d065674f03e5, type: 3}
+  - {fileID: 21300000, guid: ca09b073ac35a391e8268fc3cdb12e91, type: 3}
 --- !u!1001 &3126214199524790833
 PrefabInstance:
   m_ObjectHideFlags: 0
