@@ -31,35 +31,19 @@ public class ShockwaveAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && other.gameObject != transform.parent)
-        {
-            float xDist = other.gameObject.transform.position.x - transform.parent.gameObject.transform.position.x;
-            float yDist = other.gameObject.transform.position.y - transform.parent.gameObject.transform.position.y;
-            float angle;
+        if (!other.CompareTag("Player") || other.gameObject == transform.parent) return;
 
-            if ((xDist < 0 && yDist < 0) || xDist < 0)
-            {
-                angle = Mathf.Atan(yDist / xDist) + Mathf.PI;
-            }
-            else if (yDist < 0)
-            {
-                angle = Mathf.Atan(yDist / xDist) + Mathf.PI * 2;
-            }
-            else
-            {
-                angle = Mathf.Atan(yDist / xDist);
-            }
+        var target = other.GetComponent<PlayerMovement>();
+        if (playerMovements.Contains(target)) return; // Prevent duplicate triggers
 
-            Vector2 force = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-            Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
-            rb.linearVelocity = Vector2.zero;
-            rb.AddForce(force * shockwaveStrength * 150);
+        Vector2 direction = (other.transform.position - transform.position).normalized;
+        Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
+        rb.linearVelocity = direction * shockwaveStrength * 150;
+        //rb.AddForce(direction * shockwaveStrength * 150);
 
-            var target = other.GetComponent<PlayerMovement>();
-            playerMovements.Add(target);
-            target.SetCanMove(false);
-            target.GetComponent<PlayerMovement>().SetHitByShockwave(true);
-        }
+        playerMovements.Add(target);
+        target.SetCanMove(false);
+        target.SetHitByShockwave(true);
     }
 
     private IEnumerator ExitStunAndDestroy()

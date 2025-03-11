@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shockwave: {fileID: 3588859280043437282}
   shockwaveRadius: 6
-  shockwaveSpeed: 1.5
+  shockwaveSpeed: 2
   shockwaveStrength: 5
   poweredUp: 0
 --- !u!212 &3503797232041605769

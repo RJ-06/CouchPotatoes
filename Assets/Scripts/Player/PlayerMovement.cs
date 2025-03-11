@@ -38,18 +38,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!pushed && moveDir == Vector2.zero && !isPusher && !hitByShockwave) {
-            // Store pushed velocity before executing the push
-            pushedVelocity = rb.linearVelocity;
-            ExecutePush(0.9f);
-        } else if (hitByShockwave) {
+        if (hitByShockwave) {
             pushedVelocity = rb.linearVelocity;
             ExecutePush(0.2f);
             Debug.Log("Shockwave push done");
+        } else if (!pushed && moveDir == Vector2.zero && !isPusher) {
+            // Store pushed velocity before executing the push
+            pushedVelocity = rb.linearVelocity;
+            ExecutePush(0.7f);
         // If player moves make sure push force is canceled
         } else if (moveDir != Vector2.zero) {
             pushedVelocity = Vector2.zero;
         }
+
+        Debug.Log(hitByShockwave);
     }
 
     private void OnMovement(InputValue value)
@@ -127,21 +129,26 @@ public class PlayerMovement : MonoBehaviour
         pushed = false;
     }
 
-    // Lower stopFactor equates to a faster stop
+    // Lower stopFactor equates to a faster stop, stopFactor < 1f
     private void ExecutePush(float stopFactor)
     {
         Vector2 keep = Vector2.Dot(pushedVelocity, moveDir) * moveDir;
-        pushedVelocity = keep + (pushedVelocity - keep) * stopFactor;
+        pushedVelocity *= stopFactor;
         rb.linearVelocity = pushedVelocity;
 
-        if (pushedVelocity.x <= 0.001f && pushedVelocity.y <= 0.001f) {
+        if (rb.linearVelocity.magnitude <= 0.001f) {
             hitByShockwave = false;
         }
     }
 
 
     public Vector2 getMoveDir() => moveDir;
-    public void SetCanMove(bool canMove) => this.canMove = canMove;
+    public void SetCanMove(bool canMove) {
+        this.canMove = canMove;
+        if (!canMove) moveDir = Vector2.zero;
+    }
+
+    public bool GetHitByShockwave() => hitByShockwave;
 
     public void SetHitByShockwave(bool b) => hitByShockwave = b;
 
