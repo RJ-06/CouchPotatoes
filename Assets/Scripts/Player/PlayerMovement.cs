@@ -52,6 +52,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnStart(InputValue value)
+    {
+        transform.parent.GetComponent<GameManager>().StartGame();
+    }
+
     private void OnMovement(InputValue value)
     {
         if (canMove)
