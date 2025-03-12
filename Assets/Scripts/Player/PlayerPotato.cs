@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -16,6 +17,9 @@ public class PlayerPotato : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] GameObject potato;
     [SerializeField] CircleCollider2D potatoChecker;
+    [InspectorLabel("Deal with holding potato to throw longer")]
+    [SerializeField] float maxThrowForce;
+    [SerializeField] float maxThrowTime;
 
     [Tooltip("add in events")]
     public UnityEvent getPotato;
@@ -126,16 +130,21 @@ public class PlayerPotato : MonoBehaviour
         yield break;
     }
 
-    private void OnThrow()
+    private void OnThrow(/*InputAction.CallbackContext context*/)
     {
+        float throwTime = 1.5f; //throwTime = (float)context.duration;
+        if (throwTime > maxThrowTime) throwTime = maxThrowTime;
+
         if(!potatoThrown && player.getHasPotato())
         {
             StopCoroutine(FollowPlayer());
-            rb.AddForce(750 * movement.lastMoveDir);
+            rb.AddForce(maxThrowForce * (throwTime/maxThrowTime) * movement.lastMoveDir);
             StartCoroutine(ReturnToPlayer());
             potatoThrown = true;
         }
     }
+
+
 
     public void onGetPotato()
     {

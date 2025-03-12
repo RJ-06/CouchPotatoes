@@ -56,13 +56,22 @@
                     "id": "b13f65c3-f984-4a0a-9713-cbf5d4d91593",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 },
                 {
                     "name": "changeSkin",
                     "type": "Button",
                     "id": "86469bec-f28e-4cd4-b9c1-f64595dbde58",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "newThrow",
+                    "type": "Button",
+                    "id": "dcf6d607-b2bb-4316-905d-3b3b043e8e5c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -440,6 +449,17 @@
                 },
                 {
                     "name": "",
+                    "id": "dbc30122-aef2-4a4d-a505-52ead5e68b2f",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "changeSkin",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c278efc1-90a1-4dc8-8d4a-8278a5b6341b",
                     "path": "<Keyboard>/c",
                     "interactions": "",
@@ -508,6 +528,17 @@
                     "name": "",
                     "id": "f7289f62-e260-462e-8cf2-18b773c68317",
                     "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fff8c73c-4a18-4e12-ad05-de9ee20a7616",
+                    "path": "<Keyboard>/period",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
