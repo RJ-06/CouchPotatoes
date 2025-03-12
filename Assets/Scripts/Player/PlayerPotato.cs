@@ -31,6 +31,8 @@ public class PlayerPotato : MonoBehaviour
     bool potatoThrown = false;
     bool atPlayer = false;
 
+    [SerializeField] Explosion explosion;
+
 
     // Start is called before the first frame update
     void Start()
@@ -181,6 +183,7 @@ public class PlayerPotato : MonoBehaviour
 
     public void ExplodePotato() {
         bobbing = false;
+        explosion.ResetAndExplode();
     }
 
     public GameObject Potato()

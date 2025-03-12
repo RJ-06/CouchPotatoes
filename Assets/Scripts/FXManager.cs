@@ -26,7 +26,7 @@ public class FXManager : MonoBehaviour
     private Dictionary<string, AudioClip> soundEffectDict;
 
     [Tooltip("event list - you can pair particle effects/audio with camera shake here")]
-    [SerializeField] UnityEvent[] effects;
+    public UnityEvent[] effects;
 
     // Start is called once before the first execution of Update after the MonoBehavior is created
     void Start()
