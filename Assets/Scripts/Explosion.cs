@@ -12,7 +12,7 @@ public class Explosion : MonoBehaviour
     float timer = 0f;
     [SerializeField] int damageDeal;
 
-    [SerializeField] FXManager fx;
+    //[SerializeField] FXManager fx;
 
     System.Collections.Generic.List<PlayerVals> playerList;
 
@@ -27,9 +27,11 @@ public class Explosion : MonoBehaviour
 
         gameObject.SetActive(true);
         transform.localScale = new Vector2(startScaleSize, startScaleSize);
-        fx.effects[0].Invoke();
+        //fx.effects[0].Invoke();
+        //fx.playParticle("PotatoExplode");
         timer = 0;
         doExplode = true;
+        playerList.Clear();
     }
 
     // Update is called once per frame

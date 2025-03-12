@@ -321,6 +321,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   enemy: {fileID: 0}
+  explosion: {fileID: 1417973234630308483}
 --- !u!58 &5870009079913388645
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -571,7 +572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2948155729309686644, guid: 301924bc60f5488448d333a324392204, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3226132030645962808, guid: 301924bc60f5488448d333a324392204, type: 3}
       propertyPath: fx
@@ -584,8 +585,63 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2948155729309686644, guid: 301924bc60f5488448d333a324392204, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2936498922053540167}
   m_SourcePrefab: {fileID: 100100000, guid: 301924bc60f5488448d333a324392204, type: 3}
+--- !u!114 &1417973234630308483 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3226132030645962808, guid: 301924bc60f5488448d333a324392204, type: 3}
+  m_PrefabInstance: {fileID: 4568940140894829243}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693871183269093839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aa7248460b590641a9f0572ad6d04c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1693871183269093839 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2948155729309686644, guid: 301924bc60f5488448d333a324392204, type: 3}
+  m_PrefabInstance: {fileID: 4568940140894829243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &2936498922053540167
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693871183269093839}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!4 &4370225644287809419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 274169583053368624, guid: 301924bc60f5488448d333a324392204, type: 3}

@@ -11,7 +11,7 @@ public class FXManager : MonoBehaviour
 
     [Tooltip("Drag in the Camera")]
     //[SerializeField] CinemachineCamera c;
-    [SerializeField] CinemachineBasicMultiChannelPerlin cmcp;
+    //[SerializeField] CinemachineBasicMultiChannelPerlin cmcp;
     private float timer;
     [Tooltip("Audio Source - create and attach to this obj")]
     private AudioSource audioSource;
@@ -37,35 +37,41 @@ public class FXManager : MonoBehaviour
             particleDict.Add(fxType[i], particleList[i]);
             soundEffectDict.Add(fxType[i], soundEffectList[i]);
         }
-        stopShaking();
+        //stopShaking();
     }
 
     public void playParticle(string s) 
     {
+        //if (!particleDict.ContainsKey(s)) return;
+
+        Debug.Log(particleDict);
+        Debug.Log(soundEffectDict);
+
         particleDict[s].Play();
+        //if (!soundEffectDict.ContainsKey(s)) return;
         audioSource.clip = soundEffectDict[s];
         audioSource.Play();
         
     }
 
-    public void screenShake(float intensity, float time) 
-    {
-        cmcp.AmplitudeGain = intensity;
-        timer = time;
-        StartCoroutine("startShaking");
-    }
+    //public void screenShake(float intensity, float time) 
+    //{
+    //    cmcp.AmplitudeGain = intensity;
+    //    timer = time;
+    //    StartCoroutine("startShaking");
+    //}
 
-    void stopShaking()
-    {
-        cmcp.AmplitudeGain = 0f;
-        timer = 0;
-    }
+    //void stopShaking()
+    //{
+    //    cmcp.AmplitudeGain = 0f;
+    //    timer = 0;
+    //}
 
-    IEnumerator startShaking(float shakeTime) 
-    {
-        yield return new WaitForSeconds(shakeTime);
-        stopShaking();
-    }
+    //IEnumerator startShaking(float shakeTime) 
+    //{
+    //    yield return new WaitForSeconds(shakeTime);
+    //    stopShaking();
+    //}
 
     
     

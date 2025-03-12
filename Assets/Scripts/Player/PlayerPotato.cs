@@ -183,7 +183,8 @@ public class PlayerPotato : MonoBehaviour
 
     public void ExplodePotato() {
         bobbing = false;
-        explosion.ResetAndExplode();
+        //explosion.enabled = true;
+        //explosion.ResetAndExplode();
     }
 
     public GameObject Potato()
