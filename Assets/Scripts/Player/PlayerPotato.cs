@@ -6,7 +6,6 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
 public class PlayerPotato : MonoBehaviour
 {
@@ -181,7 +180,7 @@ public class PlayerPotato : MonoBehaviour
     }
 
     public void ExplodePotato() {
-        
+        bobbing = false;
     }
 
     public GameObject Potato()

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,13 +8,16 @@ using Random=UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     SpriteRenderer potatoSprite;
-    [SerializeField] Sprite expressionlessPotato, redPotato, veryRedPotato;
+    [SerializeField] Sprite happyPotato, expressionlessPotato, redPotato, veryRedPotato;
     [SerializeField] TextMeshProUGUI timer;
     [SerializeField] float timeToExplode = 10f;
+
+    [SerializeField] GameObject itemPrefab;
     float time;
     List<GameObject> players = new List<GameObject>();
     GameObject currentPlayer;
-    bool exploded = false;
+    bool exploded = true;
+    int numItems = 0;
 
     void Start()
     {
@@ -23,13 +27,7 @@ public class GameManager : MonoBehaviour
                 players.Add(child.gameObject);
         }
 
-        time = timeToExplode;
-
-        // Give a random player a potato
-        ChoosePlayerToGivePotato();
-
-        currentPlayer = PlayerWithPotato();
-        potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
+        StartGame();
     }
 
     void FixedUpdate()
@@ -58,7 +56,7 @@ public class GameManager : MonoBehaviour
                 potatoSprite.sprite = redPotato;
             } else if (time / timeToExplode <= 0.5f) {
                 potatoSprite.sprite = expressionlessPotato;
-            }
+            } else potatoSprite.sprite = happyPotato;
         }
     }
 
@@ -68,14 +66,81 @@ public class GameManager : MonoBehaviour
         players[num].GetComponent<PlayerPotato>().getPotato.Invoke();
     }
 
+    void StartGame()
+    {
+        StartCoroutine(GameCountdown());
+        Debug.Log("Game started");
+        
+    }
+
+    void ExecuteGame()
+    {
+        time = timeToExplode;
+        exploded = false;
+
+        // Give a random player a potato
+        ChoosePlayerToGivePotato();
+
+        currentPlayer = PlayerWithPotato();
+        potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
+
+        // Start item spawning
+        StartCoroutine(PlaceItemsAtIntervals(5f));
+    }
+
     void Explode()
     {
         // Explode, killing player with the potato
         PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
-        Destroy(PlayerWithPotato());
+        PlayerWithPotato().SetActive(false);
+        PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
 
         exploded = true;
+        StartCoroutine(BetweenPotatoExplosions());
         Debug.Log("Potato exploded");
+    }
+
+    void RestoreAllPlayers()
+    {
+        for (int i = 0; i < players.Count; ++i) {
+            if (!players[i].activeSelf) players[i].SetActive(true);
+        }
+    }
+
+    void ChooseWhereToPlaceItem() {
+        float[,] positions = {{0f, -21f, -21f, 21f, 21f},
+                              {0f,   8f,  -8f,  8f, -8f}};
+        float[] distanceSums = {0f, 0f, 0f, 0f, 0f};
+        float largestDistSum = 0f;
+        int index = -1;
+        bool placeInCenter = true;
+
+        // Loop through and find largest distance sum and its index
+        for (int i = 0; i < distanceSums.Length; ++i) {
+            for (int j = 0; j < players.Count; ++j) {
+                float xDist = Mathf.Abs(players[j].transform.position.x - positions[0,i]);
+                float yDist = Mathf.Abs(players[j].transform.position.y - positions[1,i]);
+                float dist = Mathf.Sqrt(Mathf.Pow(xDist, 2) + Mathf.Pow(yDist, 2));
+
+                distanceSums[i] += dist;
+            }
+            if (distanceSums[i] > largestDistSum) {
+                largestDistSum = distanceSums[i];
+                index = i;
+            }
+        }
+
+        // Determine whether to place in center
+        for (int i = 1; i < distanceSums.Length; ++i) {
+            if (1.3 * distanceSums[0] < distanceSums[i]) placeInCenter = false;
+        }
+
+        // Place an item at the area with the largest distance sum
+        Vector3 position = new Vector3(positions[0,index], positions[1,index], -0.5f);
+        
+        Instantiate(itemPrefab, position, Quaternion.identity);
+        Debug.Log("Instantiated an item");
+        ++numItems;
     }
 
     GameObject PlayerWithPotato() {
@@ -84,5 +149,43 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log("Player with potato was not found!");
         return null;
+    }
+
+    private IEnumerator GameCountdown()
+    {
+        timer.text = "Avoid the potato!";
+        Debug.Log("Text displayed");
+        yield return new WaitForSeconds(3f);
+        timer.text = "Ready...";
+        yield return new WaitForSeconds(1f);
+        timer.text = "Set...";
+        yield return new WaitForSeconds(1f);
+        timer.text = "Go!";
+        ExecuteGame();
+    }
+
+    private IEnumerator BetweenPotatoExplosions()
+    {
+        for (int i = 0; i < players.Count; ++i) {
+            if (!players[i].activeSelf) {
+                timer.text = players[i] + " exploded!";
+            }
+        }
+        
+        yield return new WaitForSeconds(3f);
+        timer.text = "Respawning players...";
+        RestoreAllPlayers();
+        yield return new WaitForSeconds(2f);
+        StartGame();
+    }
+
+    private IEnumerator PlaceItemsAtIntervals(float timeBetween)
+    {
+        while (numItems < players.Count) {
+            Debug.Log("Got past if statement");
+            yield return new WaitForSeconds(timeBetween);
+            ChooseWhereToPlaceItem();
+        }
+        yield return null;
     }
 }

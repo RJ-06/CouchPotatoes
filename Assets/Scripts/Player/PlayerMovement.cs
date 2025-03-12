@@ -50,8 +50,6 @@ public class PlayerMovement : MonoBehaviour
         } else if (moveDir != Vector2.zero) {
             pushedVelocity = Vector2.zero;
         }
-
-        Debug.Log(hitByShockwave);
     }
 
     private void OnMovement(InputValue value)

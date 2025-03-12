@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Grass Island
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: -1982954659449035358, guid: d5e99efd626a9411a99679868f98f605, type: 3}
+  m_DefaultSprite: {fileID: 8219008847961612764, guid: 733d865a5ee490047ab3b00890d93b95, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
