@@ -255,17 +255,6 @@
                 },
                 {
                     "name": "",
-                    "id": "23fe9401-5107-4419-bb34-20f4124e259d",
-                    "path": "<Gamepad>/dpad/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "changeSkin",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ce1d8e80-b2ef-429b-be35-748e55e82674",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
@@ -470,7 +459,7 @@
                 {
                     "name": "up",
                     "id": "4e4599e7-0f41-4e1c-b203-80a3655bcb3e",
-                    "path": "<Joystick>/stick/up",
+                    "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -481,7 +470,7 @@
                 {
                     "name": "down",
                     "id": "bdaf66e6-2e67-4300-859b-bdd66e2b41dc",
-                    "path": "<Joystick>/stick/down",
+                    "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -492,7 +481,7 @@
                 {
                     "name": "left",
                     "id": "80dc42ac-9205-40d3-a99a-98964e0fe23e",
-                    "path": "<Joystick>/stick/left",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -503,7 +492,7 @@
                 {
                     "name": "right",
                     "id": "750f3c66-aca7-4346-b762-a56890eaee4d",
-                    "path": "<Joystick>/stick/right",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -602,7 +591,7 @@
                 {
                     "name": "",
                     "id": "f7289f62-e260-462e-8cf2-18b773c68317",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -658,6 +647,17 @@
                     "name": "",
                     "id": "54ddfa5d-704a-4fb1-9e7d-fe927193fafa",
                     "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22991339-2691-4170-b419-45adaee96554",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
