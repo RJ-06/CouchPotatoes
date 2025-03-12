@@ -546,19 +546,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ed4dd82b-ceaf-42be-91ca-814e8fd8b101",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "2eac9a33-d648-4360-9e5d-a1feda1fdf0e",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -580,18 +569,7 @@
                 {
                     "name": "",
                     "id": "1776c0a3-6526-44fe-a049-b14eb1ac780c",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f7289f62-e260-462e-8cf2-18b773c68317",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
