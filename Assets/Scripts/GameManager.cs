@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random=UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -27,7 +29,9 @@ public class GameManager : MonoBehaviour
                 players.Add(child.gameObject);
         }
 
-        StartGame();
+        timer.text = "Press tab to start";
+
+        //StartGame();
     }
 
     void FixedUpdate()
@@ -66,7 +70,7 @@ public class GameManager : MonoBehaviour
         players[num].GetComponent<PlayerPotato>().getPotato.Invoke();
     }
 
-    void StartGame()
+    public void StartGame()
     {
         StartCoroutine(GameCountdown());
         Debug.Log("Game started");
@@ -85,7 +89,7 @@ public class GameManager : MonoBehaviour
         potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
 
         // Start item spawning
-        StartCoroutine(PlaceItemsAtIntervals(5f));
+        StartCoroutine(PlaceItemsAtIntervals(15f));
     }
 
     void Explode()
@@ -161,6 +165,7 @@ public class GameManager : MonoBehaviour
         timer.text = "Set...";
         yield return new WaitForSeconds(1f);
         timer.text = "Go!";
+        yield return new WaitForSeconds(0.5f);
         ExecuteGame();
     }
 
