@@ -8,7 +8,8 @@ public class WeakAttack : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if(!attacked) {
+        if (!attacked)
+        {
             Debug.Log(other.CompareTag("Player"));
             Debug.Log(other.gameObject != transform.parent);
             if (other.CompareTag("Player") && other.gameObject != transform.parent)

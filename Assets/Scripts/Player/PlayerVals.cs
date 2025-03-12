@@ -66,4 +66,23 @@ public class PlayerVals : MonoBehaviour
     public bool getHasPotato() { return hasPotato; }
     public void setHasPotato(bool state) { hasPotato = state; }
 
+
+    
+    // NOTES from Jason: This is a testing function of displaying the health bar
+    // Feel free to try and delete it
+    void Update()
+    {
+        // Test function - press T to take 1 damage
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            IncrementHealth(-1);
+            Debug.Log("Player took 1 damage. Current health: " + currentHealthPoints);
+        }
+        // Press H to heal 1 health
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            IncrementHealth(1);
+            Debug.Log("Player healed 1 health. Current health: " + currentHealthPoints);
+        }
+    }
 }
