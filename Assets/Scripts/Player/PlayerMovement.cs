@@ -56,7 +56,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnStart(InputValue value)
     {
-        transform.parent.GetComponent<GameManager>().StartGame();
+        Debug.Log(FindAnyObjectByType<GameManager>());
+        FindAnyObjectByType<GameManager>().StartGame();
     }
 
     private void OnMovement(InputValue value)

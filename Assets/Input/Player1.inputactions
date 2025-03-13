@@ -301,6 +301,17 @@
                 },
                 {
                     "name": "",
+                    "id": "3506c06e-22b8-496f-9cac-d5b953606a74",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "cf4db931-3785-4edb-a73a-3d574772be4a",
                     "path": "<Keyboard>/1",
                     "interactions": "",
@@ -325,6 +336,17 @@
                     "name": "",
                     "id": "ce1d8e80-b2ef-429b-be35-748e55e82674",
                     "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b99c6b9-a32f-43e7-97c8-ceac4e50f471",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

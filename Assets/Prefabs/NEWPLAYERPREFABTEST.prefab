@@ -288,8 +288,8 @@ MonoBehaviour:
   rb: {fileID: 5852215728364785576}
   potato: {fileID: 1846692597506183403}
   potatoChecker: {fileID: 5870009079913388645}
-  maxThrowForce: 0
-  maxThrowTime: 0
+  maxThrowForce: 700
+  maxThrowTime: 2
   getPotato:
     m_PersistentCalls:
       m_Calls:

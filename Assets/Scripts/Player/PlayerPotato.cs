@@ -134,13 +134,15 @@ public class PlayerPotato : MonoBehaviour
 
     private void OnThrow(/*InputAction.CallbackContext context*/)
     {
-        float throwTime = 1.5f; //throwTime = (float)context.duration;
-        if (throwTime > maxThrowTime) throwTime = maxThrowTime;
+        //float throwTime = 1.5f; //throwTime = (float)context.duration;
+        //if (throwTime > maxThrowTime) throwTime = maxThrowTime;
 
         if(!potatoThrown && player.getHasPotato())
         {
             StopCoroutine(FollowPlayer());
-            rb.AddForce(maxThrowForce * (throwTime/maxThrowTime) * movement.lastMoveDir);
+            Debug.Log(maxThrowForce * movement.lastMoveDir);
+            Debug.Log(rb.linearVelocity);
+            rb.AddForce(maxThrowForce * movement.lastMoveDir);
             StartCoroutine(ReturnToPlayer());
             potatoThrown = true;
         }
