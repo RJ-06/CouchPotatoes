@@ -169,6 +169,7 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator Fall()
     {
         SetCanMove(false);
+        Vector2 lastVelocity = rb.linearVelocity.normalized;
         rb.linearVelocity = Vector2.zero;
         while (gameObject.transform.localScale.x >= 0.1f) {
             gameObject.transform.localScale *= 0.8f;
@@ -176,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
         }
         gameObject.transform.localScale = new Vector2(1f, 1f);
         gameObject.GetComponent<PlayerVals>().setHealth((int)gameObject.GetComponent<PlayerVals>().getHealth() / 2);
-        gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y) + -1 * lastMoveDir;
+        gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y) + -1 * lastVelocity;
         yield return new WaitForSeconds(1.5f);
         fallInProgress = false;
         SetCanMove(true);
