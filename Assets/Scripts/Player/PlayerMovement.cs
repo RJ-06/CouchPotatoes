@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 using Vector2 = UnityEngine.Vector2;
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isDashing = false;
     private bool hitByShockwave = false;
+    private bool fallInProgress = false;
     private float dashSpeedMultiplier = 2.0f;
     private Vector2 pushedVelocity;
 
@@ -133,9 +135,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Fallable")) {
+        if (other.gameObject.CompareTag("Fallable") && !fallInProgress) {
             Debug.Log("Fell");
-            gameObject.GetComponent<PlayerVals>().setHealth((int)gameObject.GetComponent<PlayerVals>().getHealth() / 2);
+            fallInProgress = true;
+            StartCoroutine(Fall());
         }
     }
 
@@ -161,6 +164,20 @@ public class PlayerMovement : MonoBehaviour
     public bool GetHitByShockwave() => hitByShockwave;
 
     public void SetHitByShockwave(bool b) => hitByShockwave = b;
+
+    public IEnumerator Fall()
+    {
+        SetCanMove(false);
+        rb.linearVelocity = Vector2.zero;
+        while (gameObject.transform.localScale.x >= 0.1f) {
+            gameObject.transform.localScale *= 0.8f;
+            yield return new WaitForSeconds(0.2f);
+        }
+        gameObject.transform.localScale = new Vector2(1f, 1f);
+        gameObject.GetComponent<PlayerVals>().setHealth((int)gameObject.GetComponent<PlayerVals>().getHealth() / 2);
+        fallInProgress = false;
+        SetCanMove(true);
+    }
 
     public void setDashing(bool dashing)
     {

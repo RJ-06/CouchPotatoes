@@ -87,7 +87,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -304741263
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 8
-  baseHealthPoints: 2
+  baseHealthPoints: 100
   baseDashSpeed: 300
   baseAttackPoints: 1
   baseDashCooldown: 0.8
@@ -387,7 +387,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2638213652404094925, guid: be1adcc318912cfbeaa145af8bbafb4d, type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2638213652404094925, guid: be1adcc318912cfbeaa145af8bbafb4d, type: 3}
       propertyPath: m_SortingLayerID
@@ -560,7 +560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1815653389689050506, guid: 301924bc60f5488448d333a324392204, type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1815653389689050506, guid: 301924bc60f5488448d333a324392204, type: 3}
       propertyPath: m_SortingLayerID
