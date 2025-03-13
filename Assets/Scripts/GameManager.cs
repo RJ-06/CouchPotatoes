@@ -29,8 +29,10 @@ public class GameManager : MonoBehaviour
     {
         // Add each player in game to list
         foreach (Transform child in transform) {
-            if (child.CompareTag("Player")) 
+            if (child.CompareTag("Player")) {
                 players.Add(child.gameObject);
+                Debug.Log("Player joined");
+            }
         }
 
         timer.text = "Press tab to start";
