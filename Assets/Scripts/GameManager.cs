@@ -25,8 +25,11 @@ public class GameManager : MonoBehaviour
     bool mainMusicStarted = false;
     int numItems = 0;
 
+    PlayerInputManager pInputManager;
+
     void Start()
     {
+        pInputManager = GetComponent<PlayerInputManager>();
         // Add each player in game to list
         foreach (Transform child in transform) {
             if (child.CompareTag("Player")) {
@@ -85,6 +88,7 @@ public class GameManager : MonoBehaviour
 
     void ExecuteGame()
     {
+        pInputManager.DisableJoining();
         if(!mainMusicStarted) {
             audio.Play();
             mainMusicStarted = true;
