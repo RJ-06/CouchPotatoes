@@ -15,10 +15,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] float timeToExplode = 10f;
 
     [SerializeField] GameObject itemPrefab;
+    [SerializeField] AudioSource audio;
     float time;
     public List<GameObject> players = new List<GameObject>();
     GameObject currentPlayer;
     bool exploded = true;
+    bool mainMusicStarted = false;
     int numItems = 0;
 
     void Start()
@@ -79,6 +81,10 @@ public class GameManager : MonoBehaviour
 
     void ExecuteGame()
     {
+        if(!mainMusicStarted) {
+            audio.Play();
+            mainMusicStarted = true;
+        }
         time = timeToExplode;
         exploded = false;
 
