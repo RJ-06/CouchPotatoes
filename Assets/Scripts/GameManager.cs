@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject itemPrefab;
     float time;
-    List<GameObject> players = new List<GameObject>();
+    public List<GameObject> players = new List<GameObject>();
     GameObject currentPlayer;
     bool exploded = true;
     int numItems = 0;

@@ -37,7 +37,8 @@ public class PlayerPotato : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GameManager gm = FindFirstObjectByType<GameManager>();
+        gm.players.Add(gameObject);
     }
 
     // Update is called once per frame
