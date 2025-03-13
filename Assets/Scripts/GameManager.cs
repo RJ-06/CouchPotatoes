@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
     SpriteRenderer potatoSprite;
     [SerializeField] Sprite happyPotato, expressionlessPotato, redPotato, veryRedPotato;
     [SerializeField] TextMeshProUGUI timer;
-    [SerializeField] float timeToExplode = 10f;
+    [SerializeField] float minTimeToExplode = 10f;
+    [SerializeField] float maxTimeToExplode = 35f;
+    float timeToExplode;
 
     [SerializeField] GameObject itemPrefab;
     [SerializeField] AudioSource audio;
@@ -85,6 +87,7 @@ public class GameManager : MonoBehaviour
             audio.Play();
             mainMusicStarted = true;
         }
+        timeToExplode = Random.Range(minTimeToExplode, maxTimeToExplode);
         time = timeToExplode;
         exploded = false;
 

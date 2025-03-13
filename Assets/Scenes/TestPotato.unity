@@ -49519,8 +49519,9 @@ MonoBehaviour:
   redPotato: {fileID: 1852144731128739645, guid: 32402aea599fe0b4cbee18954715688a, type: 3}
   veryRedPotato: {fileID: 6707860808816820841, guid: 32402aea599fe0b4cbee18954715688a, type: 3}
   timer: {fileID: 351593604}
-  timeToExplode: 45
-  itemPrefab: {fileID: 1451091749043144713, guid: 3002575c9f6510830a0b1dec92ce5992, type: 3}
+  minTimeToExplode: 10
+  maxTimeToExplode: 35
+  itemPrefab: {fileID: 1451091749043144713, guid: b9adaccb6c5e14cf4af58e1cfc95e7d5, type: 3}
   audio: {fileID: 1891085704}
   players: []
 --- !u!4 &1891085702
