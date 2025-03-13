@@ -32,12 +32,13 @@ public class PlayerPotato : MonoBehaviour
     bool atPlayer = false;
 
     [SerializeField] Explosion explosion;
+    GameManager gm;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        GameManager gm = FindFirstObjectByType<GameManager>();
+        gm = FindFirstObjectByType<GameManager>();
         gm.players.Add(gameObject);
     }
 
@@ -154,6 +155,7 @@ public class PlayerPotato : MonoBehaviour
     {
         player.setHasPotato(true);
         potato.SetActive(true);
+        gm.IncrementTime(1.5f);
     }
 
     public void onGivePotato()

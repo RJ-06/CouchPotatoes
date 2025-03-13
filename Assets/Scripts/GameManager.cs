@@ -193,4 +193,9 @@ public class GameManager : MonoBehaviour
         }
         yield return null;
     }
+
+    public void IncrementTime(float timeIncr) 
+    {
+        time += timeIncr;
+    }
 }
