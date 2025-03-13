@@ -115,7 +115,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-
         if (moveDir != Vector2.zero && other.gameObject.CompareTag("Player")){
             isPusher = true;
         }
@@ -130,6 +129,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionExit2D(Collision2D other)
     {
         pushed = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Fallable")) {
+            Debug.Log("Fell");
+            gameObject.GetComponent<PlayerVals>().setHealth((int)gameObject.GetComponent<PlayerVals>().getHealth() / 2);
+        }
     }
 
     // Lower stopFactor equates to a faster stop, stopFactor < 1f
