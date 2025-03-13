@@ -49,6 +49,9 @@ TagManager:
   - name: On Ground
     uniqueID: 1896070373
     locked: 0
+  - name: Item Pickup
+    uniqueID: 2353332317
+    locked: 0
   - name: Player
     uniqueID: 3990226033
     locked: 0

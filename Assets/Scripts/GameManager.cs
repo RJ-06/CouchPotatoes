@@ -152,7 +152,6 @@ public class GameManager : MonoBehaviour
         Vector3 position = new Vector3(positions[0,index], positions[1,index], -0.5f);
         
         Instantiate(itemPrefab, position, Quaternion.identity);
-        Debug.Log("Instantiated an item");
         ++numItems;
     }
 

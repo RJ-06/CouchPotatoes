@@ -9,7 +9,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Instantiate(itemSO.itemPrefab, other.gameObject.transform);
+            GameObject item = Instantiate(itemSO.itemPrefab, other.gameObject.transform);
+            item.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Item Pickup");
             Destroy(gameObject);
         }
     }
