@@ -6,6 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class PlayerPotato : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class PlayerPotato : MonoBehaviour
     bool bobbing = false;
     bool potatoThrown = false;
     bool atPlayer = false;
+
+    Vector2 shootDir;
 
     [SerializeField] Explosion explosion;
     GameManager gm;
@@ -143,7 +146,14 @@ public class PlayerPotato : MonoBehaviour
             StopCoroutine(FollowPlayer());
             Debug.Log(maxThrowForce * movement.lastMoveDir);
             Debug.Log(rb.linearVelocity);
-            rb.AddForce(maxThrowForce * movement.lastMoveDir);
+            if (shootDir != Vector2.zero) 
+            {
+                rb.AddForce(maxThrowForce * shootDir); 
+            }
+            else 
+            { 
+                rb.AddForce(maxThrowForce * movement.lastMoveDir);
+            }
             StartCoroutine(ReturnToPlayer());
             potatoThrown = true;
         }
@@ -163,6 +173,11 @@ public class PlayerPotato : MonoBehaviour
         potatoThrown = false;
         player.setHasPotato(false);
         potato.SetActive(false);
+    }
+
+    private void OnAim(InputValue val) 
+    {
+        shootDir = val.Get<Vector2>().normalized;
     }
 
     public bool getPotatoThrown() { return potatoThrown; }
