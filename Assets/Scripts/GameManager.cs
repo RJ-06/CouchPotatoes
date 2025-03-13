@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
             // Potato explodes on 0
             if (time <= 0f) {
                 timer.text = "0";
-                Explode();
+                StartCoroutine(Explode());
             // Update timer otherwise
             } else {
                 timer.text = time.ToString();
@@ -107,9 +107,10 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PlaceItemsAtIntervals(15f));
     }
 
-    void Explode()
+    private IEnumerator Explode()
     {
         // Explode, killing player with the potato
+        while (PlayerWithPotato().GetComponent<PlayerMovement>().getFallInProgress()) yield return new WaitForSeconds(0.1f);
         PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
         PlayerWithPotato().SetActive(false);
         PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
@@ -117,12 +118,16 @@ public class GameManager : MonoBehaviour
         exploded = true;
         StartCoroutine(BetweenPotatoExplosions());
         Debug.Log("Potato exploded");
+        yield return null;
     }
 
     void RestoreAllPlayers()
     {
         for (int i = 0; i < players.Count; ++i) {
-            if (!players[i].activeSelf) players[i].SetActive(true);
+            if (!players[i].activeSelf) {
+                players[i].SetActive(true);
+                players[i].transform.localScale = new Vector3(1f, 1f, 1f);
+            }
         }
     }
 
