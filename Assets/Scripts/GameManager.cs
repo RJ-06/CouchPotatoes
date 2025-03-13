@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     GameObject currentPlayer;
     bool exploded = true;
     bool mainMusicStarted = false;
-    int numItems = 0;
+    int numItems = 0, playerNum = 1;
 
     PlayerInputManager pInputManager;
 
@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
         // Add each player in game to list
         foreach (Transform child in transform) {
             if (child.CompareTag("Player")) {
+                child.name = "Player " + playerNum;
+                ++playerNum;
                 players.Add(child.gameObject);
                 Debug.Log("Player joined");
             }
@@ -192,7 +194,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < players.Count; ++i) {
             if (!players[i].activeSelf) {
-                timer.text = players[i] + " exploded!";
+                timer.text = players[i].name + " exploded!";
             }
         }
         
