@@ -177,7 +177,7 @@ public class PlayerPotato : MonoBehaviour
 
     private void OnAim(InputValue val) 
     {
-        shootDir = val.Get<Vector2>().normalized;
+        shootDir = val.Get<Vector2>();
     }
 
     public bool getPotatoThrown() { return potatoThrown; }
