@@ -81,7 +81,7 @@
                     "name": "Aim",
                     "type": "Value",
                     "id": "c47e398a-06d7-4d60-81da-8b15bfac86a1",
-                    "expectedControlType": "",
+                    "expectedControlType": "Analog",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -366,7 +366,7 @@
                 {
                     "name": "2D Vector",
                     "id": "6527bf9a-f137-46b6-9ac5-775d0d522ae6",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
