@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3588859280043437282}
   - component: {fileID: 3940765360782150054}
   - component: {fileID: 3503797232041605769}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShockwavePrefab
   m_TagString: Shockwave
   m_Icon: {fileID: 0}

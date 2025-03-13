@@ -29572,7 +29572,7 @@ GameObject:
   - component: {fileID: 426033992}
   - component: {fileID: 426033991}
   - component: {fileID: 426033995}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fallable
   m_TagString: Fallable
   m_Icon: {fileID: 0}
