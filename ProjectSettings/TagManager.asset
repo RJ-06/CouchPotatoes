@@ -8,6 +8,7 @@ TagManager:
   - Auto Give Potato
   - Potato
   - Shockwave
+  - Fallable
   layers:
   - Default
   - TransparentFX
