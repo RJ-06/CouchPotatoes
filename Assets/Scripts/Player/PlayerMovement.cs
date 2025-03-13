@@ -172,10 +172,11 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         while (gameObject.transform.localScale.x >= 0.1f) {
             gameObject.transform.localScale *= 0.8f;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.05f);
         }
         gameObject.transform.localScale = new Vector2(1f, 1f);
         gameObject.GetComponent<PlayerVals>().setHealth((int)gameObject.GetComponent<PlayerVals>().getHealth() / 2);
+        gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y) + -1 * lastMoveDir;
         fallInProgress = false;
         SetCanMove(true);
     }
