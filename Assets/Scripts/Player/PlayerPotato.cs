@@ -16,6 +16,7 @@ public class PlayerPotato : MonoBehaviour
     [SerializeField] PlayerMovement movement;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] GameObject potato;
+    [SerializeField] GameObject potatoIndicator;
     [SerializeField] CircleCollider2D potatoChecker;
     [InspectorLabel("Deal with holding potato to throw longer")]
     [SerializeField] float maxThrowForce;
@@ -165,7 +166,8 @@ public class PlayerPotato : MonoBehaviour
     {
         player.setHasPotato(true);
         potato.SetActive(true);
-        gm.IncrementTime(1.5f);
+        potatoIndicator.SetActive(true);
+        if(gm.time <= 5f) gm.IncrementTime(5f);
     }
 
     public void onGivePotato()
@@ -173,6 +175,7 @@ public class PlayerPotato : MonoBehaviour
         potatoThrown = false;
         player.setHasPotato(false);
         potato.SetActive(false);
+        potatoIndicator.SetActive(false);
     }
 
     private void OnAim(InputValue val) 

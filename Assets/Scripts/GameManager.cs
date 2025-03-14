@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject itemPrefab;
     [SerializeField] AudioSource audio;
-    float time;
+    public float time;
     public List<GameObject> players = new List<GameObject>();
     GameObject currentPlayer;
     bool exploded = true;
