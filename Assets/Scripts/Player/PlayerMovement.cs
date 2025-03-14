@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
@@ -177,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
         }
         gameObject.transform.localScale = new Vector2(1f, 1f);
         gameObject.GetComponent<PlayerVals>().setHealth((int)gameObject.GetComponent<PlayerVals>().getHealth() / 2);
-        gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y) + -1 * lastVelocity;
+        gameObject.transform.position = pickRespawnPoint();
         yield return new WaitForSeconds(1.5f);
         fallInProgress = false;
         SetCanMove(true);
@@ -193,5 +194,25 @@ public class PlayerMovement : MonoBehaviour
 
     public void ForceSpeedUpdate() => ApplyMovementSpeed();     // Allow external script to force an immediate speed update.
 
+    private Vector2 pickRespawnPoint()
+    {
+        List<Vector2> choices = FindAnyObjectByType<GameManager>().getRespawnPoints();
+        Vector2 respawnPoint = choices[0];
+        float respawnDist = findDistance(transform.position, respawnPoint);
+        for(int i = 1; i < choices.Count; ++i) {
+            if (findDistance(transform.position, choices[i]) < respawnDist) {
+                respawnPoint = choices[i];
+                respawnDist = findDistance(transform.position, respawnPoint);
+            }
+        }
 
+        Debug.Log(respawnPoint);
+        return respawnPoint;
+    }
+
+    private float findDistance(Vector2 a, Vector2 b) {
+        float xDist = Mathf.Abs(a.x - b.x);
+        float yDist = Mathf.Abs(a.y - b.y);
+        return Mathf.Sqrt(Mathf.Pow(xDist, 2) + Mathf.Pow(yDist, 2));
+    }
 }

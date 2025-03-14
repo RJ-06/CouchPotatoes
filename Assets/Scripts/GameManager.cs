@@ -27,6 +27,14 @@ public class GameManager : MonoBehaviour
 
     PlayerInputManager pInputManager;
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    // STAGE INFO ////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    // FLOATING GRASS ISLAND
+    [SerializeField]
+    public List<Vector2> floatingGrassIslandRespawnPoints = new List<Vector2>();
+
     void Start()
     {
         pInputManager = GetComponent<PlayerInputManager>();
@@ -219,4 +227,6 @@ public class GameManager : MonoBehaviour
     {
         time += timeIncr;
     }
+
+    public List<Vector2> getRespawnPoints() => floatingGrassIslandRespawnPoints;
 }
