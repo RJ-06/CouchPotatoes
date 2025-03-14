@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [SerializeField] PlayerPotato player;
+    [SerializeField] public GameObject fallingColliderObject;
 
     private void Start()
     {
@@ -42,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (hitByShockwave) {
+            fallingColliderObject.SetActive(true);
             pushedVelocity = rb.linearVelocity;
             ExecutePush(0.2f);
             Debug.Log("Shockwave push done");
@@ -152,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = pushedVelocity;
 
         if (rb.linearVelocity.magnitude <= 0.001f) {
+            fallingColliderObject.SetActive(false);
             hitByShockwave = false;
         }
     }

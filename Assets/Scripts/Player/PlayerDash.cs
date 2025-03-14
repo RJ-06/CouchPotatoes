@@ -31,6 +31,7 @@ public class PlayerDash : MonoBehaviour
         dashCooldownTimer -= Time.fixedDeltaTime;
 
         if (dashInProgress && Mathf.Abs(dashTimer) >= 0.0001) {     // Dashing is on progress
+            gameObject.GetComponent<PlayerMovement>().fallingColliderObject.SetActive(true);
             dashTimer -= Time.fixedDeltaTime;
         } else if (dashInProgress) {    // Dashing has end as the timer <= 0
 
@@ -38,6 +39,7 @@ public class PlayerDash : MonoBehaviour
 
             playerMovement.setDashing(false);
             dashInProgress = false;
+            gameObject.GetComponent<PlayerMovement>().fallingColliderObject.SetActive(false);
             dashTimer = pv.getDashTime();
         }
     }
