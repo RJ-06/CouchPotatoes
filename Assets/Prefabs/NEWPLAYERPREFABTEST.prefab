@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 8
-  baseHealthPoints: 2
+  baseHealthPoints: 100
   baseDashSpeed: 300
   baseAttackPoints: 1
   baseDashCooldown: 0.8
