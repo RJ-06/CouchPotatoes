@@ -172,14 +172,14 @@ public class PlayerMovement : MonoBehaviour
         SetCanMove(false);
         Vector2 lastVelocity = rb.linearVelocity.normalized;
         rb.linearVelocity = Vector2.zero;
-        while (gameObject.transform.localScale.x >= 0.1f) {
+        while (gameObject.transform.localScale.x >= 0.01f) {
             gameObject.transform.localScale *= 0.8f;
             yield return new WaitForSeconds(0.05f);
         }
+        yield return new WaitForSeconds(1.5f);
         gameObject.transform.localScale = new Vector2(1f, 1f);
         gameObject.GetComponent<PlayerVals>().setHealth((int)gameObject.GetComponent<PlayerVals>().getHealth() / 2);
         gameObject.transform.position = pickRespawnPoint();
-        yield return new WaitForSeconds(1.5f);
         fallInProgress = false;
         SetCanMove(true);
     }

@@ -22,8 +22,9 @@ public class GameManager : MonoBehaviour
     public List<GameObject> players = new List<GameObject>();
     GameObject currentPlayer;
     bool exploded = true;
+    bool playerNamesAssigned = false;
     bool mainMusicStarted = false;
-    int numItems = 0, playerNum = 1;
+    int numItems = 0, playerNum = 1, numOfPlayers, playersLeft;
 
     PlayerInputManager pInputManager;
 
@@ -41,8 +42,6 @@ public class GameManager : MonoBehaviour
         // Add each player in game to list
         foreach (Transform child in transform) {
             if (child.CompareTag("Player")) {
-                child.name = "Player " + playerNum;
-                ++playerNum;
                 players.Add(child.gameObject);
                 Debug.Log("Player joined");
             }
@@ -85,12 +84,28 @@ public class GameManager : MonoBehaviour
 
     void ChoosePlayerToGivePotato()
     {
-        int num = Random.Range(0, players.Count);
+        int num = Random.Range(0, playersLeft);
+        while (!players[num].activeSelf) {
+            int increment = Random.Range(0, 2);
+            if (increment == 0) ++num;
+            else --num;
+        }
         players[num].GetComponent<PlayerPotato>().getPotato.Invoke();
     }
 
     public void StartGame()
     {
+        if (!playerNamesAssigned) {
+            foreach (GameObject player in players) {
+                player.name = "Player " + playerNum;
+                ++playerNum;
+                playerNamesAssigned = true;
+
+                numOfPlayers = playerNum - 1;
+                playersLeft = numOfPlayers;
+            }
+        }
+
         StartCoroutine(GameCountdown());
         Debug.Log("Game started");
         
@@ -126,8 +141,8 @@ public class GameManager : MonoBehaviour
         PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
 
         exploded = true;
+        --playersLeft;
         StartCoroutine(BetweenPotatoExplosions());
-        Debug.Log("Potato exploded");
         yield return null;
     }
 
@@ -205,10 +220,17 @@ public class GameManager : MonoBehaviour
                 timer.text = players[i].name + " exploded!";
             }
         }
+        yield return new WaitForSeconds(2f);
         
-        yield return new WaitForSeconds(3f);
-        timer.text = "Respawning players...";
-        RestoreAllPlayers();
+        if (playersLeft == 1) {
+            foreach (GameObject player in players) {
+                if(player.activeSelf) timer.text = player.name + " won!";
+            }
+            yield return new WaitForSeconds(3f);
+            timer.text = "Respawning players...";
+            RestoreAllPlayers();
+            playersLeft = numOfPlayers;
+        }
         yield return new WaitForSeconds(2f);
         StartGame();
     }

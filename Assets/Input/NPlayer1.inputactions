@@ -277,6 +277,17 @@
                 },
                 {
                     "name": "",
+                    "id": "7487c446-2483-4364-b630-49a9fb773e6f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "71ae1df0-e453-4ada-b55b-0316b918e186",
                     "path": "<Keyboard>/anyKey",
                     "interactions": "",

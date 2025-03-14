@@ -133,7 +133,7 @@ MonoBehaviour:
   baseAttackPoints: 1
   baseDashCooldown: 0.8
   baseDashTime: 0.5
-  baseAttackCooldown: 1
+  baseAttackCooldown: 10
   baseMaxSpeed: 16
   playerNum: -1
   hasPotato: 0
