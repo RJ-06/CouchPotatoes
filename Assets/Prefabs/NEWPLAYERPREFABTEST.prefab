@@ -115,9 +115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a1ab9fb149a6145b5278a7a000bc6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastMoveDir: {x: 0, y: 0}
+  pv: {fileID: 470051026499905831}
+  rb: {fileID: 9163911641456296774}
   player: {fileID: 6846404631014936663}
   fallingColliderObject: {fileID: 6971401597865304155}
+  lastMoveDir: {x: 0, y: 0}
 --- !u!114 &470051026499905831
 MonoBehaviour:
   m_ObjectHideFlags: 0

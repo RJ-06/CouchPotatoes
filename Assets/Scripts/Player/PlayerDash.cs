@@ -37,7 +37,7 @@ public class PlayerDash : MonoBehaviour
 
             // rb.AddForce(-1 * playerMovement.getMoveDir() * pv.getDashSpeed());  // Apply opposite force to stop the dashing
 
-            playerMovement.setDashing(false);
+            playerMovement.SetDashing(false);
             dashInProgress = false;
             gameObject.GetComponent<PlayerMovement>().fallingColliderObject.SetActive(false);
             dashTimer = pv.getDashTime();
@@ -52,7 +52,7 @@ public class PlayerDash : MonoBehaviour
         dashInProgress = true;
 
         // rb.AddForce(playerMovement.getMoveDir() * pv.getDashSpeed());
-        playerMovement.setDashing(true);
+        playerMovement.SetDashing(true);
         playerMovement.ForceSpeedUpdate();
     }
 }

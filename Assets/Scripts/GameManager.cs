@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator Explode()
     {
         // Explode, killing player with the potato
-        while (PlayerWithPotato().GetComponent<PlayerMovement>().getFallInProgress()) yield return new WaitForSeconds(0.1f);
+        while (PlayerWithPotato().GetComponent<PlayerMovement>().GetFallInProgress()) yield return new WaitForSeconds(0.1f);
         PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
         PlayerWithPotato().SetActive(false);
         PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();

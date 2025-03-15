@@ -11,45 +11,47 @@ using Vector2 = UnityEngine.Vector2;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Vector2 lastMoveDir;
-    Vector2 moveDir;
-
-    private PlayerInput playerInput;
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
+    // Player components
     private PlayerVals pv;
     private Rigidbody2D rb;
-    private BoxCollider2D coll;
+    private PlayerPotato potato;
+    public GameObject fallingColliderObject;  // Child of player that turns on a collider when a player is vulnerable to falling
 
+    // Related directly to player movement
     private bool canMove = true;
+    public Vector2 lastMoveDir = new Vector2(0, -1);
+    Vector2 moveDir;
+
+    // Players pushing other players
     private bool pushed = false;
     private bool isPusher = false;
-
-    private bool isDashing = false;
-    private bool hitByShockwave = false;
-    private bool fallInProgress = false;
-    private float dashSpeedMultiplier = 2.0f;
     private Vector2 pushedVelocity;
 
+    // Other effects on player movement
+    private bool fallInProgress = false;
+    private bool isDashing = false;
+    private bool hitByShockwave = false;
+    private float dashSpeedMultiplier = 2.0f;
 
-    [SerializeField] PlayerPotato player;
-    [SerializeField] public GameObject fallingColliderObject;
-
-    private void Start()
-    {
+    private void Start() {
         pv = GetComponent<PlayerVals>();
         rb = GetComponent<Rigidbody2D>();
-        lastMoveDir = new Vector2(0, -1);
+        potato = GetComponent<PlayerPotato>();
     }
 
     private void FixedUpdate()
     {
         if (hitByShockwave) {
-            fallingColliderObject.SetActive(true);
+            fallingColliderObject.SetActive(true);  // Allow player to fall if they are hit off by a shockwave
             pushedVelocity = rb.linearVelocity;
             ExecutePush(0.2f);
-            Debug.Log("Shockwave push done");
         } else if (!pushed && moveDir == Vector2.zero && !isPusher) {
-            // Store pushed velocity before executing the push
-            pushedVelocity = rb.linearVelocity;
+            fallingColliderObject.SetActive(true);
+            pushedVelocity = rb.linearVelocity; // Store pushed velocity before executing the push
             ExecutePush(0.7f);
         // If player moves make sure push force is canceled
         } else if (moveDir != Vector2.zero) {
@@ -57,9 +59,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    ////////////////////////////
+    ////////// INPUTS //////////
+    ////////////////////////////
+
     private void OnStart(InputValue value)
     {
-        Debug.Log(FindAnyObjectByType<GameManager>());
         FindAnyObjectByType<GameManager>().StartGame();
     }
 
@@ -74,18 +80,17 @@ public class PlayerMovement : MonoBehaviour
                 lastMoveDir = value.Get<Vector2>().normalized;
             }
             else moveDir = new Vector2(0, 0);
-            //if (Mathf.Sign(moveDir.x) == -Mathf.Sign(moveDir.x)) rb.linearVelocityX = 0;
-            //if (Mathf.Sign(moveDir.y) == -Mathf.Sign(moveDir.y)) rb.linearVelocityY = 0;
-
-            // rb.linearVelocity = moveDir * pv.getMoveSpeed();
-            // ClampSpeed();
 
             ApplyMovementSpeed();
         }
     }
 
 
-    private void ApplyMovementSpeed()   // Set current speed based on is dashing is triggered or not
+    //////////////////////////////
+    ////////// MOVEMENT //////////
+    //////////////////////////////
+    
+    private void ApplyMovementSpeed()  // Set current speed based on whether dashing is triggered or not
     {
         float speed;
 
@@ -96,11 +101,10 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = moveDir * speed;
 
-
         ClampSpeed();
     }
 
-    private void ClampSpeed()
+    private void ClampSpeed() // Make sure the player doesn't go over the max speed while moving
     {
         if (rb.linearVelocity.magnitude > pv.getMaxSpeed())
         {
@@ -108,19 +112,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnInteract()
-    {
-        Debug.Log("Interacted");
+    public void ForceSpeedUpdate() => ApplyMovementSpeed();  // Allow external script to force an immediate speed update.
 
+    public void SetCanMove(bool canMove) {
+        this.canMove = canMove;
+        if (!canMove) moveDir = Vector2.zero;
     }
 
-    private void OnStart()
-    {
-        int num = Random.Range(1, PlayerVals.numPlayers + 1);
-    }
+    public Vector2 getMoveDir() => moveDir;
 
+
+    ////////////////////////////////
+    ////////// COLLISIONS //////////
+    ////////////////////////////////
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
+        // Set up pushing effect when colliding with other players
         if (moveDir != Vector2.zero && other.gameObject.CompareTag("Player")){
             isPusher = true;
         }
@@ -140,16 +148,66 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Fallable") && !fallInProgress) {
-            Debug.Log("Fell");
             fallInProgress = true;
             StartCoroutine(Fall());
         }
     }
 
-    // Lower stopFactor equates to a faster stop, stopFactor < 1f
+
+    /////////////////////////////
+    ////////// FALLING //////////
+    /////////////////////////////
+    
+    public IEnumerator Fall()
+    {
+        SetCanMove(false);
+        rb.linearVelocity = Vector2.zero;
+
+        // Shrink the player to simulate a falling effect
+        while (gameObject.transform.localScale.x >= 0.01f) {
+            gameObject.transform.localScale *= 0.8f;
+            yield return new WaitForSeconds(0.05f);
+        }
+        // Additional 1.5 second punishment, because why have mercy on a player who was stupid enough to fall
+        yield return new WaitForSeconds(1.5f);
+
+        // Restore the player at a respawn point with the loss of some health
+        gameObject.transform.localScale = new Vector2(1f, 1f);
+        gameObject.GetComponent<PlayerVals>().setHealth((int)gameObject.GetComponent<PlayerVals>().getHealth() / 2);
+        gameObject.transform.position = PickRespawnPoint();
+        fallInProgress = false;
+        SetCanMove(true);
+    }
+
+    private Vector2 PickRespawnPoint()
+    {
+        // List of respawn points is picked inside editor...might change this if a better solution arises
+        List<Vector2> choices = FindAnyObjectByType<GameManager>().getRespawnPoints();
+        Vector2 respawnPoint = choices[0];
+        float respawnDist = Utilities.FindDistance(transform.position, respawnPoint);
+
+        // Choose the respawn point closes to the fall, return that
+        for(int i = 1; i < choices.Count; ++i) {
+            if (Utilities.FindDistance(transform.position, choices[i]) < respawnDist) {
+                respawnPoint = choices[i];
+                respawnDist = Utilities.FindDistance(transform.position, respawnPoint);
+            }
+        }
+        return respawnPoint;
+    }
+
+    public bool GetFallInProgress() => fallInProgress;
+
+
+    ///////////////////////////
+    ////////// OTHER //////////
+    ///////////////////////////
+    
+    // Allow a player to be pushed and retain some momentum, gradually coming to a stop
+    // Lower stopFactor equates to a faster stop, stopFactor < 1f (or the player will speed up)
     private void ExecutePush(float stopFactor)
     {
-        Vector2 keep = Vector2.Dot(pushedVelocity, moveDir) * moveDir;
+        // Slow down the player gradually
         pushedVelocity *= stopFactor;
         rb.linearVelocity = pushedVelocity;
 
@@ -159,63 +217,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-    public Vector2 getMoveDir() => moveDir;
-    public void SetCanMove(bool canMove) {
-        this.canMove = canMove;
-        if (!canMove) moveDir = Vector2.zero;
-    }
-
-    public bool GetHitByShockwave() => hitByShockwave;
-
-    public void SetHitByShockwave(bool b) => hitByShockwave = b;
-
-    public IEnumerator Fall()
-    {
-        SetCanMove(false);
-        Vector2 lastVelocity = rb.linearVelocity.normalized;
-        rb.linearVelocity = Vector2.zero;
-        while (gameObject.transform.localScale.x >= 0.01f) {
-            gameObject.transform.localScale *= 0.8f;
-            yield return new WaitForSeconds(0.05f);
-        }
-        yield return new WaitForSeconds(1.5f);
-        gameObject.transform.localScale = new Vector2(1f, 1f);
-        gameObject.GetComponent<PlayerVals>().setHealth((int)gameObject.GetComponent<PlayerVals>().getHealth() / 2);
-        gameObject.transform.position = pickRespawnPoint();
-        fallInProgress = false;
-        SetCanMove(true);
-    }
-
-    public bool getFallInProgress() => fallInProgress;
-
-    public void setDashing(bool dashing)
+    public void SetDashing(bool dashing)
     {
         isDashing = dashing;
         ApplyMovementSpeed();
     }
 
-    public void ForceSpeedUpdate() => ApplyMovementSpeed();     // Allow external script to force an immediate speed update.
+    public void SetHitByShockwave(bool b) => hitByShockwave = b;
 
-    private Vector2 pickRespawnPoint()
-    {
-        List<Vector2> choices = FindAnyObjectByType<GameManager>().getRespawnPoints();
-        Vector2 respawnPoint = choices[0];
-        float respawnDist = findDistance(transform.position, respawnPoint);
-        for(int i = 1; i < choices.Count; ++i) {
-            if (findDistance(transform.position, choices[i]) < respawnDist) {
-                respawnPoint = choices[i];
-                respawnDist = findDistance(transform.position, respawnPoint);
-            }
-        }
-
-        Debug.Log(respawnPoint);
-        return respawnPoint;
-    }
-
-    private float findDistance(Vector2 a, Vector2 b) {
-        float xDist = Mathf.Abs(a.x - b.x);
-        float yDist = Mathf.Abs(a.y - b.y);
-        return Mathf.Sqrt(Mathf.Pow(xDist, 2) + Mathf.Pow(yDist, 2));
-    }
+    public bool GetHitByShockwave() => hitByShockwave;
 }
