@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     // Related directly to player movement
     private bool canMove = true;
     public Vector2 lastMoveDir = new Vector2(0, -1);
-    Vector2 moveDir;
+    private Vector2 moveDir;
 
     // Players pushing other players
     private bool pushed = false;

@@ -17,7 +17,7 @@ public class PlayerPotato : MonoBehaviour
     // Game components
     [SerializeField] PlayerVals player;
     private PlayerMovement movement;
-    private Rigidbody2D rb;
+    [SerializeField] Rigidbody2D rb;
     [SerializeField] GameObject potato;
     [SerializeField] GameObject potatoIndicator;
     [SerializeField] Explosion explosion;
@@ -47,7 +47,6 @@ public class PlayerPotato : MonoBehaviour
     void Start()
     {
         movement = GetComponent<PlayerMovement>();
-        rb = GetComponent<Rigidbody2D>();
         gm = FindFirstObjectByType<GameManager>();
         gm.players.Add(gameObject);
     }

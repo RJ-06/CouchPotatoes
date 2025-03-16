@@ -9,32 +9,37 @@ using Random=UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    SpriteRenderer potatoSprite;
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+
+    // Game Components
+    private SpriteRenderer potatoSprite;
     [SerializeField] Sprite happyPotato, expressionlessPotato, redPotato, veryRedPotato;
     [SerializeField] TextMeshProUGUI timer;
-    [SerializeField] float minTimeToExplode = 10f;
-    [SerializeField] float maxTimeToExplode = 35f;
-    float timeToExplode;
-
+    private PlayerInputManager pInputManager;
+    public List<GameObject> players = new List<GameObject>();
+    private GameObject currentPlayer;
     [SerializeField] GameObject itemPrefab;
     [SerializeField] AudioSource audio;
+
+    // Related to gameplay
+    [SerializeField] float minTimeToExplode = 10f;
+    [SerializeField] float maxTimeToExplode = 35f;
+    private float timeToExplode;
     public float time;
-    public List<GameObject> players = new List<GameObject>();
-    GameObject currentPlayer;
-    bool exploded = true;
-    bool playerNamesAssigned = false;
-    bool mainMusicStarted = false;
-    int numItems = 0, playerNum = 1, numOfPlayers, playersLeft;
+    private int numItems = 0, playerNum = 1, numOfPlayers, playersLeft;
+    private bool exploded = true;
+    private bool playerNamesAssigned = false;
+    private bool mainMusicStarted = false;
 
-    PlayerInputManager pInputManager;
 
-    //////////////////////////////////////////////////////////////////////////////////////
-    // STAGE INFO ////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////
+    ////////// STAGE INFO ///////////
+    /////////////////////////////////
 
-    // FLOATING GRASS ISLAND
-    [SerializeField]
-    public List<Vector2> floatingGrassIslandRespawnPoints = new List<Vector2>();
+    // Floating grass island
+    [SerializeField] public List<Vector2> floatingGrassIslandRespawnPoints = new List<Vector2>();
 
     void Start()
     {
@@ -43,13 +48,10 @@ public class GameManager : MonoBehaviour
         foreach (Transform child in transform) {
             if (child.CompareTag("Player")) {
                 players.Add(child.gameObject);
-                Debug.Log("Player joined");
             }
         }
 
         timer.text = "Press tab to start";
-
-        //StartGame();
     }
 
     void FixedUpdate()
@@ -82,19 +84,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ChoosePlayerToGivePotato()
-    {
-        int num = Random.Range(0, playersLeft);
-        while (!players[num].activeSelf) {
-            int increment = Random.Range(0, 2);
-            if (increment == 0) ++num;
-            else --num;
-        }
-        players[num].GetComponent<PlayerPotato>().getPotato.Invoke();
-    }
+    //////////////////////////////////////
+    ////////// GAME MANAGEMENT ///////////
+    //////////////////////////////////////
 
     public void StartGame()
     {
+        // Assign player names
         if (!playerNamesAssigned) {
             foreach (GameObject player in players) {
                 player.name = "Player " + playerNum;
@@ -132,28 +128,45 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PlaceItemsAtIntervals(15f));
     }
 
-    private IEnumerator Explode()
+    private IEnumerator GameCountdown()
     {
-        // Explode, killing player with the potato
-        while (PlayerWithPotato().GetComponent<PlayerMovement>().GetFallInProgress()) yield return new WaitForSeconds(0.1f);
-        PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
-        PlayerWithPotato().SetActive(false);
-        PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
-
-        exploded = true;
-        --playersLeft;
-        StartCoroutine(BetweenPotatoExplosions());
-        yield return null;
+        timer.text = "Avoid the potato!";
+        yield return new WaitForSeconds(3f);
+        timer.text = "Ready...";
+        yield return new WaitForSeconds(1f);
+        timer.text = "Set...";
+        yield return new WaitForSeconds(1f);
+        timer.text = "Go!";
+        yield return new WaitForSeconds(0.5f);
+        ExecuteGame();
     }
 
-    void RestoreAllPlayers()
+    void ChoosePlayerToGivePotato()
     {
-        for (int i = 0; i < players.Count; ++i) {
-            if (!players[i].activeSelf) {
-                players[i].SetActive(true);
-                players[i].transform.localScale = new Vector3(1f, 1f, 1f);
-            }
+        int num = Random.Range(0, playersLeft);
+        while (!players[num].activeSelf) { // Ignore players that aren't alive
+            int increment = Random.Range(0, 2);
+            if (increment == 0) ++num;
+            else --num;
         }
+        players[num].GetComponent<PlayerPotato>().getPotato.Invoke();
+    }
+
+    GameObject PlayerWithPotato() {
+        for (int i = 0; i < players.Count; ++i) {
+            if (players[i].transform.GetComponent<PlayerPotato>().Potato().activeSelf) return players[i];
+        }
+        Debug.Log("Player with potato was not found!");
+        return null;
+    }
+
+    private IEnumerator PlaceItemsAtIntervals(float timeBetween)
+    {
+        while (numItems < players.Count) {
+            yield return new WaitForSeconds(timeBetween);
+            ChooseWhereToPlaceItem();
+        }
+        yield return null;
     }
 
     void ChooseWhereToPlaceItem() {
@@ -191,26 +204,18 @@ public class GameManager : MonoBehaviour
         ++numItems;
     }
 
-    GameObject PlayerWithPotato() {
-        for (int i = 0; i < players.Count; ++i) {
-            if (players[i].transform.GetComponent<PlayerPotato>().Potato().activeSelf) return players[i];
-        }
-        Debug.Log("Player with potato was not found!");
-        return null;
-    }
-
-    private IEnumerator GameCountdown()
+    private IEnumerator Explode()
     {
-        timer.text = "Avoid the potato!";
-        Debug.Log("Text displayed");
-        yield return new WaitForSeconds(3f);
-        timer.text = "Ready...";
-        yield return new WaitForSeconds(1f);
-        timer.text = "Set...";
-        yield return new WaitForSeconds(1f);
-        timer.text = "Go!";
-        yield return new WaitForSeconds(0.5f);
-        ExecuteGame();
+        // Explode, killing player with the potato
+        while (PlayerWithPotato().GetComponent<PlayerMovement>().GetFallInProgress()) yield return new WaitForSeconds(0.1f);
+        PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
+        PlayerWithPotato().SetActive(false);
+        PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
+
+        exploded = true;
+        --playersLeft;
+        StartCoroutine(BetweenPotatoExplosions());
+        yield return null;
     }
 
     private IEnumerator BetweenPotatoExplosions()
@@ -222,6 +227,7 @@ public class GameManager : MonoBehaviour
         }
         yield return new WaitForSeconds(2f);
         
+        // Handle win condition (if only one player is alive)
         if (playersLeft == 1) {
             foreach (GameObject player in players) {
                 if(player.activeSelf) timer.text = player.name + " won!";
@@ -235,20 +241,17 @@ public class GameManager : MonoBehaviour
         StartGame();
     }
 
-    private IEnumerator PlaceItemsAtIntervals(float timeBetween)
+    void RestoreAllPlayers()
     {
-        while (numItems < players.Count) {
-            Debug.Log("Got past if statement");
-            yield return new WaitForSeconds(timeBetween);
-            ChooseWhereToPlaceItem();
+        for (int i = 0; i < players.Count; ++i) {
+            if (!players[i].activeSelf) {
+                players[i].SetActive(true);
+                players[i].transform.localScale = new Vector3(1f, 1f, 1f);
+            }
         }
-        yield return null;
     }
 
-    public void IncrementTime(float timeIncr) 
-    {
-        time += timeIncr;
-    }
+    public void IncrementTime(float timeIncr) => time += timeIncr;
 
     public List<Vector2> getRespawnPoints() => floatingGrassIslandRespawnPoints;
 }
