@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class CharacterSelectMenu : MonoBehaviour
 {
-    [SerializeField] int playerCount = 0;
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
     [SerializeField] TextMeshProUGUI playerCountText;
-    [SerializeField] int nextScene;
+    private int playerCount = 0;
+    private int nextScene;
+    
     public void OnAddPlayer() 
     {
         playerCount++;

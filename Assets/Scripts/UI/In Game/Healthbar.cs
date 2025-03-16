@@ -4,13 +4,18 @@ using System.Collections;
 
 public class Healthbar : MonoBehaviour
 {
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
+    // UI related components
     public Slider slider;
     public GameObject player;
-    private Vector3 offset = new Vector3(0, 0.9f, 0);
-
-    [SerializeField] private float displayTime = 0.8f;
-    [SerializeField] private float fadeSpeed = 1f;
     private CanvasGroup canvasGroup;
+
+    private Vector3 offset = new Vector3(0, 0.9f, 0);
+    [SerializeField] private float displayTime = 2f;
+    [SerializeField] private float fadeSpeed = 0.5f;
     private float prevHealth;
     private Coroutine fadeCoroutine;
 

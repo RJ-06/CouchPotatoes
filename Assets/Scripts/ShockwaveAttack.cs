@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class ShockwaveAttack : MonoBehaviour
 {
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
     [SerializeField] CircleCollider2D shockwave;
-    [SerializeField] float shockwaveRadius = 2f;
-    [SerializeField] float shockwaveSpeed = 1f;
-    [SerializeField] float shockwaveStrength = 1f;
+    [SerializeField] float shockwaveRadius;
+    [SerializeField] float shockwaveSpeed;
+    [SerializeField] float shockwaveStrength;
     [SerializeField] bool poweredUp = false;
 
     private HashSet<PlayerMovement> playerMovements = new HashSet<PlayerMovement>();
 
     Vector3 scaleChange = new Vector3(0, 0, 0);
     
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         scaleChange.x = shockwaveSpeed;
@@ -23,7 +25,6 @@ public class ShockwaveAttack : MonoBehaviour
         StartCoroutine(ExecuteShockwave());
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         
@@ -39,7 +40,7 @@ public class ShockwaveAttack : MonoBehaviour
         Vector2 direction = (other.transform.position - transform.position).normalized;
         Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * shockwaveStrength * 150;
-        //rb.AddForce(direction * shockwaveStrength * 150);
+        // rb.AddForce(direction * shockwaveStrength * 150);
 
         playerMovements.Add(target);
         target.SetCanMove(false);

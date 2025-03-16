@@ -7,7 +7,9 @@ using System.Collections;
 
 public class FXManager : MonoBehaviour
 {
-    
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
 
     [Tooltip("Drag in the Camera")]
     //[SerializeField] CinemachineCamera c;
@@ -18,14 +20,14 @@ public class FXManager : MonoBehaviour
     [Header("Note - fx name, particle effect, and audio clip must be paired by index")]
     [Tooltip("List of overall effect names")]
     [SerializeField] string[] fxType;
-    [Tooltip("list of particle effects")]
+    [Tooltip("List of particle effects")]
     [SerializeField] ParticleSystem[] particleList;
-    [Tooltip("list of paired sound effects")]
+    [Tooltip("List of paired sound effects")]
     [SerializeField] AudioClip[] soundEffectList;
     private Dictionary<string, ParticleSystem> particleDict;
     private Dictionary<string, AudioClip> soundEffectDict;
 
-    [Tooltip("event list - you can pair particle effects/audio with camera shake here")]
+    [Tooltip("Event list - you can pair particle effects/audio with camera shake here")]
     public UnityEvent[] effects;
 
     // Start is called once before the first execution of Update after the MonoBehavior is created

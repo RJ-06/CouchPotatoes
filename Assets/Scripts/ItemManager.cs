@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
     [SerializeField] List<ItemSO> items;
     [SerializeField] List<ItemAttributes> itemAttributes;
 

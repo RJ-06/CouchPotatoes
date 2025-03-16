@@ -3,15 +3,18 @@ using UnityEngine;
 
 public class FireEffect : ItemAttributes
 {
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
     [SerializeField] float burnDuration;
     [SerializeField] float burnDamagePerSecond;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     
     void Start()
     {
         Debug.Log("Fire is working.");
     }
-    // Update is called once per frame
+
     void Update()
     {
         
@@ -31,6 +34,5 @@ public class FireEffect : ItemAttributes
             yield return new WaitForSeconds(1f);
         }
     }
-    
 }
 

@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class WeakAttack : MonoBehaviour
 {
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
     [SerializeField] int weakDamage = 1;
     [SerializeField] float knockbackForceStrength = 0.5f;
     private bool attacked = false;

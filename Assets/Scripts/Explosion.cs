@@ -3,16 +3,19 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    bool doExplode = false;
-
-    [SerializeField] float startScaleSize;
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
+    private bool doExplode = false;
+    float timer = 0f;
     float scale;
+    [SerializeField] float startScaleSize;
     [SerializeField] float endScaleSize;
     [SerializeField] float timeForExplosion;
-    float timer = 0f;
     [SerializeField] int damageDeal;
 
-    //[SerializeField] FXManager fx;
+    // [SerializeField] FXManager fx;
 
     System.Collections.Generic.List<PlayerVals> playerList;
 
@@ -27,14 +30,13 @@ public class Explosion : MonoBehaviour
 
         gameObject.SetActive(true);
         transform.localScale = new Vector2(startScaleSize, startScaleSize);
-        //fx.effects[0].Invoke();
-        //fx.playParticle("PotatoExplode");
+        // fx.effects[0].Invoke();
+        // fx.playParticle("PotatoExplode");
         timer = 0;
         doExplode = true;
         playerList.Clear();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (!doExplode) return;

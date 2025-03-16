@@ -4,12 +4,16 @@ using UnityEngine.Events;
 
 public class Switch : MonoBehaviour
 {
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
     [Tooltip("Switching between the on and off states respectively")]
     UnityEvent actionOne;
     UnityEvent actionTwo;
     [Tooltip("A list of tags for objects that can enable the switch (ie attacks)")]
     [SerializeField] string[] switchTags;
-    bool currState = true;
+    private bool currState = true;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

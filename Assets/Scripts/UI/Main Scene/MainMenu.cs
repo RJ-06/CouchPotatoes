@@ -4,10 +4,16 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
+    // UI components
     public GameObject mainMenu;
     public GameObject optionsMenu;
-
     private GameObject lastSelectedButton;
+
+    // States
     private MenuState currentState = MenuState.Main;
     private enum MenuState
     {
@@ -54,7 +60,6 @@ public class MainMenu : MonoBehaviour
 
         currentState = MenuState.Main;
     }
-
 
     public void QuitApp()
     {

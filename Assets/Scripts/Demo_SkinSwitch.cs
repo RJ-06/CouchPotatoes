@@ -3,6 +3,10 @@ using UnityEngine.InputSystem;
 
 public class Demo_SkinSwitch : MonoBehaviour
 {
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
     private SpriteRenderer spriteRend;
     [SerializeField] Sprite[] sprites;
     private int currSelected = 0;

@@ -285,11 +285,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 470051026499905831}
-  movement: {fileID: 6475602217346035667}
   rb: {fileID: 5852215728364785576}
   potato: {fileID: 1846692597506183403}
   potatoIndicator: {fileID: 6417111034159420714}
-  potatoChecker: {fileID: 5870009079913388645}
+  explosion: {fileID: 1417973234630308483}
   maxThrowForce: 700
   maxThrowTime: 2
   getPotato:
@@ -322,8 +321,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  enemy: {fileID: 0}
-  explosion: {fileID: 1417973234630308483}
 --- !u!58 &5870009079913388645
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -979,10 +976,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1255494136691477550, guid: 5cacf93063d7349ef8618ab1ec639f26, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2955668753672747294, guid: 5cacf93063d7349ef8618ab1ec639f26, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 6144178735891011915}
+    - target: {fileID: 2955668753672747294, guid: 5cacf93063d7349ef8618ab1ec639f26, type: 3}
+      propertyPath: displayTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5716304236872702471, guid: 5cacf93063d7349ef8618ab1ec639f26, type: 3}
       propertyPath: m_Name
       value: HealthBarCanvas
@@ -1018,8 +1023,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 3819081844569165938}
   player: {fileID: 6144178735891011915}
-  displayTime: 0.8
-  fadeSpeed: 1
+  displayTime: 2
+  fadeSpeed: 0.5
 --- !u!114 &3819081844569165938 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6981824349072470755, guid: 5cacf93063d7349ef8618ab1ec639f26, type: 3}
