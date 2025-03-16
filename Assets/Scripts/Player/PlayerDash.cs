@@ -3,40 +3,39 @@ using UnityEngine.InputSystem;
 
 public class PlayerDash : MonoBehaviour
 {
-    [SerializeField] float dashCooldownTimer;
-    [SerializeField] float dashTimer;
-    private bool dashInProgress = false;
-    private float originalMovesSpeed;
-
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
+    // Player components
     private PlayerVals pv;
-    private PlayerInput playerInput;
     private Rigidbody2D rb;
+    private PlayerInput playerInput;
     private PlayerMovement playerMovement;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Dash related
+    private float dashCooldownTimer;
+    private float dashTimer;
+    private bool dashInProgress = false;
+
     void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
-        rb = GetComponent<Rigidbody2D>();
         pv = GetComponent<PlayerVals>();
+        rb = GetComponent<Rigidbody2D>();
+        playerInput = GetComponent<PlayerInput>();
+        playerMovement = GetComponent<PlayerMovement>();
         dashCooldownTimer = pv.getDashCooldown();
         dashTimer = pv.getDashTime();
-        playerMovement = GetComponent<PlayerMovement>();
-        originalMovesSpeed = pv.getMoveSpeed();
     }
     
     private void FixedUpdate()
     {
-        // Debug.Log(rb.linearVelocity.magnitude);
         dashCooldownTimer -= Time.fixedDeltaTime;
 
-        if (dashInProgress && Mathf.Abs(dashTimer) >= 0.0001) {     // Dashing is on progress
-            gameObject.GetComponent<PlayerMovement>().fallingColliderObject.SetActive(true);
+        if (dashInProgress && Mathf.Abs(dashTimer) >= 0.0001) {     // Dashing is in progress
+            gameObject.GetComponent<PlayerMovement>().fallingColliderObject.SetActive(true); // Player can fall when dashing
             dashTimer -= Time.fixedDeltaTime;
-        } else if (dashInProgress) {    // Dashing has end as the timer <= 0
-
-            // rb.AddForce(-1 * playerMovement.getMoveDir() * pv.getDashSpeed());  // Apply opposite force to stop the dashing
-
+        } else if (dashInProgress) {    // Dashing has ended as the timer <= 0
             playerMovement.SetDashing(false);
             dashInProgress = false;
             gameObject.GetComponent<PlayerMovement>().fallingColliderObject.SetActive(false);
@@ -46,12 +45,12 @@ public class PlayerDash : MonoBehaviour
 
     private void OnDash() 
     {
-        if (dashCooldownTimer > 0) return;      // > 0 meaning in cooldown, <= 0 meaning can be used 
+        if (pv == null) return;  // Prevent null reference on controller join
+
+        if (dashCooldownTimer > 0) return;  // > 0 meaning in cooldown, <= 0 meaning can be used 
  
         dashCooldownTimer = pv.getDashCooldown();
         dashInProgress = true;
-
-        // rb.AddForce(playerMovement.getMoveDir() * pv.getDashSpeed());
         playerMovement.SetDashing(true);
         playerMovement.ForceSpeedUpdate();
     }

@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     ////////// INPUTS //////////
     ////////////////////////////
 
-    private void OnStart(InputValue value)
+    private void OnStart()
     {
         FindAnyObjectByType<GameManager>().StartGame();
     }
@@ -92,8 +92,9 @@ public class PlayerMovement : MonoBehaviour
     
     private void ApplyMovementSpeed()  // Set current speed based on whether dashing is triggered or not
     {
-        float speed;
+        if (pv == null) return;  // Prevent null reference on controller join
 
+        float speed;
         if (isDashing)
             speed = pv.getMoveSpeed() * dashSpeedMultiplier;
         else

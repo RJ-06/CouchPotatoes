@@ -10,73 +10,107 @@ using UnityEngine.InputSystem;
 
 public class PlayerPotato : MonoBehaviour
 {
-    [Header("put this on an empty with a collider attached that is then parented to the player")]
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
 
+    // Game components
     [SerializeField] PlayerVals player;
-    [SerializeField] PlayerMovement movement;
-    [SerializeField] Rigidbody2D rb;
+    private PlayerMovement movement;
+    private Rigidbody2D rb;
     [SerializeField] GameObject potato;
     [SerializeField] GameObject potatoIndicator;
-    [SerializeField] CircleCollider2D potatoChecker;
+    [SerializeField] Explosion explosion;
+    private GameManager gm;
+
+
+    // Related to throwing and transferring the potato
     [InspectorLabel("Deal with holding potato to throw longer")]
     [SerializeField] float maxThrowForce;
     [SerializeField] float maxThrowTime;
+    private bool potatoThrown = false;
+    private bool atPlayer = false;
+    private Vector2 shootDir;
 
-    [Tooltip("add in events")]
+
+    // Events
+    [Tooltip("Add in events")]
     public UnityEvent getPotato;
     [SerializeField] UnityEvent givePotato;
 
-    [SerializeField] PlayerPotato enemy;
-    Vector2 bobOffset;
-    float xOffset = 0f, yOffset = 0f, initYOffset, xShift, yShift;
-    bool bobbing = false;
-    bool potatoThrown = false;
-    bool atPlayer = false;
 
-    Vector2 shootDir;
+    // Potato bobbing :D
+    private Vector2 bobOffset;
+    private float xOffset = 0f, yOffset = 0f, initYOffset, xShift, yShift;
+    private bool bobbing = false;
 
-    [SerializeField] Explosion explosion;
-    GameManager gm;
-
-
-    // Start is called before the first frame update
     void Start()
     {
+        movement = GetComponent<PlayerMovement>();
+        rb = GetComponent<Rigidbody2D>();
         gm = FindFirstObjectByType<GameManager>();
         gm.players.Add(gameObject);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        if(!potatoThrown)
+        if (!potatoThrown)
         {
-            if(!bobbing) StartCoroutine(BobUpAndDown());
+            if (!bobbing) StartCoroutine(BobUpAndDown());
             bobbing = true;
             xShift = xOffset / 10;
             yShift = yOffset / 10;
             StartCoroutine(FollowPlayer());
         }
-        else
+    }
+
+
+    ////////////////////////////
+    ////////// INPUTS //////////
+    ////////////////////////////
+
+    private void OnThrow()
+    {
+        if (!potatoThrown && player.getHasPotato())
         {
-            float totalVelocity = Mathf.Sqrt(Mathf.Pow(rb.linearVelocityX, 2) + Mathf.Pow(rb.linearVelocityY, 2));
+            StopCoroutine(FollowPlayer());
+            if (shootDir != Vector2.zero) // Use right stick direction if given
+            {
+            rb.AddForce(maxThrowForce * shootDir);
+            }
+            else // Use previous direction moved if the potato isn't aimed
+            {
+            rb.AddForce(maxThrowForce * movement.lastMoveDir);
+            }
+            StartCoroutine(ReturnToPlayer());
+            potatoThrown = true;
         }
     }
 
+    private void OnAim(InputValue val) // Aim the potato with the right joystick on controller
+    {
+        shootDir = val.Get<Vector2>();
+    }
+
+
+    /////////////////////////////////////
+    ////////// POTATO BEHAVIOR //////////
+    /////////////////////////////////////
+
     private IEnumerator BobUpAndDown()
     {
-        Vector2 corePos = potato.transform.position;
-        while(true)
+        while (true)
         {
-            for(float i = 1f; i <= 100f; ++i)
+            for (float i = 1f; i <= 100f; ++i)
             {
-                bobOffset = new Vector2(0, 0.15f * Mathf.Sin(0.02f * Mathf.PI * i));
-                if(potatoThrown)
-                {
-                    bobbing = false;
-                    yield break;
-                }
-                yield return new WaitForSeconds(0.01f);
+            // Potato bobs up and down with an offset determined by a sine wave
+            bobOffset = new Vector2(0, 0.15f * Mathf.Sin(0.02f * Mathf.PI * i));
+            if (potatoThrown)  // Stop bobbing when thrown
+            {
+                bobbing = false;
+                yield break;
+            }
+            yield return new WaitForSeconds(0.01f);
             }
         }
     }
@@ -86,7 +120,7 @@ public class PlayerPotato : MonoBehaviour
         Vector2 oldPlayerPosition = transform.position;
         yield return new WaitForSeconds(0.05f);
         // Set position to just behind the player, incorporating the bobbing and smooth return if needed
-        if(initYOffset != 0)
+        if (initYOffset != 0)
         {
             potato.transform.position = oldPlayerPosition + new Vector2(xOffset - xShift, yOffset + 0.5f * ((initYOffset - yOffset) / initYOffset)) + bobOffset;
         }
@@ -96,7 +130,7 @@ public class PlayerPotato : MonoBehaviour
         }
         xOffset -= xShift;
         yOffset -= yShift;
-        if(initYOffset - yOffset <= 0.01) initYOffset = 0;
+        if (initYOffset - yOffset <= 0.01) initYOffset = 0;
     }
 
     private IEnumerator ReturnToPlayer()
@@ -107,7 +141,7 @@ public class PlayerPotato : MonoBehaviour
 
         // Make potato "gravitationally" return to player until it is reasonably close
         float exp = 0f;
-        while(!atPlayer)
+        while (!atPlayer)
         {
             Vector2 returnForce = (float)Math.Pow(2, exp) * mult * new Vector2(transform.position.x - potato.transform.position.x, transform.position.y + 0.5f - potato.transform.position.y).normalized;
             rb.linearVelocity = 0.8f * rb.linearVelocity;
@@ -119,7 +153,7 @@ public class PlayerPotato : MonoBehaviour
 
             yield return new WaitForSeconds(0.02f);
         }
-        rb.linearVelocity = new Vector2(0,0);
+        rb.linearVelocity = Vector2.zero;
 
         // Set up offsets to manually return potato into position once it's close (for smoothness)
         xOffset = potato.transform.position.x - transform.position.x;
@@ -131,43 +165,19 @@ public class PlayerPotato : MonoBehaviour
 
     private IEnumerator SmoothReturn()
     {
+        // Set up offsets so the potato returns smoothly upon starting to follow the player again
         xOffset = potato.transform.position.x - transform.position.x;
         yOffset = potato.transform.position.y - transform.position.y;
         initYOffset = yOffset;
         yield break;
     }
 
-    private void OnThrow(/*InputAction.CallbackContext context*/)
-    {
-        //float throwTime = 1.5f; //throwTime = (float)context.duration;
-        //if (throwTime > maxThrowTime) throwTime = maxThrowTime;
-
-        if(!potatoThrown && player.getHasPotato())
-        {
-            StopCoroutine(FollowPlayer());
-            Debug.Log(maxThrowForce * movement.lastMoveDir);
-            Debug.Log(rb.linearVelocity);
-            if (shootDir != Vector2.zero) 
-            {
-                rb.AddForce(maxThrowForce * shootDir); 
-            }
-            else 
-            { 
-                rb.AddForce(maxThrowForce * movement.lastMoveDir);
-            }
-            StartCoroutine(ReturnToPlayer());
-            potatoThrown = true;
-        }
-    }
-
-
-
     public void onGetPotato()
     {
         player.setHasPotato(true);
         potato.SetActive(true);
         potatoIndicator.SetActive(true);
-        if(gm.time <= 5f) gm.IncrementTime(5f);
+        if (gm.time <= 5f) gm.IncrementTime(5f);  // Some extra time for the player to react
     }
 
     public void onGivePotato()
@@ -178,20 +188,15 @@ public class PlayerPotato : MonoBehaviour
         potatoIndicator.SetActive(false);
     }
 
-    private void OnAim(InputValue val) 
-    {
-        shootDir = val.Get<Vector2>();
-    }
-
-    public bool getPotatoThrown() { return potatoThrown; }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(potatoThrown && other.CompareTag("Potato") && other.transform.parent.gameObject == transform.gameObject)
+        // Take this branch if the potato reaches its own player
+        if (potatoThrown && other.CompareTag("Potato") && other.transform.parent.gameObject == transform.gameObject)
         {
             atPlayer = true;
         }
-        else if(!player.getHasPotato() && other.CompareTag("Potato") && other.transform.parent.GetComponent<PlayerPotato>().getPotatoThrown())
+        // Take this branch if the potato reaches a player that is not its own (this will transfer the potato)
+        else if (!player.getHasPotato() && other.CompareTag("Potato") && other.transform.parent.GetComponent<PlayerPotato>().GetPotatoThrown())
         {
             PlayerPotato giver = other.transform.parent.GetComponent<PlayerPotato>();
 
@@ -204,14 +209,14 @@ public class PlayerPotato : MonoBehaviour
         }
     }
 
-    public void ExplodePotato() {
+    public void ExplodePotato()
+    {
         bobbing = false;
-        //explosion.enabled = true;
-        //explosion.ResetAndExplode();
+        // explosion.enabled = true;
+        // explosion.ResetAndExplode();
     }
 
-    public GameObject Potato()
-    {
-        return potato;
-    }
+    public GameObject Potato() => potato;
+
+    public bool GetPotatoThrown() => potatoThrown;
 }

@@ -29,6 +29,7 @@ public class FXManager : MonoBehaviour
     public UnityEvent[] effects;
 
     // Start is called once before the first execution of Update after the MonoBehavior is created
+    /*
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -39,6 +40,7 @@ public class FXManager : MonoBehaviour
         }
         //stopShaking();
     }
+    */
 
     public void playParticle(string s) 
     {

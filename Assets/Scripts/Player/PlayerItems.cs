@@ -3,32 +3,35 @@ using UnityEngine.InputSystem;
 
 public class PlayerItems: MonoBehaviour
 {
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
     
+    // Player components
+    private PlayerVals pv;
     private Transform shockwaveItem;
-    [SerializeField] float shockwaveCooldown;
-    [SerializeField] float shockwaveCooldownTimer;
-    private bool shockwaveUsed = false;
     [SerializeField] GameObject ShockwavePrefab;
     [SerializeField] GameObject weakAttackPrefab;
 
-    // [SerializeField] float weakRange = 2f;
-    // [SerializeField] int weakDamage = 1;
-    // [SerializeField] float knockbackForceStrength = 0.5f;
-
+    // Weak attack
     [SerializeField] float weakCooldown;
     [SerializeField] float weakCooldownTimer;
     private bool weakUsed = false;
+    // [SerializeField] float weakRange = 2f;
+    // [SerializeField] int weakDamage = 1;
+    // [SerializeField] float knockbackForceStrength = 0.5f;
     // [SerializeField] float arcAngle = 33f;
     // [SerializeField] int numRays = 5;
-
-    private PlayerInput playerInput;
-    private PlayerVals pv;
-
     // private LineRenderer lineRenderer;
+
+    // Shockwave attack
+    [SerializeField] float shockwaveCooldown;
+    [SerializeField] float shockwaveCooldownTimer;
+    private bool shockwaveUsed = false;
+
     void Start()
     {
         pv = GetComponent<PlayerVals>();
-        playerInput = GetComponent<PlayerInput>();
         shockwaveCooldown = pv.getAttackCooldown();
 
         // lineRenderer = gameObject.AddComponent<LineRenderer>();
@@ -42,6 +45,7 @@ public class PlayerItems: MonoBehaviour
 
     void FixedUpdate()
     {
+        // Handle cooldowns and attack executions
         if (shockwaveUsed && Mathf.Abs(shockwaveCooldownTimer) >= 0.0001) {
             shockwaveCooldownTimer -= Time.fixedDeltaTime;
         } else if (shockwaveUsed) {
@@ -55,33 +59,43 @@ public class PlayerItems: MonoBehaviour
         }
     }
 
+
+    ////////////////////////////
+    ////////// INPUTS //////////
+    ////////////////////////////
+    
     private void OnAttack()
     {
         shockwaveItem = transform.Find("ShockwaveItem(Clone)");
 
-        if(shockwaveItem != null && !shockwaveUsed)
+        if(shockwaveItem != null && !shockwaveUsed) // Shockwave attack used
         {
             shockwaveUsed = true;
             shockwaveCooldownTimer = shockwaveCooldown;
             Instantiate(ShockwavePrefab, transform.position, Quaternion.identity, this.transform);
         }
-        else if(shockwaveItem == null && !weakUsed)
+        else if(shockwaveItem == null && !weakUsed) // No other attack available, so do weak attack
         {
             weakCooldownTimer = weakCooldown;
             WeakAttack();
         }
     }
 
+
+    /////////////////////////////////
+    ////////// WEAK ATTACK //////////
+    /////////////////////////////////
+    
     private void WeakAttack()
     {
-        //Debug.Log("Weak Attack");
+        // Debug.Log("Weak Attack");
         Vector3 attackPos = new Vector3(
             transform.position.x + transform.forward.x, 
             transform.position.y + 1f, 
             transform.position.z + transform.forward.z
         );        
-        //Debug.Log(attackPos);
-        //Debug.Log(transform.position);
+        // Debug.Log(attackPos);
+        // Debug.Log(transform.position);
         GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, Quaternion.identity, transform.gameObject.transform);
         Destroy(weakAttack, 1f);
         // Vector3 dirAtk = transform.forward;

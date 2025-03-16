@@ -5,12 +5,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
+    ///////////////////////////////
+    ////////// VARIABLES //////////
+    ///////////////////////////////
+    
     public static int playerCount;
     private List<PlayerInput> players = new List<PlayerInput>();
     private PlayerInputManager playerInputManager;
     [SerializeField] Transform[] startingPositions;
-
-    public static List<GameObject> playerList = new List<GameObject>(); // temporary
 
     private void Awake()
     {
@@ -35,10 +37,9 @@ public class PlayerManager : MonoBehaviour
     {
         players.Add(player);
 
-        //need to use the parent due to the structure of the prefab
+        // Need to use the parent due to the structure of the prefab
         Transform playerParent = player.transform.parent;
         playerParent.position = startingPositions[players.Count - 1].position;
-
     }
 
 }
