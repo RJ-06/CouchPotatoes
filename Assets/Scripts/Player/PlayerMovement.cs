@@ -184,21 +184,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 PickRespawnPoint()
     {
-        /*
-        // List of respawn points is picked inside editor...might change this if a better solution arises
-        List<Vector2> choices = FindAnyObjectByType<GameManager>().getRespawnPoints();
-        Vector2 respawnPoint = choices[0];
-        float respawnDist = Utilities.FindDistance(transform.position, respawnPoint);
-
-        // Choose the respawn point closes to the fall, return that
-        for(int i = 1; i < choices.Count; ++i) {
-            if (Utilities.FindDistance(transform.position, choices[i]) < respawnDist) {
-                respawnPoint = choices[i];
-                respawnDist = Utilities.FindDistance(transform.position, respawnPoint);
-            }
-        }
-        */
-
         Tilemap choices = FindAnyObjectByType<GameManager>().GetRespawnPoints();
         Vector2 currentPos = transform.position;
         Vector2 respawnPoint = Vector2.zero;
@@ -213,7 +198,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         
-        Debug.Log(tilesMatched);
         return respawnPoint;
     }
 
