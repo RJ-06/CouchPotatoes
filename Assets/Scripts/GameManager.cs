@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 using Random=UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     private SpriteRenderer potatoSprite;
     [SerializeField] Sprite happyPotato, expressionlessPotato, redPotato, veryRedPotato;
     [SerializeField] TextMeshProUGUI timer;
+    [SerializeField] Tilemap possibleRespawnPoints;
     private PlayerInputManager pInputManager;
     public List<GameObject> players = new List<GameObject>();
     private GameObject currentPlayer;
@@ -253,5 +255,6 @@ public class GameManager : MonoBehaviour
 
     public void IncrementTime(float timeIncr) => time += timeIncr;
 
-    public List<Vector2> getRespawnPoints() => floatingGrassIslandRespawnPoints;
+    // public List<Vector2> getRespawnPoints() => floatingGrassIslandRespawnPoints;
+    public Tilemap GetRespawnPoints() => possibleRespawnPoints;
 }

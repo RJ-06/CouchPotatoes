@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestMainMenu.unity
     guid: 5dcc3320480ac4662ac35da41f5e74b3
+  - enabled: 1
+    path: Assets/Scenes/TestPotato.unity
+    guid: 8743e709731b74115952a087eba39fec
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

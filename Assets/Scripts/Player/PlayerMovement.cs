@@ -6,8 +6,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -182,6 +184,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 PickRespawnPoint()
     {
+        /*
         // List of respawn points is picked inside editor...might change this if a better solution arises
         List<Vector2> choices = FindAnyObjectByType<GameManager>().getRespawnPoints();
         Vector2 respawnPoint = choices[0];
@@ -194,6 +197,23 @@ public class PlayerMovement : MonoBehaviour
                 respawnDist = Utilities.FindDistance(transform.position, respawnPoint);
             }
         }
+        */
+
+        Tilemap choices = FindAnyObjectByType<GameManager>().GetRespawnPoints();
+        Vector2 currentPos = transform.position;
+        Vector2 respawnPoint = Vector2.zero;
+        int tilesMatched = 0;
+        foreach (var position in choices.cellBounds.allPositionsWithin) {
+            if (choices.HasTile(position)) {
+                ++tilesMatched;
+                Vector2 tile = new(position.x + 0.5f, position.y + 0.5f);
+                if (Utilities.FindDistance(currentPos, tile) <= Utilities.FindDistance(currentPos, respawnPoint)) {
+                    respawnPoint = tile;
+                }
+            }
+        }
+        
+        Debug.Log(tilesMatched);
         return respawnPoint;
     }
 

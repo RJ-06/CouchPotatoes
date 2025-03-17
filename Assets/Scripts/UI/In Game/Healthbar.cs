@@ -45,7 +45,6 @@ public class Healthbar : MonoBehaviour
         // If health changed
         if (slider.value != prevHealth)
         {
-            Debug.Log($"Health changed! Previous: {prevHealth}, Current: {slider.value}");
             ShowHealthBar();
         }
 
@@ -71,7 +70,6 @@ public class Healthbar : MonoBehaviour
 
         yield return new WaitForSeconds(displayTime);
 
-        Debug.Log("Starting fade out");
         while (canvasGroup.alpha > 0)
         {
             canvasGroup.alpha -= Time.deltaTime * fadeSpeed;
