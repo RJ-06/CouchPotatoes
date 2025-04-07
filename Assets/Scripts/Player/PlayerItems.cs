@@ -12,6 +12,7 @@ public class PlayerItems: MonoBehaviour
     private Transform shockwaveItem;
     [SerializeField] GameObject ShockwavePrefab;
     [SerializeField] GameObject weakAttackPrefab;
+    [SerializeField] GameObject ConfusionItem;
 
     // Weak attack
     [SerializeField] float weakCooldown;
@@ -23,6 +24,7 @@ public class PlayerItems: MonoBehaviour
     [SerializeField] float shockwaveCooldown;
     [SerializeField] float shockwaveCooldownTimer;
     private bool shockwaveUsed = false;
+   
 
     void Start()
     {
@@ -43,6 +45,13 @@ public class PlayerItems: MonoBehaviour
             weakCooldownTimer -= Time.fixedDeltaTime;
         } else if (weakUsed) {
             weakUsed = false;
+        }
+
+        if (ConfusionItem != null) 
+        {
+            pv.setMoveSpeed(pv.getMoveSpeed() * -1);
+            Destroy(ConfusionItem);
+            ConfusionItem = null;
         }
     }
 
