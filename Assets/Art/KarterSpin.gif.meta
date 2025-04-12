@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      KarterSpin_0: 3118088625448631360
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
