@@ -10,18 +10,13 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject pauseMenu;
     public GameObject resumeButton;
-
-    public GameObject optionsMenu;
-
+    public GameObject optionsMenu; // Reference to the options menu
     public GameObject background;
-
     public TextMeshProUGUI countdownText;
-
     private GameObject lastSelectedButton;
-
     private bool isCountingDown = false;
-
     private MenuState currentState = MenuState.Pause;
+    private GameManager gameManager; // Reference to GameManager
 
     public enum MenuState
     {
@@ -32,9 +27,15 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         pauseMenu.SetActive(false);
-        optionsMenu.SetActive(false);
         if (countdownText != null)
             countdownText.gameObject.SetActive(false);
+
+        // Get reference to GameManager
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager not found in the scene!");
+        }
     }
 
     // Update is called once per frame
@@ -72,10 +73,17 @@ public class PauseMenu : MonoBehaviour
 
     void Pause()
     {
-        background.SetActive(true);
         pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
+        background.SetActive(true);
         GameIsPaused = true;
+        Time.timeScale = 0f;
+
+        // Play pause sound effect if GameManager is available
+        if (gameManager != null)
+        {
+            // You'll need to assign the pause sound clip in the inspector
+            gameManager.PlaySFX(gameManager.testSFX);
+        }
 
         EventSystem.current.SetSelectedGameObject(resumeButton);
     }

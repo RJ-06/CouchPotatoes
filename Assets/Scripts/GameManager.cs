@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
-using Random=UnityEngine.Random;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     public List<GameObject> players = new List<GameObject>();
     private GameObject currentPlayer;
     [SerializeField] GameObject itemPrefab;
-    [SerializeField] AudioSource audio;
 
     // Related to gameplay
     [SerializeField] float minTimeToExplode = 10f;
@@ -33,6 +32,14 @@ public class GameManager : MonoBehaviour
     private int numItems = 0, playerNum = 1, numOfPlayers, playersLeft;
     private bool exploded = true;
     private bool playerNamesAssigned = false;
+
+    [Header("---------- Audio Source ----------")]
+    [SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource SFXSource;
+
+    [Header("---------- Audio Clip ----------")]
+    public AudioClip mainBackground;
+    public AudioClip testSFX;
     private bool mainMusicStarted = false;
 
 
@@ -47,8 +54,10 @@ public class GameManager : MonoBehaviour
     {
         pInputManager = GetComponent<PlayerInputManager>();
         // Add each player in game to list
-        foreach (Transform child in transform) {
-            if (child.CompareTag("Player")) {
+        foreach (Transform child in transform)
+        {
+            if (child.CompareTag("Player"))
+            {
                 players.Add(child.gameObject);
             }
         }
@@ -59,30 +68,41 @@ public class GameManager : MonoBehaviour
     void FixedUpdate()
     {
         // Update potato sprite if potato transfers
-        if (!exploded && PlayerWithPotato() != currentPlayer) {
+        if (!exploded && PlayerWithPotato() != currentPlayer)
+        {
             currentPlayer = PlayerWithPotato();
             potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
         }
 
-        if (!exploded) {
+        if (!exploded)
+        {
             // Potato explodes on 0
-            if (time <= 0f) {
+            if (time <= 0f)
+            {
                 timer.text = "0";
                 StartCoroutine(Explode());
-            // Update timer otherwise
-            } else {
+                // Update timer otherwise
+            }
+            else
+            {
                 timer.text = time.ToString();
                 time -= Time.fixedDeltaTime;
             }
 
             // Change sprite at halfway point
-            if (time / timeToExplode <= 0.1f) {
+            if (time / timeToExplode <= 0.1f)
+            {
                 potatoSprite.sprite = veryRedPotato;
-            } else if (time / timeToExplode <= 0.333f) {
+            }
+            else if (time / timeToExplode <= 0.333f)
+            {
                 potatoSprite.sprite = redPotato;
-            } else if (time / timeToExplode <= 0.5f) {
+            }
+            else if (time / timeToExplode <= 0.5f)
+            {
                 potatoSprite.sprite = expressionlessPotato;
-            } else potatoSprite.sprite = happyPotato;
+            }
+            else potatoSprite.sprite = happyPotato;
         }
     }
 
@@ -93,8 +113,10 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         // Assign player names
-        if (!playerNamesAssigned) {
-            foreach (GameObject player in players) {
+        if (!playerNamesAssigned)
+        {
+            foreach (GameObject player in players)
+            {
                 player.name = "Player " + playerNum;
                 ++playerNum;
                 playerNamesAssigned = true;
@@ -106,14 +128,16 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(GameCountdown());
         Debug.Log("Game started");
-        
+
     }
 
     void ExecuteGame()
     {
         pInputManager.DisableJoining();
-        if(!mainMusicStarted) {
-            audio.Play();
+        if (!mainMusicStarted)
+        {
+            musicSource.clip = mainBackground;
+            musicSource.Play();
             mainMusicStarted = true;
         }
         timeToExplode = Random.Range(minTimeToExplode, maxTimeToExplode);
@@ -146,7 +170,8 @@ public class GameManager : MonoBehaviour
     void ChoosePlayerToGivePotato()
     {
         int num = Random.Range(0, playersLeft);
-        while (!players[num].activeSelf) { // Ignore players that aren't alive
+        while (!players[num].activeSelf)
+        { // Ignore players that aren't alive
             int increment = Random.Range(0, 2);
             if (increment == 0) ++num;
             else --num;
@@ -154,8 +179,10 @@ public class GameManager : MonoBehaviour
         players[num].GetComponent<PlayerPotato>().getPotato.Invoke();
     }
 
-    GameObject PlayerWithPotato() {
-        for (int i = 0; i < players.Count; ++i) {
+    GameObject PlayerWithPotato()
+    {
+        for (int i = 0; i < players.Count; ++i)
+        {
             if (players[i].transform.GetComponent<PlayerPotato>().Potato().activeSelf) return players[i];
         }
         Debug.Log("Player with potato was not found!");
@@ -164,44 +191,50 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator PlaceItemsAtIntervals(float timeBetween)
     {
-        while (numItems < players.Count) {
+        while (numItems < players.Count)
+        {
             yield return new WaitForSeconds(timeBetween);
             ChooseWhereToPlaceItem();
         }
         yield return null;
     }
 
-    void ChooseWhereToPlaceItem() {
+    void ChooseWhereToPlaceItem()
+    {
         float[,] positions = {{0f, -21f, -21f, 21f, 21f},
                               {0f,   8f,  -8f,  8f, -8f}};
-        float[] distanceSums = {0f, 0f, 0f, 0f, 0f};
+        float[] distanceSums = { 0f, 0f, 0f, 0f, 0f };
         float largestDistSum = 0f;
         int index = -1;
         bool placeInCenter = true;
 
         // Loop through and find largest distance sum and its index
-        for (int i = 0; i < distanceSums.Length; ++i) {
-            for (int j = 0; j < players.Count; ++j) {
-                float xDist = Mathf.Abs(players[j].transform.position.x - positions[0,i]);
-                float yDist = Mathf.Abs(players[j].transform.position.y - positions[1,i]);
+        for (int i = 0; i < distanceSums.Length; ++i)
+        {
+            for (int j = 0; j < players.Count; ++j)
+            {
+                float xDist = Mathf.Abs(players[j].transform.position.x - positions[0, i]);
+                float yDist = Mathf.Abs(players[j].transform.position.y - positions[1, i]);
                 float dist = Mathf.Sqrt(Mathf.Pow(xDist, 2) + Mathf.Pow(yDist, 2));
 
                 distanceSums[i] += dist;
             }
-            if (distanceSums[i] > largestDistSum) {
+            if (distanceSums[i] > largestDistSum)
+            {
                 largestDistSum = distanceSums[i];
                 index = i;
             }
         }
 
         // Determine whether to place in center
-        for (int i = 1; i < distanceSums.Length; ++i) {
+        for (int i = 1; i < distanceSums.Length; ++i)
+        {
             if (1.3 * distanceSums[0] < distanceSums[i]) placeInCenter = false;
         }
 
         // Place an item at the area with the largest distance sum
-        Vector3 position = new Vector3(positions[0,index], positions[1,index], -0.5f);
-        
+        Vector3 position = new Vector3(positions[0, index], positions[1, index], -0.5f);
+
         Instantiate(itemPrefab, position, Quaternion.identity);
         ++numItems;
     }
@@ -222,17 +255,21 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator BetweenPotatoExplosions()
     {
-        for (int i = 0; i < players.Count; ++i) {
-            if (!players[i].activeSelf) {
+        for (int i = 0; i < players.Count; ++i)
+        {
+            if (!players[i].activeSelf)
+            {
                 timer.text = players[i].name + " exploded!";
             }
         }
         yield return new WaitForSeconds(2f);
-        
+
         // Handle win condition (if only one player is alive)
-        if (playersLeft == 1) {
-            foreach (GameObject player in players) {
-                if(player.activeSelf) timer.text = player.name + " won!";
+        if (playersLeft == 1)
+        {
+            foreach (GameObject player in players)
+            {
+                if (player.activeSelf) timer.text = player.name + " won!";
             }
             yield return new WaitForSeconds(3f);
             timer.text = "Respawning players...";
@@ -245,8 +282,10 @@ public class GameManager : MonoBehaviour
 
     void RestoreAllPlayers()
     {
-        for (int i = 0; i < players.Count; ++i) {
-            if (!players[i].activeSelf) {
+        for (int i = 0; i < players.Count; ++i)
+        {
+            if (!players[i].activeSelf)
+            {
                 players[i].SetActive(true);
                 players[i].transform.localScale = new Vector3(1f, 1f, 1f);
             }
@@ -257,4 +296,12 @@ public class GameManager : MonoBehaviour
 
     // public List<Vector2> getRespawnPoints() => floatingGrassIslandRespawnPoints;
     public Tilemap GetRespawnPoints() => possibleRespawnPoints;
+
+
+    // Play Sound Effect. This will be called in other files
+    public void PlaySFX(AudioClip clip)
+    {
+        SFXSource.PlayOneShot(clip);
+    }
+
 }

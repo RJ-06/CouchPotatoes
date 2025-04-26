@@ -13,6 +13,14 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsMenu;
     private GameObject lastSelectedButton;
 
+    [Header("---------- Audio Source ----------")]
+    [SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource SFXSource;
+
+    [Header("---------- Audio Clip ----------")]
+    public AudioClip main_menu_background;
+    public AudioClip testSFX;
+
     // States
     private MenuState currentState = MenuState.Main;
     private enum MenuState
@@ -24,7 +32,9 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         mainMenu.SetActive(true);
-        optionsMenu.SetActive(false);        
+        optionsMenu.SetActive(false);
+        musicSource.clip = main_menu_background;
+        musicSource.Play();   
     }
 
     public void GoToScene(string sceneName)
