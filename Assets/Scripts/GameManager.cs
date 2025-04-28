@@ -203,34 +203,7 @@ public class GameManager : MonoBehaviour
     {
         float[,] positions = {{0f, -21f, -21f, 21f, 21f},
                               {0f,   8f,  -8f,  8f, -8f}};
-        float[] distanceSums = { 0f, 0f, 0f, 0f, 0f };
-        float largestDistSum = 0f;
-        int index = -1;
-        bool placeInCenter = true;
-
-        // Loop through and find largest distance sum and its index
-        for (int i = 0; i < distanceSums.Length; ++i)
-        {
-            for (int j = 0; j < players.Count; ++j)
-            {
-                float xDist = Mathf.Abs(players[j].transform.position.x - positions[0, i]);
-                float yDist = Mathf.Abs(players[j].transform.position.y - positions[1, i]);
-                float dist = Mathf.Sqrt(Mathf.Pow(xDist, 2) + Mathf.Pow(yDist, 2));
-
-                distanceSums[i] += dist;
-            }
-            if (distanceSums[i] > largestDistSum)
-            {
-                largestDistSum = distanceSums[i];
-                index = i;
-            }
-        }
-
-        // Determine whether to place in center
-        for (int i = 1; i < distanceSums.Length; ++i)
-        {
-            if (1.3 * distanceSums[0] < distanceSums[i]) placeInCenter = false;
-        }
+        int index = Random.Range(0, 5);
 
         // Place an item at the area with the largest distance sum
         Vector3 position = new Vector3(positions[0, index], positions[1, index], -0.5f);
