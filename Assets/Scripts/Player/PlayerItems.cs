@@ -52,7 +52,7 @@ public class PlayerItems: MonoBehaviour
             pv.setMovementMultiplier(-1f);
             Destroy(ConfusionItem);
             ConfusionItem = null;
-        }
+        } 
     }
 
 

@@ -45035,14 +45035,16 @@ MonoBehaviour:
   timer: {fileID: 351593604}
   possibleRespawnPoints: {fileID: 2030673269}
   players: []
-  itemPrefab: {fileID: 1451091749043144713, guid: 3002575c9f6510830a0b1dec92ce5992, type: 3}
+  itemsToSpawn:
+  - {fileID: 1451091749043144713, guid: de69259eb9c9d914e9cc2bbbaf8919c2, type: 3}
+  - {fileID: 1451091749043144713, guid: 3002575c9f6510830a0b1dec92ce5992, type: 3}
   minTimeToExplode: 10
   maxTimeToExplode: 35
   time: 0
-  musicSource: {fileID: 1677405735}
-  SFXSource: {fileID: 1329152747}
-  mainBackground: {fileID: 8300000, guid: 87a6bbc29e9c7e74a94570c5548c955d, type: 3}
-  testSFX: {fileID: 8300000, guid: 7f82fd561e4e6ec488d50ffc575bc5ef, type: 3}
+  musicSource: {fileID: 0}
+  SFXSource: {fileID: 0}
+  mainBackground: {fileID: 0}
+  testSFX: {fileID: 0}
   floatingGrassIslandRespawnPoints:
   - {x: -17.5, y: 9.5}
   - {x: -14.5, y: 10.5}

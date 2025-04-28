@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     private PlayerInputManager pInputManager;
     public List<GameObject> players = new List<GameObject>();
     private GameObject currentPlayer;
-    [SerializeField] GameObject itemPrefab;
+    [SerializeField] GameObject[] itemsToSpawn;
 
     // Related to gameplay
     [SerializeField] float minTimeToExplode = 10f;
@@ -235,7 +235,7 @@ public class GameManager : MonoBehaviour
         // Place an item at the area with the largest distance sum
         Vector3 position = new Vector3(positions[0, index], positions[1, index], -0.5f);
 
-        Instantiate(itemPrefab, position, Quaternion.identity);
+        Instantiate(itemsToSpawn[Random.Range(0,itemsToSpawn.Length)], position, Quaternion.identity);
         ++numItems;
     }
 
