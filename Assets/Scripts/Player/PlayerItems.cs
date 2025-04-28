@@ -48,8 +48,8 @@ public class PlayerItems: MonoBehaviour
         }
 
         if (ConfusionItem != null) 
-        {
-            pv.setMoveSpeed(pv.getMoveSpeed() * -1);
+        { //TODO - MAKE THIS SWITCH DIRECTION OF AIMING AS WELL
+            pv.setMovementMultiplier(-1f);
             Destroy(ConfusionItem);
             ConfusionItem = null;
         }
