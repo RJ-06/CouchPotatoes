@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     // Player components
     private PlayerVals pv;
     private Rigidbody2D rb;
+    private BoxCollider2D bc;
     private PlayerPotato potato;
     public GameObject fallingColliderObject;  // Child of player that turns on a collider when a player is vulnerable to falling
 
@@ -43,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     {
         pv = GetComponent<PlayerVals>();
         rb = GetComponent<Rigidbody2D>();
+        bc = GetComponent<BoxCollider2D>();
         potato = GetComponent<PlayerPotato>();
     }
 
@@ -174,6 +176,16 @@ public class PlayerMovement : MonoBehaviour
     {
         SetCanMove(false);
         rb.linearVelocity = Vector2.zero;
+        bc.enabled = false;
+        
+        // Move the player smoothly to the nearest fall point before doing the animation
+        Vector2 fallPosition = Utilities.FindNearestTileInSet(transform.position, FindAnyObjectByType<GameManager>().GetFallPoints());
+        Debug.Log("Fall position: " + fallPosition);
+        while (Utilities.FindDistance(transform.position, fallPosition) > 0.1f)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, fallPosition, 0.1f);
+            yield return new WaitForSeconds(0.01f);
+        }
 
         // Shrink the player to simulate a falling effect
         while (gameObject.transform.localScale.x >= 0.01f)
@@ -189,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
         gameObject.GetComponent<PlayerVals>().IncrementHealth(-1 * (int)gameObject.GetComponent<PlayerVals>().getMaxHealth() / 4);
         gameObject.transform.position = PickRespawnPoint();
         fallInProgress = false;
+        bc.enabled = true;
         SetCanMove(true);
     }
 
@@ -196,20 +209,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Tilemap choices = FindAnyObjectByType<GameManager>().GetRespawnPoints();
         Vector2 currentPos = transform.position;
-        Vector2 respawnPoint = Vector2.zero;
-        int tilesMatched = 0;
-        foreach (var position in choices.cellBounds.allPositionsWithin)
-        {
-            if (choices.HasTile(position))
-            {
-                ++tilesMatched;
-                Vector2 tile = new(position.x + 0.5f, position.y + 0.5f);
-                if (Utilities.FindDistance(currentPos, tile) <= Utilities.FindDistance(currentPos, respawnPoint))
-                {
-                    respawnPoint = tile;
-                }
-            }
-        }
+        Vector2 respawnPoint = Utilities.FindNearestTileInSet(currentPos, choices);
 
         return respawnPoint;
     }
