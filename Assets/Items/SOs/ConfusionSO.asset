@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ConfusionSO
   m_EditorClassIdentifier: 
   itemName: Shockwave
-  itemPrefab: {fileID: 4343722360355832344, guid: fbc68db6f47d0bad6b4bcc929f118e7a, type: 3}
-  pickupPrefab: {fileID: 1451091749043144713, guid: 3002575c9f6510830a0b1dec92ce5992, type: 3}
+  itemPrefab: {fileID: 4343722360355832344, guid: 4f66447468b043a42992c62d38f13c3d, type: 3}
+  pickupPrefab: {fileID: 1451091749043144713, guid: de69259eb9c9d914e9cc2bbbaf8919c2, type: 3}

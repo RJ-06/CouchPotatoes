@@ -16,6 +16,7 @@ public class PlayerVals : MonoBehaviour
 
     // Start game with these values
     float currentMoveSpeed;
+    float movementMultiplier = 1f;
     int currentHealthPoints;
     float currentDashSpeed;
     int currentAttackPoints;
@@ -44,6 +45,8 @@ public class PlayerVals : MonoBehaviour
 
     public float getMoveSpeed() => currentMoveSpeed;
     public void setMoveSpeed(float nSpeed) => currentMoveSpeed = nSpeed;
+    public float getMovementMultiplier() => movementMultiplier;
+    public void setMovementMultiplier(float nMult) => movementMultiplier = nMult;
     public float getHealth() => currentHealthPoints;
     public float getMaxHealth() => baseHealthPoints;
     public void setHealth(int nHealth)  => currentHealthPoints = nHealth;
