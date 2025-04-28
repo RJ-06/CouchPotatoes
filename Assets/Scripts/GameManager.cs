@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     private PlayerInputManager pInputManager;
     public List<GameObject> players = new List<GameObject>();
     private GameObject currentPlayer;
-    [SerializeField] GameObject itemPrefab;
+    [SerializeField] GameObject[] itemsToSpawn;
 
     // Related to gameplay
     [SerializeField] float minTimeToExplode = 10f;
@@ -103,6 +103,15 @@ public class GameManager : MonoBehaviour
                 potatoSprite.sprite = expressionlessPotato;
             }
             else potatoSprite.sprite = happyPotato;
+
+            foreach(var p in players) 
+            {
+                if (p.GetComponent<PlayerVals>()) 
+                {
+                    if (p.GetComponent<PlayerVals>().getHealth() < 0) { KillPlayer(p); }
+                    
+                }
+            }
         }
     }
 
@@ -208,21 +217,44 @@ public class GameManager : MonoBehaviour
         // Place an item at the area with the largest distance sum
         Vector3 position = new Vector3(positions[0, index], positions[1, index], -0.5f);
 
-        Instantiate(itemPrefab, position, Quaternion.identity);
+        Instantiate(itemsToSpawn[Random.Range(0, itemsToSpawn.Length)], position, Quaternion.identity);
         ++numItems;
+    }
+
+    private void KillPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        --playersLeft;
+        if (player == PlayerWithPotato())
+        {
+            PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
+            PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
+            StartCoroutine(BetweenPotatoExplosions());
+        }
+
+        if (playersLeft == 0) { RestoreAllPlayers(); }
+        
     }
 
     private IEnumerator Explode()
     {
         // Explode, killing player with the potato
         while (PlayerWithPotato().GetComponent<PlayerMovement>().GetFallInProgress()) yield return new WaitForSeconds(0.1f);
-        PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
-        PlayerWithPotato().SetActive(false);
-        PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
+        //PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
+        //PlayerWithPotato().SetActive(false);
+        //PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
 
         exploded = true;
-        --playersLeft;
-        StartCoroutine(BetweenPotatoExplosions());
+        //--playersLeft;
+        //StartCoroutine(BetweenPotatoExplosions());
+
+        KillPlayer(PlayerWithPotato());
+
+        foreach (GameObject p in players) 
+        {
+            if(p.activeSelf)p.GetComponent<PlayerVals>().setHealth(100);
+        }
+
         yield return null;
     }
 
@@ -260,6 +292,7 @@ public class GameManager : MonoBehaviour
             if (!players[i].activeSelf)
             {
                 players[i].SetActive(true);
+                players[i].GetComponent<PlayerVals>().setHealth(100);
                 players[i].transform.localScale = new Vector3(1f, 1f, 1f);
             }
         }
