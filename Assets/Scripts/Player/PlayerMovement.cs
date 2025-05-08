@@ -199,6 +199,7 @@ public class PlayerMovement : MonoBehaviour
         // Restore the player at a respawn point with the loss of some health
         gameObject.transform.localScale = new Vector2(1f, 1f);
         gameObject.GetComponent<PlayerVals>().IncrementHealth(-1 * (int)gameObject.GetComponent<PlayerVals>().getMaxHealth() / 4);
+        Debug.Log(PickRespawnPoint());
         gameObject.transform.position = PickRespawnPoint();
         fallInProgress = false;
         bc.enabled = true;
