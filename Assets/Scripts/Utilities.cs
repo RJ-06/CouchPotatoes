@@ -17,7 +17,7 @@ public static class Utilities
         foreach (var pos in tilemap.cellBounds.allPositionsWithin)
         {
             Debug.Log("Possible tile: " + pos);
-            if (tilemap.HasTile(pos) && tilemap.GetTile(pos) != null)
+            if (tilemap.HasTile(pos))
             {
                 Debug.Log("This tile exists!");
                 // Get the world position of the tile
