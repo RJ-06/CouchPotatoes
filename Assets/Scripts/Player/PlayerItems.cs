@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,7 +26,11 @@ public class PlayerItems: MonoBehaviour
     [SerializeField] float shockwaveCooldown;
     [SerializeField] float shockwaveCooldownTimer;
     private bool shockwaveUsed = false;
-   
+
+    // Confusion item
+    [SerializeField] float confusionDuration;
+    protected float confusionTimer = 0;
+
 
     void Start()
     {
@@ -47,13 +53,15 @@ public class PlayerItems: MonoBehaviour
             weakUsed = false;
         }
 
-        if (ConfusionItem != null) 
-        { //TODO - MAKE THIS SWITCH DIRECTION OF AIMING AS WELL
+        Transform confIt = transform.Find("ConfusionItem(Clone)");
+        if (confIt != null) 
+        {
             pv.setMovementMultiplier(-1f);
-            Destroy(ConfusionItem);
-            ConfusionItem = null;
-            Debug.Log("movemult: " + pv.getMovementMultiplier() + "; " + pv.getMoveSpeed());
-        } 
+            Debug.Log("movemult: " + pv.getMovementMultiplier() + "; movespeed: " + pv.getMoveSpeed());
+            Destroy(confIt.gameObject);
+            StartCoroutine("ConfusionTime");
+
+        }
     }
 
 
@@ -103,5 +111,17 @@ public class PlayerItems: MonoBehaviour
     private void OnAim(InputValue val) // Aim the potato with the right joystick on controller
     {
         shootDir = val.Get<Vector2>();
+    }
+
+
+    /////////////////////////////////
+    /////// Confusion Duration //////
+    /////////////////////////////////
+
+    IEnumerator ConfusionTime()
+    {
+        yield return new WaitForSeconds(confusionDuration);
+        pv.setMovementMultiplier(1f);
+        Debug.Log("movemult: " + pv.getMovementMultiplier() + "; movespeed: " + pv.getMoveSpeed());
     }
 }

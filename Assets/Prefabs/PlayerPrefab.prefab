@@ -358,11 +358,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShockwavePrefab: {fileID: 9203247207447412739, guid: 699f35a124f56f398b0096574a65eb1a, type: 3}
   weakAttackPrefab: {fileID: 706087334615091427, guid: 4ec413589416a6d41a4b120123028c5d, type: 3}
-  ConfusionItem: {fileID: 0}
+  ConfusionItem: {fileID: 4343722360355832344, guid: 4f66447468b043a42992c62d38f13c3d, type: 3}
   weakCooldown: 0
   weakCooldownTimer: 0
   shockwaveCooldown: 5
   shockwaveCooldownTimer: 0
+  confusionDuration: 7.5
 --- !u!114 &7046214573460959820
 MonoBehaviour:
   m_ObjectHideFlags: 0

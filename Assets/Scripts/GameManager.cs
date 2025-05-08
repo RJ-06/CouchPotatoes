@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private SpriteRenderer potatoSprite;
     [SerializeField] Sprite happyPotato, expressionlessPotato, redPotato, veryRedPotato;
     [SerializeField] TextMeshProUGUI timer;
+    [SerializeField] Tilemap possibleFallPoints;
     [SerializeField] Tilemap possibleRespawnPoints;
     private PlayerInputManager pInputManager;
     public List<GameObject> players = new List<GameObject>();
@@ -301,6 +302,7 @@ public class GameManager : MonoBehaviour
     public void IncrementTime(float timeIncr) => time += timeIncr;
 
     // public List<Vector2> getRespawnPoints() => floatingGrassIslandRespawnPoints;
+    public Tilemap GetFallPoints() => possibleFallPoints;
     public Tilemap GetRespawnPoints() => possibleRespawnPoints;
 
 
