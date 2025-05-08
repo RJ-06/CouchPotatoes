@@ -53,12 +53,12 @@ public class PlayerItems: MonoBehaviour
             weakUsed = false;
         }
 
-        GameObject confIt;
-        if (confIt = transform.Find("ConfusionItem(Clone)").gameObject) 
+        Transform confIt = transform.Find("ConfusionItem(Clone)");
+        if (confIt != null) 
         {
             pv.setMovementMultiplier(-1f);
             Debug.Log("movemult: " + pv.getMovementMultiplier() + "; movespeed: " + pv.getMoveSpeed());
-            Destroy(confIt);
+            Destroy(confIt.gameObject);
             StartCoroutine("ConfusionTime");
 
         }
