@@ -16,13 +16,17 @@ public static class Utilities
 
         foreach (var pos in tilemap.cellBounds.allPositionsWithin)
         {
-            if (tilemap.HasTile(pos))
+            Debug.Log("Possible tile: " + pos);
+            if (tilemap.HasTile(pos) && tilemap.GetTile(pos) != null)
             {
+                Debug.Log("This tile exists!");
+                // Get the world position of the tile
                 Vector2 tileWorldPos = tilemap.GetCellCenterWorld(pos);
-                float distance = Utilities.FindDistance(position, tileWorldPos);
+                float distance = FindDistance(position, tileWorldPos);
 
                 if (distance < shortestDist)
                 {
+                    Debug.Log("This tile is closer!");
                     shortestDist = distance;
                     nearestTile = tileWorldPos;
                 }

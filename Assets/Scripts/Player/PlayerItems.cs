@@ -50,8 +50,6 @@ public class PlayerItems: MonoBehaviour
         if (ConfusionItem != null) 
         { //TODO - MAKE THIS SWITCH DIRECTION OF AIMING AS WELL
             pv.setMovementMultiplier(-1f);
-            Destroy(ConfusionItem);
-            ConfusionItem = null;
             Debug.Log("movemult: " + pv.getMovementMultiplier() + "; " + pv.getMoveSpeed());
         } 
     }
