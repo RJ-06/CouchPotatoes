@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1914dfe1b208ba6fe88a4c5878e43528
+guid: f748ba25841fc4a4aaa26dcb23ea396e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -260074930354040848
-    second: SpuddySpin_0
+      213: 6246322869027096286
+    second: TateSpin_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SpuddySpin_0
+      name: TateSpin_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 1
-        width: 24
-        height: 31
+        x: 2
+        y: 2
+        width: 28
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0ff43419a37046cf0800000000000000
-      internalID: -260074930354040848
+      spriteID: ed642c01e856fa650800000000000000
+      internalID: 6246322869027096286
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      SpuddySpin_0: -260074930354040848
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
