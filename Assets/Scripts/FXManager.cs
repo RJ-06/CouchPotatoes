@@ -31,18 +31,24 @@ public class FXManager : MonoBehaviour
     public UnityEvent[] effects;
 
     // Start is called once before the first execution of Update after the MonoBehavior is created
-    /*
+    
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        particleDict = new Dictionary<string, ParticleSystem>();
+        soundEffectDict = new Dictionary<string, AudioClip>();
+
         for (int i = 0; i < fxType.Length; i++) 
         {
+            // Debug.Log($"{i}: {fxType[i]}");
+            // Debug.Log($"{i}: {particleList[i]}");
             particleDict.Add(fxType[i], particleList[i]);
             soundEffectDict.Add(fxType[i], soundEffectList[i]);
         }
         //stopShaking();
     }
-    */
+    
 
     public void playParticle(string s) 
     {
