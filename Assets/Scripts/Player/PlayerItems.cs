@@ -70,12 +70,13 @@ public class PlayerItems: MonoBehaviour
             StartCoroutine("ConfusionTime");
 
         }
-
-        if (confIt = transform.Find("FrenzyItem(Clone)").gameObject.transform)
+        confIt = transform.Find("ConfusionItem(Clone)");
+        if (confIt != null)
         {
             pv.setMovementMultiplier(pv.getMovementMultiplier() * frenzyBoost);
             pv.setAttackCooldown(pv.getAttackCooldown() * frenzyCooldownDecrease);
             pv.setDashCooldown(pv.getDashCooldown() * frenzyCooldownDecrease);
+            Destroy(confIt.gameObject);
         }
     }
 
