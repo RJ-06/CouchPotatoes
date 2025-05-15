@@ -71,7 +71,7 @@ public class PlayerItems: MonoBehaviour
 
         }
 
-        if (confIt = transform.Find("FrenzyItem(Clone)").gameObject)
+        if (confIt = transform.Find("FrenzyItem(Clone)").gameObject.transform)
         {
             pv.setMovementMultiplier(pv.getMovementMultiplier() * frenzyBoost);
             pv.setAttackCooldown(pv.getAttackCooldown() * frenzyCooldownDecrease);
