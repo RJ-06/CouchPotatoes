@@ -15,6 +15,7 @@ public class PlayerItems: MonoBehaviour
     [SerializeField] GameObject ShockwavePrefab;
     [SerializeField] GameObject weakAttackPrefab;
     [SerializeField] GameObject ConfusionItem;
+    [SerializeField] GameObject frenzyPowerup;
 
     // Weak attack
     [SerializeField] float weakCooldown;
@@ -30,6 +31,10 @@ public class PlayerItems: MonoBehaviour
     // Confusion item
     [SerializeField] float confusionDuration;
     protected float confusionTimer = 0;
+
+    //frenzy item
+    [SerializeField] float frenzyBoost;
+    [SerializeField] float frenzyCooldownDecrease;
 
 
     void Start()
@@ -61,6 +66,13 @@ public class PlayerItems: MonoBehaviour
             Destroy(confIt);
             StartCoroutine("ConfusionTime");
 
+        }
+
+        if (confIt = transform.Find("FrenzyItem(Clone)").gameObject)
+        {
+            pv.setMovementMultiplier(pv.getMovementMultiplier() * frenzyBoost);
+            pv.setAttackCooldown(pv.getAttackCooldown() * frenzyCooldownDecrease);
+            pv.setDashCooldown(pv.getDashCooldown() * frenzyCooldownDecrease);
         }
     }
 
