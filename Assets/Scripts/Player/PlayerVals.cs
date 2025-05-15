@@ -57,12 +57,12 @@ public class PlayerVals : MonoBehaviour
     public void setAttackPoints(int nAttackPoints) => currentAttackPoints = nAttackPoints;
 
     public float getDashCooldown() => currentDashCooldown;
-    public void setDashCooldown(int newDashCooldown) => currentDashCooldown = newDashCooldown;
+    public void setDashCooldown(float newDashCooldown) => currentDashCooldown = newDashCooldown;
     public float getDashTime() => currentDashTime;
-    public void setDashTime(int newDashTime) => currentDashTime = newDashTime;
+    public void setDashTime(float newDashTime) => currentDashTime = newDashTime;
     public float getAttackCooldown() => currentAttackCooldown;
 
-    public void setAttackCooldown(int newAttackCooldown) => currentAttackCooldown = newAttackCooldown;
+    public void setAttackCooldown(float newAttackCooldown) => currentAttackCooldown = newAttackCooldown;
 
     public float getMaxSpeed() => currentMaxSpeed;
     public void setMaxSpeed(float newMaxSpeed) => currentMaxSpeed = newMaxSpeed;

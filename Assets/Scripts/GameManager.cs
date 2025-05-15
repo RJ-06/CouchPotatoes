@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
             {
                 if (p.GetComponent<PlayerVals>()) 
                 {
-                    if (p.GetComponent<PlayerVals>().getHealth() < 0) { KillPlayer(p); }
+                    if (p.GetComponent<PlayerVals>().getHealth() <= 0) { KillPlayer(p); }
                     
                 }
             }
