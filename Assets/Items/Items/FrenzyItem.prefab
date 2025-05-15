@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5797751215468584930}
   - component: {fileID: 4805230373210488671}
+  - component: {fileID: 8961301883697342619}
   m_Layer: 0
   m_Name: FrenzyItem
   m_TagString: Item
@@ -87,3 +88,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8961301883697342619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4343722360355832344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e9d75397f5b5a646b624c6fe42c08fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 1
+  period: 1.5
