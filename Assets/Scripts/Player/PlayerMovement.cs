@@ -132,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public Vector2 getMoveDir() => moveDir;
+    public void setMoveDir(Vector2 newMoveDir) => moveDir = newMoveDir;
 
 
     ////////////////////////////////

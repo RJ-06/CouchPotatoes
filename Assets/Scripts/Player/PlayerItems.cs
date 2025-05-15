@@ -11,6 +11,7 @@ public class PlayerItems: MonoBehaviour
     
     // Player components
     private PlayerVals pv;
+    private PlayerMovement movement;
     private Transform shockwaveItem;
     [SerializeField] GameObject ShockwavePrefab;
     [SerializeField] GameObject weakAttackPrefab;
@@ -40,6 +41,7 @@ public class PlayerItems: MonoBehaviour
     void Start()
     {
         pv = GetComponent<PlayerVals>();
+        movement = GetComponent<PlayerMovement>();
         shockwaveCooldown = pv.getAttackCooldown();
     }
 
@@ -58,12 +60,13 @@ public class PlayerItems: MonoBehaviour
             weakUsed = false;
         }
 
-        GameObject confIt;
-        if (confIt = transform.Find("ConfusionItem(Clone)").gameObject) 
+        Transform confIt = transform.Find("ConfusionItem(Clone)");
+        if (confIt != null) 
         {
+            transform.gameObject.GetComponent<Rigidbody2D>().linearVelocity *= -1f;
             pv.setMovementMultiplier(-1f);
             Debug.Log("movemult: " + pv.getMovementMultiplier() + "; movespeed: " + pv.getMoveSpeed());
-            Destroy(confIt);
+            Destroy(confIt.gameObject);
             StartCoroutine("ConfusionTime");
 
         }
@@ -113,6 +116,18 @@ public class PlayerItems: MonoBehaviour
                 transform.position.z 
                 );        
             Quaternion rot = Quaternion.LookRotation(Vector3.forward, shootDir);
+            GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, rot, transform.gameObject.transform);
+
+            Destroy(weakAttack, 1f);
+        }
+        else{
+            Vector2 normalizedShootDir = movement.lastMoveDir.normalized;
+            Vector3 attackPos = new Vector3(
+                transform.position.x + normalizedShootDir.x, 
+                transform.position.y + normalizedShootDir.y, 
+                transform.position.z 
+                );        
+            Quaternion rot = Quaternion.LookRotation(Vector3.forward, movement.lastMoveDir);
             GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, rot, transform.gameObject.transform);
 
             Destroy(weakAttack, 1f);

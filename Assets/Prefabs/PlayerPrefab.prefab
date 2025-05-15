@@ -363,6 +363,7 @@ MonoBehaviour:
   weakCooldownTimer: 0
   shockwaveCooldown: 5
   shockwaveCooldownTimer: 0
+  confusionDuration: 7.5
 --- !u!114 &7046214573460959820
 MonoBehaviour:
   m_ObjectHideFlags: 0
