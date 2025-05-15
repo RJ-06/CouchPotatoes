@@ -58,6 +58,7 @@ public class PlayerItems: MonoBehaviour
         Transform confIt = transform.Find("ConfusionItem(Clone)");
         if (confIt != null) 
         {
+            transform.gameObject.GetComponent<Rigidbody2D>().linearVelocity *= -1f;
             pv.setMovementMultiplier(-1f);
             Debug.Log("movemult: " + pv.getMovementMultiplier() + "; movespeed: " + pv.getMoveSpeed());
             Destroy(confIt.gameObject);
