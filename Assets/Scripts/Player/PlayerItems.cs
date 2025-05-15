@@ -33,9 +33,12 @@ public class PlayerItems: MonoBehaviour
     [SerializeField] float confusionDuration;
     protected float confusionTimer = 0;
 
-    //frenzy item
+    // Frenzy item
     [SerializeField] float frenzyBoost;
     [SerializeField] float frenzyCooldownDecrease;
+
+    // Slowness item
+    [SerializeField] float slownessDuration;
 
 
     void Start()
@@ -70,13 +73,21 @@ public class PlayerItems: MonoBehaviour
             StartCoroutine("ConfusionTime");
 
         }
-        confIt = transform.Find("ConfusionItem(Clone)");
-        if (confIt != null)
+        Transform frenzyItem = transform.Find("FrenzyItem(Clone)");
+        if (frenzyItem != null)
         {
             pv.setMovementMultiplier(pv.getMovementMultiplier() * frenzyBoost);
             pv.setAttackCooldown(pv.getAttackCooldown() * frenzyCooldownDecrease);
             pv.setDashCooldown(pv.getDashCooldown() * frenzyCooldownDecrease);
-            Destroy(confIt.gameObject);
+            Destroy(frenzyItem.gameObject);
+        }
+        Transform slownessItem = transform.Find("SlownessItem(Clone)");
+        if (slownessItem != null)
+        {
+            transform.gameObject.GetComponent<Rigidbody2D>().linearVelocity *= 0.5f;
+            pv.setMovementMultiplier(0.5f);
+            Destroy(slownessItem.gameObject);
+            StartCoroutine("SlownessTime");
         }
     }
 
@@ -151,5 +162,10 @@ public class PlayerItems: MonoBehaviour
         yield return new WaitForSeconds(confusionDuration);
         pv.setMovementMultiplier(1f);
         Debug.Log("movemult: " + pv.getMovementMultiplier() + "; movespeed: " + pv.getMoveSpeed());
+    }
+
+    IEnumerator SlownessTime() {
+        yield return new WaitForSeconds(slownessDuration);
+        pv.setMovementMultiplier(1f);
     }
 }
