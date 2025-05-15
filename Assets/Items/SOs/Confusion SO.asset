@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e583fa6d6364ff9faaa8bd75744c25f, type: 3}
-  m_Name: Frenzy SO
+  m_Name: Confusion SO
   m_EditorClassIdentifier: 
-  itemName: Frenzy
-  itemPrefab: {fileID: 4343722360355832344, guid: e3f0bba19ddaf2bdca2a9fcd29bf9361, type: 3}
-  pickupPrefab: {fileID: 2869585867297294824, guid: 89315f79e15504a649d069ca1f4c74c4, type: 3}
+  itemName: Shockwave
+  itemPrefab: {fileID: 4343722360355832344, guid: 4f66447468b043a42992c62d38f13c3d, type: 3}
+  pickupPrefab: {fileID: 1451091749043144713, guid: de69259eb9c9d914e9cc2bbbaf8919c2, type: 3}
