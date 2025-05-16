@@ -3,19 +3,21 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerItems: MonoBehaviour
+public class PlayerItems : MonoBehaviour
 {
     ///////////////////////////////
     ////////// VARIABLES //////////
     ///////////////////////////////
-    
+
     // Player components
     private PlayerVals pv;
     private PlayerMovement movement;
     private Transform shockwaveItem;
+    [SerializeField] ItemManager itemManager;
     [SerializeField] GameObject ShockwavePrefab;
     [SerializeField] GameObject weakAttackPrefab;
     [SerializeField] GameObject ConfusionItem;
+    [SerializeField] IceItem iceItem;
     [SerializeField] GameObject frenzyPowerup;
 
     // Weak attack
@@ -51,20 +53,26 @@ public class PlayerItems: MonoBehaviour
     void FixedUpdate()
     {
         // Handle cooldowns and attack executions
-        if (shockwaveUsed && Mathf.Abs(shockwaveCooldownTimer) >= 0.0001) {
+        if (shockwaveUsed && Mathf.Abs(shockwaveCooldownTimer) >= 0.0001)
+        {
             shockwaveCooldownTimer -= Time.fixedDeltaTime;
-        } else if (shockwaveUsed) {
+        }
+        else if (shockwaveUsed)
+        {
             shockwaveUsed = false;
         }
 
-        if (weakUsed && Mathf.Abs(weakCooldownTimer) >= 0.00001) {
+        if (weakUsed && Mathf.Abs(weakCooldownTimer) >= 0.00001)
+        {
             weakCooldownTimer -= Time.fixedDeltaTime;
-        } else if (weakUsed) {
+        }
+        else if (weakUsed)
+        {
             weakUsed = false;
         }
 
         Transform confIt = transform.Find("ConfusionItem(Clone)");
-        if (confIt != null) 
+        if (confIt != null)
         {
             transform.gameObject.GetComponent<Rigidbody2D>().linearVelocity *= -1f;
             pv.setMovementMultiplier(-1f);
@@ -95,18 +103,24 @@ public class PlayerItems: MonoBehaviour
     ////////////////////////////
     ////////// INPUTS //////////
     ////////////////////////////
-    
+
     private void OnAttack()
     {
         shockwaveItem = transform.Find("ShockwaveItem(Clone)");
 
-        if(shockwaveItem != null && !shockwaveUsed) // Shockwave attack used
+        if (shockwaveItem != null && !shockwaveUsed) // Shockwave attack used
         {
             shockwaveUsed = true;
             shockwaveCooldownTimer = shockwaveCooldown;
-            Instantiate(ShockwavePrefab, transform.position, Quaternion.identity, this.transform);
+            GameObject newShockwave = Instantiate(ShockwavePrefab, transform.position, Quaternion.identity, this.transform);
+
+            // Apply necessary buffs to the new shockwave
+            if (shockwaveItem.GetComponent<ShockwaveItem>().getIceBuff())
+            {
+                newShockwave.GetComponent<ShockwaveAttack>().ApplyIceEffect(iceItem);
+            }
         }
-        else if(shockwaveItem == null && !weakUsed) // No other attack available, so do weak attack
+        else if (shockwaveItem == null && !weakUsed) // No other attack available, so do weak attack
         {
             weakCooldownTimer = weakCooldown;
             WeakAttack();
@@ -117,34 +131,36 @@ public class PlayerItems: MonoBehaviour
     /////////////////////////////////
     ////////// WEAK ATTACK //////////
     /////////////////////////////////
-    
+
     private void WeakAttack()
     {
-        if (shootDir != Vector2.zero){
+        if (shootDir != Vector2.zero)
+        {
             Vector2 normalizedShootDir = shootDir.normalized;
             Vector3 attackPos = new Vector3(
-                transform.position.x + normalizedShootDir.x, 
-                transform.position.y + normalizedShootDir.y, 
-                transform.position.z 
-                );        
+                transform.position.x + normalizedShootDir.x,
+                transform.position.y + normalizedShootDir.y,
+                transform.position.z
+                );
             Quaternion rot = Quaternion.LookRotation(Vector3.forward, shootDir);
             GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, rot, transform.gameObject.transform);
 
             Destroy(weakAttack, 1f);
         }
-        else{
+        else
+        {
             Vector2 normalizedShootDir = movement.lastMoveDir.normalized;
             Vector3 attackPos = new Vector3(
-                transform.position.x + normalizedShootDir.x, 
-                transform.position.y + normalizedShootDir.y, 
-                transform.position.z 
-                );        
+                transform.position.x + normalizedShootDir.x,
+                transform.position.y + normalizedShootDir.y,
+                transform.position.z
+                );
             Quaternion rot = Quaternion.LookRotation(Vector3.forward, movement.lastMoveDir);
             GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, rot, transform.gameObject.transform);
 
             Destroy(weakAttack, 1f);
         }
-        
+
     }
 
     private void OnAim(InputValue val) // Aim the potato with the right joystick on controller
@@ -164,8 +180,17 @@ public class PlayerItems: MonoBehaviour
         Debug.Log("movemult: " + pv.getMovementMultiplier() + "; movespeed: " + pv.getMoveSpeed());
     }
 
-    IEnumerator SlownessTime() {
+    IEnumerator SlownessTime()
+    {
         yield return new WaitForSeconds(slownessDuration);
         pv.setMovementMultiplier(1f);
     }
+
+    //////////////////////////////////
+    ///////// Getters/Setters ////////
+    //////////////////////////////////
+
+    public ItemManager GetItemManager() => itemManager;
+
+    public void SetIceItem(IceItem item) => iceItem = item;
 }

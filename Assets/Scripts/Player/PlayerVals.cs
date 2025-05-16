@@ -27,6 +27,7 @@ public class PlayerVals : MonoBehaviour
     public static int numPlayers = 0;
     public int playerNum = -1;
     public bool hasPotato = false;
+    bool isFrozen;
 
     private void Awake()
     {
@@ -49,7 +50,7 @@ public class PlayerVals : MonoBehaviour
     public void setMovementMultiplier(float nMult) => movementMultiplier = nMult;
     public float getHealth() => currentHealthPoints;
     public float getMaxHealth() => baseHealthPoints;
-    public void setHealth(int nHealth)  => currentHealthPoints = nHealth;
+    public void setHealth(int nHealth) => currentHealthPoints = nHealth;
     public void IncrementHealth(int healthChange) => currentHealthPoints += healthChange;
     public float getDashSpeed() => currentDashSpeed;
     public void setDashSpeed(float nSpeed) => currentDashSpeed = nSpeed;
@@ -69,4 +70,7 @@ public class PlayerVals : MonoBehaviour
 
     public bool getHasPotato() => hasPotato;
     public void setHasPotato(bool state) => hasPotato = state;
+
+    public bool getFrozen() => isFrozen;
+    public void setFrozen(bool state) => isFrozen = state;
 }

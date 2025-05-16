@@ -10,10 +10,6 @@ public class ItemManager : MonoBehaviour
     [SerializeField] List<ItemSO> items;
     [SerializeField] List<ItemAttributes> itemAttributes;
 
-    public List<ItemSO> GetItems(){
-        return items;
-    }
-    public List<ItemAttributes> GetAttributes(){
-        return itemAttributes;
-    }
+    public List<ItemSO> GetItems() => items;
+    public List<ItemAttributes> GetAttributes() => itemAttributes;
 }

@@ -2,14 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class IceEffect : ItemAttributes
+public class IceEffect : MonoBehaviour
 {
     ///////////////////////////////
     ////////// VARIABLES //////////
     ///////////////////////////////
     
     [SerializeField] float frostbiteDuration;
-    [SerializeField] float freezeDuration;
     
     void Start()
     {
@@ -27,8 +26,7 @@ public class IceEffect : ItemAttributes
     }
 
     public void ApplyFreeze(GameObject playerFrozen, float dur) {
-        freezeDuration = dur;
-        StartCoroutine(Freeze(playerFrozen));
+        StartCoroutine(Freeze(playerFrozen, dur));
     }
     
     // STILL A COPY FROM FIRE!! Change later
@@ -43,15 +41,23 @@ public class IceEffect : ItemAttributes
         }
     }
 
-    private IEnumerator Freeze(GameObject playerFrozen) {
-        float elapsed = 0f;
-        // I'd imagine it sucks to get frozen solid. 1/3 health loss *maniacal laugh*
-        playerFrozen.GetComponent<PlayerVals>().IncrementHealth((int)(playerFrozen.GetComponent<PlayerVals>().getMaxHealth() / 3f));
+    private IEnumerator Freeze(GameObject playerFrozen, float freezeDuration)
+    {
+        Debug.Log("Freeze coroutine started");
 
-        while (elapsed < freezeDuration) {
-            elapsed += Time.deltaTime;
-            yield return new WaitForSeconds(1f);
-        }
+        playerFrozen.GetComponent<PlayerVals>().setFrozen(true);
+        playerFrozen.GetComponent<SpriteRenderer>().color = Color.blue;
+        playerFrozen.GetComponent<PlayerMovement>().SetCanMove(false);
+        // I'd imagine it sucks to get frozen solid. 1/3 health loss *maniacal laugh*
+        Debug.Log("Health lost");
+        playerFrozen.GetComponent<PlayerVals>().IncrementHealth((int)(-1 * playerFrozen.GetComponent<PlayerVals>().getMaxHealth() / 3f));
+
+        Debug.Log("Waiting for " + freezeDuration + " seconds");
+        yield return new WaitForSeconds(freezeDuration);
+
+        playerFrozen.GetComponent<PlayerMovement>().SetCanMove(true);
+        playerFrozen.GetComponent<SpriteRenderer>().color = Color.white;
+        Debug.Log("Freeze coroutine finished");
     }
 }
 
