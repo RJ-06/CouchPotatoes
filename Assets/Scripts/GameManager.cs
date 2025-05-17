@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     private float timeToExplode;
     public float time;
     private int numItems = 0, playerNum = 1, numOfPlayers, playersLeft;
+    private bool firstGameStarted = false;
     private bool exploded = true;
     private bool playerNamesAssigned = false;
 
@@ -138,8 +139,6 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(GameCountdown());
-        Debug.Log("Game started");
-
     }
 
     void ExecuteGame()
@@ -175,6 +174,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         timer.text = "Go!";
         yield return new WaitForSeconds(0.5f);
+        firstGameStarted = true;
         ExecuteGame();
     }
 
@@ -314,4 +314,8 @@ public class GameManager : MonoBehaviour
     }
 
     public List<Vector2> GetSpawnPoints() => spawnPoints;
+
+    public List<GameObject> GetPlayers() => players;
+
+    public bool GetFirstGameStarted() => firstGameStarted;
 }

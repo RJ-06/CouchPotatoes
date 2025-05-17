@@ -9,6 +9,7 @@ TagManager:
   - Potato
   - Shockwave
   - Fallable
+  - Moving Platform
   layers:
   - Default
   - TransparentFX
