@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private SpriteRenderer potatoSprite;
     [SerializeField] Sprite happyPotato, expressionlessPotato, redPotato, veryRedPotato;
     [SerializeField] TextMeshProUGUI timer;
+    [SerializeField] List<Vector2> spawnPoints;
     [SerializeField] Tilemap possibleFallPoints;
     [SerializeField] Tilemap possibleRespawnPoints;
     private PlayerInputManager pInputManager;
@@ -105,12 +106,12 @@ public class GameManager : MonoBehaviour
             }
             else potatoSprite.sprite = happyPotato;
 
-            foreach(var p in players) 
+            foreach (var p in players)
             {
-                if (p.GetComponent<PlayerVals>()) 
+                if (p.GetComponent<PlayerVals>())
                 {
                     if (p.GetComponent<PlayerVals>().getHealth() <= 0) { KillPlayer(p); }
-                    
+
                 }
             }
         }
@@ -201,7 +202,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator PlaceItemsAtIntervals(float timeBetween)
     {
-        while (numItems < players.Count)
+        while (numItems < players.Count * 4)
         {
             yield return new WaitForSeconds(timeBetween);
             ChooseWhereToPlaceItem();
@@ -234,7 +235,7 @@ public class GameManager : MonoBehaviour
         }
 
         if (playersLeft == 0) { RestoreAllPlayers(); }
-        
+
     }
 
     private IEnumerator Explode()
@@ -251,9 +252,9 @@ public class GameManager : MonoBehaviour
 
         KillPlayer(PlayerWithPotato());
 
-        foreach (GameObject p in players) 
+        foreach (GameObject p in players)
         {
-            if(p.activeSelf)p.GetComponent<PlayerVals>().setHealth(100);
+            if (p.activeSelf) p.GetComponent<PlayerVals>().setHealth(100);
         }
 
         yield return null;
@@ -312,4 +313,5 @@ public class GameManager : MonoBehaviour
         SFXSource.PlayOneShot(clip);
     }
 
+    public List<Vector2> GetSpawnPoints() => spawnPoints;
 }
