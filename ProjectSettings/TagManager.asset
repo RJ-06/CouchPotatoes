@@ -10,6 +10,7 @@ TagManager:
   - Shockwave
   - Fallable
   - Moving Platform
+  - Platform Gate
   layers:
   - Default
   - TransparentFX
