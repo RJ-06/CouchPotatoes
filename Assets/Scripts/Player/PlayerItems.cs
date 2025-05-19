@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -41,6 +42,9 @@ public class PlayerItems : MonoBehaviour
 
     // Slowness item
     [SerializeField] float slownessDuration;
+
+    // Other
+    bool canAttack = true;
 
 
     void Start()
@@ -106,24 +110,27 @@ public class PlayerItems : MonoBehaviour
 
     private void OnAttack()
     {
-        shockwaveItem = transform.Find("ShockwaveItem(Clone)");
-
-        if (shockwaveItem != null && !shockwaveUsed) // Shockwave attack used
+        if (canAttack)
         {
-            shockwaveUsed = true;
-            shockwaveCooldownTimer = shockwaveCooldown;
-            GameObject newShockwave = Instantiate(ShockwavePrefab, transform.position, Quaternion.identity, this.transform);
+            shockwaveItem = transform.Find("ShockwaveItem(Clone)");
 
-            // Apply necessary buffs to the new shockwave
-            if (shockwaveItem.GetComponent<ShockwaveItem>().getIceBuff())
+            if (shockwaveItem != null && !shockwaveUsed) // Shockwave attack used
             {
-                newShockwave.GetComponent<ShockwaveAttack>().ApplyIceEffect(iceItem);
+                shockwaveUsed = true;
+                shockwaveCooldownTimer = shockwaveCooldown;
+                GameObject newShockwave = Instantiate(ShockwavePrefab, transform.position, Quaternion.identity, this.transform);
+
+                // Apply necessary buffs to the new shockwave
+                if (shockwaveItem.GetComponent<ShockwaveItem>().getIceBuff())
+                {
+                    newShockwave.GetComponent<ShockwaveAttack>().ApplyIceEffect(iceItem);
+                }
             }
-        }
-        else if (shockwaveItem == null && !weakUsed) // No other attack available, so do weak attack
-        {
-            weakCooldownTimer = weakCooldown;
-            WeakAttack();
+            else if (shockwaveItem == null && !weakUsed) // No other attack available, so do weak attack
+            {
+                weakCooldownTimer = weakCooldown;
+                WeakAttack();
+            }
         }
     }
 
@@ -193,4 +200,7 @@ public class PlayerItems : MonoBehaviour
     public ItemManager GetItemManager() => itemManager;
 
     public void SetIceItem(IceItem item) => iceItem = item;
+
+    public bool GetCanAttack() => canAttack;
+    public void SetCanAttack(bool state) => canAttack = state;
 }

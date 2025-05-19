@@ -251,6 +251,7 @@ public class GameManager : MonoBehaviour
         }
         player.GetComponent<Collider2D>().enabled = false;
         player.GetComponent<PlayerMovement>().SetCanMove(false);
+        player.GetComponent<PlayerItems>().SetCanAttack(false);
     }
 
     private void ReactivatePlayer(GameObject player)
@@ -263,6 +264,7 @@ public class GameManager : MonoBehaviour
         }
         player.GetComponent<Collider2D>().enabled = true;
         player.GetComponent<PlayerMovement>().SetCanMove(true);
+        player.GetComponent<PlayerItems>().SetCanAttack(true);
     }
 
     private IEnumerator Explode()
