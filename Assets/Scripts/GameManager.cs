@@ -181,9 +181,9 @@ public class GameManager : MonoBehaviour
     void ChoosePlayerToGivePotato()
     {
         int num = Random.Range(0, playersLeft);
-        while (!players[num].activeSelf)
+        while (!players[num].GetComponent<SpriteRenderer>().enabled)
         { // Ignore players that aren't alive
-            int increment = Random.Range(0, 2);
+            int increment = Random.Range(0, 1);
             if (increment == 0) ++num;
             else --num;
         }
@@ -225,7 +225,10 @@ public class GameManager : MonoBehaviour
 
     private void KillPlayer(GameObject player)
     {
-        player.SetActive(false);
+        // player.SetActive(false);
+        // ADD NEW CODE
+        DeactivatePlayer(player);
+
         --playersLeft;
         if (player == PlayerWithPotato())
         {
@@ -236,6 +239,30 @@ public class GameManager : MonoBehaviour
 
         if (playersLeft == 0) { RestoreAllPlayers(); }
 
+    }
+
+    private void DeactivatePlayer(GameObject player)
+    {
+        player.GetComponent<SpriteRenderer>().enabled = false;
+        SpriteRenderer[] children = player.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer child in children)
+        {
+            child.enabled = false;
+        }
+        player.GetComponent<Collider2D>().enabled = false;
+        player.GetComponent<PlayerMovement>().SetCanMove(false);
+    }
+
+    private void ReactivatePlayer(GameObject player)
+    {
+        player.GetComponent<SpriteRenderer>().enabled = true;
+        SpriteRenderer[] children = player.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer child in children)
+        {
+            child.enabled = true;
+        }
+        player.GetComponent<Collider2D>().enabled = true;
+        player.GetComponent<PlayerMovement>().SetCanMove(true);
     }
 
     private IEnumerator Explode()
@@ -291,9 +318,9 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < players.Count; ++i)
         {
-            if (!players[i].activeSelf)
+            if (!players[i].GetComponent<SpriteRenderer>().enabled)
             {
-                players[i].SetActive(true);
+                ReactivatePlayer(players[i]);
                 players[i].GetComponent<PlayerVals>().setHealth(100);
                 players[i].transform.localScale = new Vector3(1f, 1f, 1f);
             }

@@ -176,6 +176,7 @@ public class PlayerPotato : MonoBehaviour
         player.setHasPotato(true);
         potato.SetActive(true);
         potatoIndicator.SetActive(true);
+        potato.GetComponent<SpriteRenderer>().enabled = true;
         if (gm.time <= 5f) gm.IncrementTime(5f);  // Some extra time for the player to react
     }
 
