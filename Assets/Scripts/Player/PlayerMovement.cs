@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D bc;
     private PlayerPotato potato;
     public GameObject fallingColliderObject;  // Child of player that turns on a collider when a player is vulnerable to falling
+    public GameObject fallingAlwaysColliderObject;
 
     // Related directly to player movement
     private bool canMove = true;
@@ -110,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
         else
             speed = pv.getMoveSpeed();
 
+        Debug.Log(pv.getMoveSpeed());
         rb.linearVelocity = moveDir * speed;
 
         ClampSpeed();
@@ -152,11 +154,23 @@ public class PlayerMovement : MonoBehaviour
         }
 
         pushed = true;
+
+        // Deal with areas that always cause falling
+        if (other.gameObject.CompareTag("Fallable Always"))
+        {
+            fallingAlwaysColliderObject.SetActive(true);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
         pushed = false;
+
+        // Deal with areas that always cause falling
+        if (other.gameObject.CompareTag("Fallable Always"))
+        {
+            fallingAlwaysColliderObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -166,6 +180,12 @@ public class PlayerMovement : MonoBehaviour
             fallInProgress = true;
             StartCoroutine(Fall());
         }
+        /*else if (other.gameObject.CompareTag("Fallable Always") && !fallInProgress)
+        {
+            fallingAlwaysColliderObject.SetActive(true);
+            fallInProgress = true;
+            StartCoroutine(Fall());
+        }*/
     }
 
 
@@ -178,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
         SetCanMove(false);
         rb.linearVelocity = Vector2.zero;
         bc.enabled = false;
-        
+
         // Move the player smoothly to the nearest fall point before doing the animation
         Vector2 fallPosition = Utilities.FindNearestTileInSet(transform.position, FindAnyObjectByType<GameManager>().GetFallPoints());
         Debug.Log("Fall position: " + fallPosition);
@@ -217,6 +237,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public bool GetFallInProgress() => fallInProgress;
+    public void SetFallInProgress(bool state) => fallInProgress = state;
 
 
     ///////////////////////////

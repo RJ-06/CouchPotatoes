@@ -212,9 +212,9 @@ public class GameManager : MonoBehaviour
 
     void ChooseWhereToPlaceItem()
     {
-        float[,] positions = {{0f, -21f, -21f, 21f, 21f},
-                              {0f,   8f,  -8f,  8f, -8f}};
-        int index = Random.Range(0, 5);
+        float[,] positions = {{-21f, -21f, 21f, 21f},
+                              {  8f,  -8f,  8f, -8f}};
+        int index = Random.Range(0, 4);
 
         // Place an item at the area with the largest distance sum
         Vector3 position = new Vector3(positions[0, index], positions[1, index], -0.5f);
