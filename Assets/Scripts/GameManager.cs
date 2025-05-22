@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float maxTimeToExplode = 35f;
     private float timeToExplode;
     public float time;
-    private int numItems = 0, playerNum = 1, numOfPlayers, playersLeft;
+    private int numItems = 0, playerNum = 0, numOfPlayers, playersLeft;
     private bool firstGameStarted = false;
     private bool exploded = true;
     private bool playerNamesAssigned = false;
@@ -122,10 +122,15 @@ public class GameManager : MonoBehaviour
     ////////// GAME MANAGEMENT ///////////
     //////////////////////////////////////
 
+    void OnPlayerJoined()
+    {
+        ++playerNum;    
+    }
+
     public void StartGame()
     {
         // Make sure games can't start without multiple players
-        if (numOfPlayers < 2)
+        if (players.Count < 2)
         {
             timer.text = "Can't start a game without multiple players!";
             return;
@@ -134,13 +139,13 @@ public class GameManager : MonoBehaviour
         // Assign player names
         if (!playerNamesAssigned)
         {
+            int i = 1;
             foreach (GameObject player in players)
             {
-                player.name = "Player " + playerNum;
-                ++playerNum;
+                player.name = "Player " + i;
+                ++i;
                 playerNamesAssigned = true;
 
-                numOfPlayers = playerNum - 1;
                 playersLeft = numOfPlayers;
             }
         }
@@ -244,7 +249,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(BetweenPotatoExplosions());
         }
 
-        if (playersLeft == 0) { RestoreAllPlayers(); }
+        if (playersLeft == 1) { RestoreAllPlayers(); }
 
     }
 
