@@ -124,6 +124,13 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        // Make sure games can't start without multiple players
+        if (numOfPlayers < 2)
+        {
+            timer.text = "Can't start a game without multiple players!";
+            return;
+        }
+
         // Assign player names
         if (!playerNamesAssigned)
         {
@@ -249,9 +256,11 @@ public class GameManager : MonoBehaviour
         {
             child.enabled = false;
         }
-        player.GetComponent<Collider2D>().enabled = false;
+        player.GetComponent<BoxCollider2D>().enabled = false;
+        player.GetComponent<CircleCollider2D>().enabled = false;
         player.GetComponent<PlayerMovement>().SetCanMove(false);
         player.GetComponent<PlayerItems>().SetCanAttack(false);
+        player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
     }
 
     private void ReactivatePlayer(GameObject player)
