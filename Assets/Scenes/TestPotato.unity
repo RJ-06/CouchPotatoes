@@ -51138,6 +51138,8 @@ MonoBehaviour:
   redPotato: {fileID: 1852144731128739645, guid: 32402aea599fe0b4cbee18954715688a, type: 3}
   veryRedPotato: {fileID: 6707860808816820841, guid: 32402aea599fe0b4cbee18954715688a, type: 3}
   timer: {fileID: 351593604}
+  spawnPoints:
+  - {x: 0, y: 0}
   possibleFallPoints: {fileID: 1217968576}
   possibleRespawnPoints: {fileID: 2030673269}
   players: []
