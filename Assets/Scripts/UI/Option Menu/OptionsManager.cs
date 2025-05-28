@@ -8,6 +8,7 @@ public class OptionsManager : MonoBehaviour
 {
     [Header("Panels")]
     public GameObject graphicsPanel;
+    public GameObject controlsPanel;
     public GameObject AudioPanel;
 
     [Header("Audio Mixers")]
@@ -24,6 +25,7 @@ public class OptionsManager : MonoBehaviour
     public Slider musicVolumeSlider;
     public Slider sfxVolumeSlider;
 
+    private PlayerVals playerThatPaused;
     Resolution[] resolutions;
 
     private void Start()
@@ -130,6 +132,17 @@ public class OptionsManager : MonoBehaviour
         if (graphicsPanel != null && AudioPanel != null)
         {
             graphicsPanel.SetActive(true);
+            controlsPanel.SetActive(false);
+            AudioPanel.SetActive(false);
+        }
+    }
+
+    public void ShowControlsPanel()
+    {
+        if (graphicsPanel != null && controlsPanel != null && AudioPanel != null)
+        {
+            controlsPanel.SetActive(true);
+            graphicsPanel.SetActive(false);
             AudioPanel.SetActive(false);
         }
     }
@@ -138,8 +151,9 @@ public class OptionsManager : MonoBehaviour
     {
         if (graphicsPanel != null && AudioPanel != null)
         {
-            graphicsPanel.SetActive(false);
             AudioPanel.SetActive(true);
+            graphicsPanel.SetActive(false);
+            controlsPanel.SetActive(false);
         }
     }
 
@@ -163,6 +177,14 @@ public class OptionsManager : MonoBehaviour
         Screen.fullScreen = isFullscreen;
         PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
         PlayerPrefs.Save();
+    }
+
+    public void SetControlStickSensitivity(float sensitivity)
+    {
+        if (playerThatPaused != null)
+        {
+            playerThatPaused.setSpeedSensitivityMultiplier(sensitivity);
+        }
     }
 
     public void SetMasterVolume(float volume)
@@ -200,4 +222,6 @@ public class OptionsManager : MonoBehaviour
             PlayerPrefs.Save();
         }
     }
+
+    public void SetPlayerThatPaused(PlayerVals player) => playerThatPaused = player;
 }

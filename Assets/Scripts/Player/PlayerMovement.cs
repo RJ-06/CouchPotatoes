@@ -80,6 +80,12 @@ public class PlayerMovement : MonoBehaviour
         FindAnyObjectByType<GameManager>().StartGame();
     }
 
+    private void OnPause()
+    {
+        FindAnyObjectByType<GameManager>().GetPauseScript().Pause();
+        FindAnyObjectByType<GameManager>().GetPauseScript().optionsMenu.GetComponent<OptionsManager>().SetPlayerThatPaused(pv);
+    }
+
     private void OnMovement(InputValue value)
     {
         if (canMove)
@@ -87,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
             // Move player
             if (value.Get<Vector2>() != new Vector2(0, 0))
             {
-                moveDir = pv.getMovementMultiplier() * value.Get<Vector2>();
+                moveDir = pv.getMovementMultiplier() * pv.getSpeedSensitivityMultiplier() * value.Get<Vector2>();
                 lastMoveDir = value.Get<Vector2>().normalized;
             }
             else moveDir = new Vector2(0, 0);
@@ -111,7 +117,6 @@ public class PlayerMovement : MonoBehaviour
         else
             speed = pv.getMoveSpeed();
 
-        Debug.Log(pv.getMoveSpeed());
         rb.linearVelocity = moveDir * speed;
 
         ClampSpeed();
@@ -119,7 +124,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void ClampSpeed() // Make sure the player doesn't go over the max speed while moving
     {
-        if (rb.linearVelocity.magnitude > pv.getMaxSpeed())
+        if (!isDashing && (rb.linearVelocity.magnitude > pv.getMoveSpeed()))
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * pv.getMoveSpeed();
+        }
+        else if (rb.linearVelocity.magnitude > pv.getMaxSpeed())
         {
             rb.linearVelocity = rb.linearVelocity.normalized * pv.getMaxSpeed();
         }

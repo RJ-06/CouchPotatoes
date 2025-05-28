@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class PauseMenu : MonoBehaviour
             countdownText.gameObject.SetActive(false);
 
         // Get reference to GameManager
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindAnyObjectByType<GameManager>();
         if (gameManager == null)
         {
             Debug.LogError("GameManager not found in the scene!");
@@ -41,10 +42,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && !GameIsPaused && !isCountingDown)
-        {
-            Pause();
-        }
+
     }
 
     public void Resume()
@@ -71,7 +69,7 @@ public class PauseMenu : MonoBehaviour
         isCountingDown = false;
     }
 
-    void Pause()
+    public void Pause()
     {
         pauseMenu.SetActive(true);
         background.SetActive(true);

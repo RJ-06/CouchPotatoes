@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource SFXSource;
 
+    [SerializeField] PauseMenu pauseScript;
+
     [Header("---------- Audio Clip ----------")]
     public AudioClip mainBackground;
     public AudioClip testSFX;
@@ -124,7 +126,7 @@ public class GameManager : MonoBehaviour
 
     void OnPlayerJoined()
     {
-        ++playerNum;    
+        ++playerNum;
     }
 
     public void StartGame()
@@ -361,4 +363,6 @@ public class GameManager : MonoBehaviour
     public List<GameObject> GetPlayers() => players;
 
     public bool GetFirstGameStarted() => firstGameStarted;
+    
+    public PauseMenu GetPauseScript() => pauseScript;
 }
