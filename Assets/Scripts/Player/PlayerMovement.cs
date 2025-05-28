@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
             // Move player
             if (value.Get<Vector2>() != new Vector2(0, 0))
             {
-                moveDir = pv.getMovementMultiplier() * value.Get<Vector2>().normalized;
+                moveDir = pv.getMovementMultiplier() * value.Get<Vector2>();
                 lastMoveDir = value.Get<Vector2>().normalized;
             }
             else moveDir = new Vector2(0, 0);

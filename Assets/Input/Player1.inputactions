@@ -145,8 +145,8 @@
                 },
                 {
                     "name": "2D Vector",
-                    "id": "de00694c-b7a2-4a02-8ae3-90c2adce8c60",
-                    "path": "2DVector",
+                    "id": "a634429d-416b-4c5f-ad90-6b51d63e4222",
+                    "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -156,7 +156,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "52c7388f-ad77-431b-bba3-5a36506399ef",
+                    "id": "11bb891d-ea4b-47b1-bf58-dd412530f725",
                     "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
@@ -167,7 +167,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "3266dddb-bcf2-43a4-9f6e-17361f737953",
+                    "id": "724b1b9c-df70-4afd-97e0-b690ca359e30",
                     "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
@@ -178,7 +178,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "9bf48110-9d51-4701-b03f-49dec037f2de",
+                    "id": "c70474bd-5305-42a9-8807-93c7733f5ec3",
                     "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
@@ -189,7 +189,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "020875fa-8455-4e77-8668-0cf88f7cfce3",
+                    "id": "8002cf9d-ed36-4c77-ba36-fad5ab960fd0",
                     "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
@@ -288,22 +288,22 @@
                 },
                 {
                     "name": "",
-                    "id": "71ae1df0-e453-4ada-b55b-0316b918e186",
-                    "path": "<Keyboard>/anyKey",
+                    "id": "4044f374-67ac-41e8-8f32-ad2db8518ddd",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Controller",
                     "action": "Join",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "4044f374-67ac-41e8-8f32-ad2db8518ddd",
-                    "path": "<Gamepad>/start",
+                    "id": "19a0aa68-dce3-4afa-bd36-719177736333",
+                    "path": "<Keyboard>/anyKey",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Join",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -945,22 +945,5 @@
             ]
         }
     ],
-    "controlSchemes": [
-        {
-            "name": "Keyboard&Mouse",
-            "bindingGroup": "Keyboard&Mouse",
-            "devices": [
-                {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
-                    "isOR": false
-                },
-                {
-                    "devicePath": "<Mouse>",
-                    "isOptional": false,
-                    "isOR": false
-                }
-            ]
-        }
-    ]
+    "controlSchemes": []
 }
