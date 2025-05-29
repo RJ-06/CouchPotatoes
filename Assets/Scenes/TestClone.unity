@@ -51458,6 +51458,8 @@ MonoBehaviour:
   - {fileID: 1451091749043144713, guid: 3002575c9f6510830a0b1dec92ce5992, type: 3}
   - {fileID: 2869585867297294824, guid: d902b1fd85e2c1627aae9c32ec94e2bd, type: 3}
   - {fileID: 2869585867297294824, guid: 89315f79e15504a649d069ca1f4c74c4, type: 3}
+  minTimeToSpawnItem: 5
+  maxTimeToSpawnItem: 15
   minTimeToExplode: 10
   maxTimeToExplode: 35
   time: 0

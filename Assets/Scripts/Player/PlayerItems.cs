@@ -294,6 +294,11 @@ public class PlayerItems : MonoBehaviour
                 cloneSprite.flipY = playerSprite.flipY;
             }
 
+            // Make clones a little transluscent
+            Color cloneColor = cloneSprite.color;
+            cloneColor.a = 0.85f;
+            cloneSprite.color = cloneColor;
+
             // Set up clone behavior
             CloneBehavior cloneBehavior = newClone.GetComponent<CloneBehavior>();
             if (cloneBehavior != null)
