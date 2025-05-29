@@ -116,7 +116,7 @@ public class PlayerItems : MonoBehaviour
         Transform giantItem = transform.Find("GiantItem(Clone)");
         if (giantItem != null)
         {
-            transform.parent.gameObject.transform.localScale *= giantSizeBoost;
+            transform.gameObject.transform.localScale *= giantSizeBoost;
             pv.setMovementMultiplier(pv.getMovementMultiplier() * giantSlowdown);
             pv.setAttackPoints((int)(pv.getAttackPoints() * giantDamageBoost));
             pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
@@ -219,7 +219,7 @@ public class PlayerItems : MonoBehaviour
 
     private void OnAim(InputValue val) // Aim the potato with the right joystick on controller
     {
-        shootDir = val.Get<Vector2>();
+        shootDir = val.Get<Vector2>() * pv.getSpeedSensitivityMultiplier();
     }
 
 
