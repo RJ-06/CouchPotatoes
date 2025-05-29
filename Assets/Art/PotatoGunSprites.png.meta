@@ -1,0 +1,335 @@
+fileFormatVersion: 2
+guid: 247d07aae428f854eb8c0f5303a9d842
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6944513719029332190
+    second: PotatoGunSprites_0
+  - first:
+      213: -6618213155952969461
+    second: PotatoGunSprites_1
+  - first:
+      213: -8324042203437260979
+    second: PotatoGunSprites_2
+  - first:
+      213: -508479295617297491
+    second: PotatoGunSprites_3
+  - first:
+      213: -773050254286405050
+    second: PotatoGunSprites_4
+  - first:
+      213: -7949595012675799685
+    second: PotatoGunSprites_5
+  - first:
+      213: 8646715616626691878
+    second: PotatoGunSprites_6
+  - first:
+      213: -5458830904631655057
+    second: PotatoGunSprites_7
+  - first:
+      213: -8650743107808900229
+    second: PotatoGunSprites_8
+  - first:
+      213: 2432234982836046222
+    second: PotatoGunSprites_9
+  - first:
+      213: -7671680608818662637
+    second: PotatoGunSprites_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1700
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PotatoGunSprites_0
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 12340
+        width: 3769
+        height: 1035
+      alignment: 9
+      pivot: {x: 0.3, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed8f1901f6edf5060800000000000000
+      internalID: 6944513719029332190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PotatoGunSprites_3
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 10861
+        width: 4526
+        height: 1035
+      alignment: 9
+      pivot: {x: 0.415, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da3171156c481f8f0800000000000000
+      internalID: -508479295617297491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PotatoGunSprites_4
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 9290
+        width: 5248
+        height: 1035
+      alignment: 9
+      pivot: {x: 0.496, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 642cbb7b3e29545f0800000000000000
+      internalID: -773050254286405050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PotatoGunSprites_5
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 7717
+        width: 4917
+        height: 1035
+      alignment: 9
+      pivot: {x: 0.463, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b75fd39647d5da190800000000000000
+      internalID: -7949595012675799685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PotatoGunSprites_6
+      rect:
+        serializedVersion: 2
+        x: 753
+        y: 6246
+        width: 4552
+        height: 1035
+      alignment: 9
+      pivot: {x: 0.42, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62f4bd28a0e4ff770800000000000000
+      internalID: 8646715616626691878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PotatoGunSprites_7
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 4780
+        width: 4172
+        height: 1035
+      alignment: 9
+      pivot: {x: 0.367, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f658180e6365e34b0800000000000000
+      internalID: -5458830904631655057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PotatoGunSprites_8
+      rect:
+        serializedVersion: 2
+        x: 1337
+        y: 3217
+        width: 3968
+        height: 1035
+      alignment: 9
+      pivot: {x: 0.333, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7b44ef1af262f780800000000000000
+      internalID: -8650743107808900229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PotatoGunSprites_9
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1608
+        width: 3769
+        height: 1035
+      alignment: 9
+      pivot: {x: 0.3, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e89883294d801c120800000000000000
+      internalID: 2432234982836046222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b75d03dcfd9cf484f8e35da94eb56b55
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      PotatoGunSprites_0: 6944513719029332190
+      PotatoGunSprites_1: -2008941238
+      PotatoGunSprites_3: -508479295617297491
+      PotatoGunSprites_4: -773050254286405050
+      PotatoGunSprites_5: -7949595012675799685
+      PotatoGunSprites_6: 8646715616626691878
+      PotatoGunSprites_7: -5458830904631655057
+      PotatoGunSprites_8: -8650743107808900229
+      PotatoGunSprites_9: 2432234982836046222
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
