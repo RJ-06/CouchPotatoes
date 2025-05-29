@@ -451,6 +451,8 @@ MonoBehaviour:
   frenzyBoost: 0
   frenzyCooldownDecrease: 0
   slownessDuration: 10
+  cloneDuration: 10
+  playerClonePrefab: {fileID: 1049262611600795804, guid: 246718464d0d349538aa7fa1155921cd, type: 3}
 --- !u!114 &7046214573460959820
 MonoBehaviour:
   m_ObjectHideFlags: 0

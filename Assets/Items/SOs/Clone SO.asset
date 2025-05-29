@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e583fa6d6364ff9faaa8bd75744c25f, type: 3}
+  m_Name: Clone SO
+  m_EditorClassIdentifier: 
+  itemName: SO
+  itemPrefab: {fileID: 4343722360355832344, guid: 2213b7f9502cd49389f4746804c12cbb, type: 3}
+  pickupPrefab: {fileID: 972737137039443890, guid: 3661ed70c9ddc4ae0ac1386cee3471eb, type: 3}
