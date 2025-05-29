@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class PlayerVals : MonoBehaviour
 {
+    // External stuff
+    public GameManager gameManager;
+
     // Start game with these values
     [SerializeField] float baseMoveSpeed;
     [SerializeField] int baseHealthPoints;
@@ -35,6 +38,8 @@ public class PlayerVals : MonoBehaviour
         ++numPlayers;
         playerNum = numPlayers;
 
+        gameManager = FindAnyObjectByType<GameManager>();
+
         // Place player at a spawn point
         List<Vector2> spawnPoints = FindAnyObjectByType<GameManager>().GetSpawnPoints();
         transform.position = spawnPoints[(numPlayers - 1) % spawnPoints.Count];
@@ -57,8 +62,16 @@ public class PlayerVals : MonoBehaviour
     public void setSpeedSensitivityMultiplier(float nMult) => speedSensitivityMultiplier = nMult;
     public float getHealth() => currentHealthPoints;
     public float getMaxHealth() => baseHealthPoints;
-    public void setHealth(int nHealth) => currentHealthPoints = nHealth;
-    public void IncrementHealth(int healthChange) => currentHealthPoints += healthChange;
+    public void setHealth(int nHealth)
+    {
+        currentHealthPoints = nHealth;
+        if (nHealth <= 0) gameManager.GetComponent<GameManager>().KillPlayer(gameObject);
+    }
+    public void IncrementHealth(int healthChange)
+    {
+        currentHealthPoints += healthChange;
+        if (currentHealthPoints <= 0) gameManager.GetComponent<GameManager>().KillPlayer(gameObject);
+    }
     public float getDashSpeed() => currentDashSpeed;
     public void setDashSpeed(float nSpeed) => currentDashSpeed = nSpeed;
     public float getAttackPoints() => currentAttackPoints;

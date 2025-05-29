@@ -237,7 +237,7 @@ public class GameManager : MonoBehaviour
         ++numItems;
     }
 
-    private void KillPlayer(GameObject player)
+    public void KillPlayer(GameObject player)
     {
         // player.SetActive(false);
         // ADD NEW CODE
