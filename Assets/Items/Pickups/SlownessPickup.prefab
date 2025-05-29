@@ -17,6 +17,10 @@ PrefabInstance:
       value: SlownessPickup
       objectReference: {fileID: 0}
     - target: {fileID: 3353730592665712440, guid: 4ae808e0c8dce1eafb6bd8d65ac5753e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3353730592665712440, guid: 4ae808e0c8dce1eafb6bd8d65ac5753e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -141,8 +145,8 @@ SpriteRenderer:
   m_SortingLayerID: -1941634979
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.93412876, g: 0, b: 1, a: 1}
+  m_Sprite: {fileID: -6168410343092327520, guid: 8bb062f54e58c4841b524426978fc7e4, type: 3}
+  m_Color: {r: 0.6004509, g: 0.6811093, b: 0.754717, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
