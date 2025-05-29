@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(Explode());
                 // Update timer otherwise
             }
-            else
+            else if (PlayerWithPotato() != null)
             {
                 timer.text = time.ToString();
                 time -= Time.fixedDeltaTime;
