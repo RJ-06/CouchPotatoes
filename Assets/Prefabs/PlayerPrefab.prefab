@@ -446,12 +446,18 @@ MonoBehaviour:
   frenzyPowerup: {fileID: 0}
   weakCooldown: 0
   weakCooldownTimer: 0
+  shootDir: {x: 0, y: 0}
   shockwaveCooldown: 5
   shockwaveCooldownTimer: 0
   confusionDuration: 7.5
   frenzyBoost: 0
   frenzyCooldownDecrease: 0
   slownessDuration: 10
+  potatoGunCooldown: 0.4
+  potatoGunCooldownTimer: 0
+  PotatoProjectilePrefab: {fileID: 5070306665649692549, guid: 2343ffe0232195f4f9a46aa0e8b81ad6, type: 3}
+  PotatoGunPrefab: {fileID: 9141357450248038072, guid: 6aa82526432775045a407ddb3937192b, type: 3}
+  ShellEjectPrefab: {fileID: 8448165277915554237, guid: 351d3d119db356b499067240b25ac431, type: 3}
   cloneDuration: 10
   playerClonePrefab: {fileID: 1049262611600795804, guid: 246718464d0d349538aa7fa1155921cd, type: 3}
   giantDuration: 10
