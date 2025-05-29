@@ -244,6 +244,7 @@ public class GameManager : MonoBehaviour
         DeactivatePlayer(player);
 
         --playersLeft;
+        Debug.Log(playersLeft);
         if (player == PlayerWithPotato())
         {
             PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();

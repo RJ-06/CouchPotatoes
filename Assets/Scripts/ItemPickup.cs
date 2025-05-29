@@ -8,9 +8,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            GameObject item = Instantiate(itemSO.itemPrefab, other.gameObject.transform);
-            item.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Item Pickup");
-            Destroy(gameObject);
+            if (!other.gameObject.GetComponent<PlayerVals>().getClone())
+            {
+                GameObject item = Instantiate(itemSO.itemPrefab, other.gameObject.transform);
+                item.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Item Pickup");
+                Destroy(gameObject);
+            }
         }
     }
 }

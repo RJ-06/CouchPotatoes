@@ -17,6 +17,10 @@ public class CloneBehavior : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         cloneMovement = GetComponent<PlayerMovement>();
+
+        gameObject.GetComponent<PlayerVals>().setClone(true);
+        cloneMovement.fallingColliderObject.SetActive(false);
+
         if (initialDirection != Vector2.zero)
         {
             currentDirection = initialDirection;
