@@ -11,10 +11,10 @@ public class Gate : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collision detected from a gate");
+        //Debug.Log("Collision detected from a gate");
         if (collision.CompareTag("Platform Gate"))
         {
-            Debug.Log("Collision was between two gates");
+            //Debug.Log("Collision was between two gates");
             gatePreventWalkOff.enabled = false;
             gateFallable.enabled = false;
         }
@@ -24,7 +24,7 @@ public class Gate : MonoBehaviour
     {
         if (collision.CompareTag("Platform Gate"))
         {
-            Debug.Log("Two gates exited contact");
+            //Debug.Log("Two gates exited contact");
             gatePreventWalkOff.enabled = true;
             gateFallable.enabled = true;
         }

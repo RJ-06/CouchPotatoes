@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5797751215468584930}
   - component: {fileID: 4805230373210488671}
+  - component: {fileID: 8961301883697342619}
   m_Layer: 0
-  m_Name: SlownessItem
+  m_Name: GiantItem
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 1, z: 0}
-  m_LocalScale: {x: -0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6168410343092327520, guid: 8bb062f54e58c4841b524426978fc7e4, type: 3}
-  m_Color: {r: 0.54934525, g: 0.63603586, b: 0.8050314, a: 1}
+  m_Sprite: {fileID: 7104975759887944387, guid: 35f0911ba70af6d4598ca6cc0c448f80, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,3 +88,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8961301883697342619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4343722360355832344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e9d75397f5b5a646b624c6fe42c08fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

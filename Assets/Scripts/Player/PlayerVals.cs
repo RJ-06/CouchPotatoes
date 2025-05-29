@@ -32,6 +32,7 @@ public class PlayerVals : MonoBehaviour
     public int playerNum = -1;
     public bool hasPotato = false;
     bool isFrozen;
+    bool isClone;
 
     private void Awake()
     {
@@ -93,4 +94,7 @@ public class PlayerVals : MonoBehaviour
 
     public bool getFrozen() => isFrozen;
     public void setFrozen(bool state) => isFrozen = state;
+
+    public bool getClone() => isClone;
+    public void setClone(bool state) => isClone = state;
 }

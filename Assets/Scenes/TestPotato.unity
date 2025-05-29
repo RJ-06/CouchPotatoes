@@ -796,6 +796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphicsPanel: {fileID: 2126790504}
+  controlsPanel: {fileID: 0}
   AudioPanel: {fileID: 1913126171}
   audioMixer: {fileID: 24100000, guid: 42e2623a0e843415a8ccbf67e977f178, type: 2}
   qualityDropdown: {fileID: 1064829581}
@@ -37005,7 +37006,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 32
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -51148,11 +51149,15 @@ MonoBehaviour:
   - {fileID: 1451091749043144713, guid: 3002575c9f6510830a0b1dec92ce5992, type: 3}
   - {fileID: 2869585867297294824, guid: d902b1fd85e2c1627aae9c32ec94e2bd, type: 3}
   - {fileID: 2869585867297294824, guid: 89315f79e15504a649d069ca1f4c74c4, type: 3}
+  - {fileID: 972737137039443890, guid: 3661ed70c9ddc4ae0ac1386cee3471eb, type: 3}
+  - {fileID: 2869585867297294824, guid: 2f7bb3b59fae7a2448b9348b99bee9be, type: 3}
   minTimeToExplode: 10
   maxTimeToExplode: 35
+  timeBetweenPowereUpSpawn: 8
   time: 0
   musicSource: {fileID: 1677405735}
   SFXSource: {fileID: 1329152747}
+  pauseScript: {fileID: 0}
   mainBackground: {fileID: 8300000, guid: 87a6bbc29e9c7e74a94570c5548c955d, type: 3}
   testSFX: {fileID: 0}
   floatingGrassIslandRespawnPoints:

@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject[] itemsToSpawn;
 
     // Related to gameplay
+    [SerializeField] float minTimeToSpawnItem = 5f;
+    [SerializeField] float maxTimeToSpawnItem = 15f;
     [SerializeField] float minTimeToExplode = 10f;
     [SerializeField] float maxTimeToExplode = 35f;
     private float timeToExplode;
@@ -175,7 +177,7 @@ public class GameManager : MonoBehaviour
         potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
 
         // Start item spawning
-        StartCoroutine(PlaceItemsAtIntervals(15f));
+        StartCoroutine(PlaceItemsAtIntervals(Random.Range(minTimeToSpawnItem, maxTimeToSpawnItem)));
     }
 
     private IEnumerator GameCountdown()
@@ -244,6 +246,7 @@ public class GameManager : MonoBehaviour
         DeactivatePlayer(player);
 
         --playersLeft;
+        Debug.Log(playersLeft);
         if (player == PlayerWithPotato())
         {
             PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
