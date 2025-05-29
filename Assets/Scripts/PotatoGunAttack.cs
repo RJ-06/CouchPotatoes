@@ -3,8 +3,9 @@ using UnityEngine.InputSystem;
 
 public class PotatoGunAttack : MonoBehaviour
 {
+    private Vector2 playerLastMoveDir;
+    private Vector2 playerShootDir = Vector2.zero;
 
-    private Vector2 shootDir;
     Rigidbody2D rb;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,12 +18,19 @@ public class PotatoGunAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 playerLastMoveDir = this.GetComponentInParent<PlayerMovement>().lastMoveDir;
+        playerLastMoveDir = new Vector2(1, 0);
+        playerShootDir = Vector2.zero;
 
-        if (shootDir != Vector2.zero)
+        if (this.GetComponentInParent<PlayerMovement>() != null)
+            playerLastMoveDir = this.GetComponentInParent<PlayerMovement>().lastMoveDir;
+
+        if (this.GetComponentInParent<PlayerItems>() != null)
+            playerShootDir = this.GetComponentInParent<PlayerItems>().shootDir;
+
+        if (playerShootDir != Vector2.zero)
         {
-            Vector2 normalizedShootDir = shootDir.normalized;
-            transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(normalizedShootDir.y, normalizedShootDir.x));
+            Vector2 normalizedShootDir = playerShootDir.normalized;
+            transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(normalizedShootDir.y, normalizedShootDir.x) * Mathf.Rad2Deg);
         }
         else
         {
@@ -58,8 +66,5 @@ public class PotatoGunAttack : MonoBehaviour
         //print(playerLastMoveDir);
     }
 
-    private void OnAim(InputValue val) // Aim the potato with the right joystick on controller
-    {
-        shootDir = val.Get<Vector2>();
-    }
+
 }

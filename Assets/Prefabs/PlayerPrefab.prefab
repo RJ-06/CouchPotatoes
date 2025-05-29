@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82bc6ba0a75092b4d96c4d63f2bcc1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   baseMoveSpeed: 8
   baseHealthPoints: 100
   baseDashSpeed: 300
@@ -445,12 +446,18 @@ MonoBehaviour:
   frenzyPowerup: {fileID: 0}
   weakCooldown: 0
   weakCooldownTimer: 0
+  shootDir: {x: 0, y: 0}
   shockwaveCooldown: 5
   shockwaveCooldownTimer: 0
   confusionDuration: 7.5
   frenzyBoost: 0
   frenzyCooldownDecrease: 0
   slownessDuration: 10
+  potatoGunCooldown: 0.4
+  potatoGunCooldownTimer: 0
+  PotatoProjectilePrefab: {fileID: 5070306665649692549, guid: 2343ffe0232195f4f9a46aa0e8b81ad6, type: 3}
+  PotatoGunPrefab: {fileID: 9141357450248038072, guid: 6aa82526432775045a407ddb3937192b, type: 3}
+  ShellEjectPrefab: {fileID: 8448165277915554237, guid: 351d3d119db356b499067240b25ac431, type: 3}
 --- !u!114 &7046214573460959820
 MonoBehaviour:
   m_ObjectHideFlags: 0
