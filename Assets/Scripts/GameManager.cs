@@ -23,10 +23,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] Tilemap possibleRespawnPoints;
     private PlayerInputManager pInputManager;
     public List<GameObject> players = new List<GameObject>();
+    private List<GameObject> deadPlayers = new List<GameObject>();
     private GameObject currentPlayer;
     [SerializeField] GameObject[] itemsToSpawn;
 
     // Related to gameplay
+    [SerializeField] float minTimeToSpawnItem = 5f;
+    [SerializeField] float maxTimeToSpawnItem = 15f;
     [SerializeField] float minTimeToExplode = 10f;
     [SerializeField] float maxTimeToExplode = 35f;
     private float timeToExplode;
@@ -72,6 +75,18 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Check for new players before game starts
+        if (!firstGameStarted)
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.CompareTag("Player") && !players.Contains(child.gameObject))
+                {
+                    players.Add(child.gameObject);
+                }
+            }
+        }
+
         // Update potato sprite if potato transfers
         if (!exploded && PlayerWithPotato() != currentPlayer)
         {
@@ -88,7 +103,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(Explode());
                 // Update timer otherwise
             }
-            else
+            else if (PlayerWithPotato() != null)
             {
                 timer.text = time.ToString();
                 time -= Time.fixedDeltaTime;
@@ -147,11 +162,10 @@ public class GameManager : MonoBehaviour
                 player.name = "Player " + i;
                 ++i;
                 playerNamesAssigned = true;
-
-                playersLeft = numOfPlayers;
             }
         }
 
+        playersLeft = players.Count;
         StartCoroutine(GameCountdown());
     }
 
@@ -175,7 +189,7 @@ public class GameManager : MonoBehaviour
         potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
 
         // Start item spawning
-        StartCoroutine(PlaceItemsAtIntervals(15f));
+        StartCoroutine(PlaceItemsAtIntervals(Random.Range(minTimeToSpawnItem, maxTimeToSpawnItem)));
     }
 
     private IEnumerator GameCountdown()
@@ -239,20 +253,24 @@ public class GameManager : MonoBehaviour
 
     public void KillPlayer(GameObject player)
     {
-        // player.SetActive(false);
-        // ADD NEW CODE
+        deadPlayers.Add(player);
+        players.Remove(player);
+
+        players.Remove(player);
         DeactivatePlayer(player);
 
         --playersLeft;
+        Debug.Log(playersLeft);
         if (player == PlayerWithPotato())
         {
             PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
             PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
             StartCoroutine(BetweenPotatoExplosions());
         }
-
-        if (playersLeft == 1) { RestoreAllPlayers(); }
-
+        else if (PlayerWithPotato() == null)
+        {
+            StartCoroutine(BetweenPotatoExplosions());
+        }
     }
 
     private void DeactivatePlayer(GameObject player)
@@ -272,6 +290,7 @@ public class GameManager : MonoBehaviour
 
     private void ReactivatePlayer(GameObject player)
     {
+        player.GetComponent<PlayerPotato>().onGivePotato();
         player.GetComponent<SpriteRenderer>().enabled = true;
         SpriteRenderer[] children = player.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer child in children)
@@ -326,7 +345,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(3f);
             timer.text = "Respawning players...";
             RestoreAllPlayers();
-            playersLeft = numOfPlayers;
+            playersLeft = playerNum;
         }
         yield return new WaitForSeconds(2f);
         StartGame();
@@ -334,14 +353,14 @@ public class GameManager : MonoBehaviour
 
     void RestoreAllPlayers()
     {
-        for (int i = 0; i < players.Count; ++i)
+        for (int i = 0; i < deadPlayers.Count; ++i)
         {
-            if (!players[i].GetComponent<SpriteRenderer>().enabled)
-            {
-                ReactivatePlayer(players[i]);
-                players[i].GetComponent<PlayerVals>().setHealth(100);
-                players[i].transform.localScale = new Vector3(1f, 1f, 1f);
-            }
+            ReactivatePlayer(deadPlayers[i]);
+            deadPlayers[i].GetComponent<PlayerVals>().setHealth(100);
+            deadPlayers[i].transform.localScale = new Vector3(1f, 1f, 1f);
+            players.Add(deadPlayers[i]);
+            deadPlayers.Remove(deadPlayers[i]);
+            --i;
         }
     }
 

@@ -32,6 +32,7 @@ public class PlayerVals : MonoBehaviour
     public int playerNum = -1;
     public bool hasPotato = false;
     bool isFrozen;
+    bool isClone;
 
     private void Awake()
     {
@@ -42,7 +43,7 @@ public class PlayerVals : MonoBehaviour
 
         // Place player at a spawn point
         List<Vector2> spawnPoints = FindAnyObjectByType<GameManager>().GetSpawnPoints();
-        transform.position = spawnPoints[(numPlayers - 1) % spawnPoints.Count];
+        if (gameObject.CompareTag("Player")) transform.position = spawnPoints[(numPlayers - 1) % spawnPoints.Count];
 
         currentMoveSpeed = baseMoveSpeed;
         currentHealthPoints = baseHealthPoints;
@@ -93,4 +94,7 @@ public class PlayerVals : MonoBehaviour
 
     public bool getFrozen() => isFrozen;
     public void setFrozen(bool state) => isFrozen = state;
+
+    public bool getClone() => isClone;
+    public void setClone(bool state) => isClone = state;
 }

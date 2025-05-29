@@ -55,6 +55,16 @@ public class PlayerItems : MonoBehaviour
     [SerializeField] GameObject ShellEjectPrefab;
     Animator animator;
 
+    // Clone item
+    [SerializeField] float cloneDuration;
+    [SerializeField] GameObject playerClonePrefab;
+
+    //Giant item
+    [SerializeField] float giantDuration;
+    [SerializeField] float giantSizeBoost;
+    [SerializeField] float giantHealthBoost;
+    [SerializeField] float giantDamageBoost;
+    [SerializeField] float giantSlowdown;
 
     // Other
     bool canAttack = true;
@@ -140,6 +150,42 @@ public class PlayerItems : MonoBehaviour
             pv.setMovementMultiplier(0.5f);
             Destroy(slownessItem.gameObject);
             StartCoroutine("SlownessTime");
+        }
+
+        Transform giantItem = transform.Find("GiantItem(Clone)");
+        if (giantItem != null)
+        {
+            transform.gameObject.transform.localScale *= giantSizeBoost;
+            pv.setMovementMultiplier(pv.getMovementMultiplier() * giantSlowdown);
+            pv.setAttackPoints((int)(pv.getAttackPoints() * giantDamageBoost));
+            pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
+            Destroy(giantItem.gameObject);
+        }
+
+        Transform cloneItem = transform.Find("CloneItem(Clone)");
+        if (cloneItem != null)
+        {
+            // Get the item's position
+            //Vector3 itemPosition = cloneItem.position;
+
+            // Move player to left side of item
+            //transform.position = itemPosition;
+
+            GameObject clone = new GameObject();
+            StartCoroutine(MakeClones(clone));
+
+            // Set the initial moving direction of the clone as opposite to the player
+            CloneBehavior cloneBehavior = clone.GetComponent<CloneBehavior>();
+            if (cloneBehavior != null)
+            {
+                cloneBehavior.SetInitialDirection(-movement.lastMoveDir.normalized);
+                cloneBehavior.SetMoveSpeed(pv.getMoveSpeed());
+            }
+
+
+
+            Destroy(cloneItem.gameObject);
+            StartCoroutine(CloneLifespan(clone));
         }
     }
 
@@ -233,7 +279,7 @@ public class PlayerItems : MonoBehaviour
 
     public void OnAim(InputValue val) // Aim the potato with the right joystick on controller
     {
-        shootDir = val.Get<Vector2>();
+        shootDir = val.Get<Vector2>() * pv.getSpeedSensitivityMultiplier();
     }
 
 
@@ -254,6 +300,94 @@ public class PlayerItems : MonoBehaviour
     {
         yield return new WaitForSeconds(slownessDuration);
         pv.setMovementMultiplier(1f);
+    }
+
+    IEnumerator GiantTime() 
+    {
+        yield return new WaitForSeconds(giantDuration);
+        transform.parent.gameObject.transform.localScale /= giantSizeBoost;
+        pv.setMovementMultiplier(pv.getMovementMultiplier() / giantSlowdown);
+        pv.setAttackPoints((int)(pv.getAttackPoints() / giantDamageBoost));
+        //pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
+    }
+
+    IEnumerator MakeClones(GameObject clone)
+    {
+        transform.gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        movement.SetCanMove(false);
+        transform.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+        Vector2[] positions = new Vector2[]
+        {
+            new Vector2(-1, 1),  // Top left
+            new Vector2(1, 1),   // Top right
+            new Vector2(-1, -1), // Bottom left 
+            new Vector2(1, -1),  // Bottom right
+        };
+
+        // Shuffle positions
+        for (int i = positions.Length - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            Vector2 temp = positions[i];
+            positions[i] = positions[j];
+            positions[j] = temp;
+        }
+
+        // Apply force to the player first 
+        Rigidbody2D playerRb = GetComponent<Rigidbody2D>();
+        float forceMagnitude = 18f;
+        playerRb.AddForce(positions[0] * forceMagnitude, ForceMode2D.Impulse);
+
+        for (int i = 1; i < 4; i++)
+        {
+            // Spawn clone on right side of item
+            GameObject newClone = Instantiate(playerClonePrefab, gameObject.transform.position, transform.rotation);
+
+            // Copy the sprite renderer of the player to its clone
+            SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();
+            SpriteRenderer cloneSprite = newClone.GetComponent<SpriteRenderer>();
+            if (playerSprite != null)
+            {
+                cloneSprite.sprite = playerSprite.sprite;
+                cloneSprite.material = playerSprite.material;
+                cloneSprite.color = playerSprite.color;
+                cloneSprite.flipX = playerSprite.flipX;
+                cloneSprite.flipY = playerSprite.flipY;
+            }
+
+            // Make clones a little transluscent
+            Color cloneColor = cloneSprite.color;
+            cloneColor.a = 0.85f;
+            cloneSprite.color = cloneColor;
+
+            // Set up clone behavior
+            CloneBehavior cloneBehavior = newClone.GetComponent<CloneBehavior>();
+            if (cloneBehavior != null)
+            {
+                cloneBehavior.SetInitialDirection(positions[i].normalized);
+                cloneBehavior.SetMoveSpeed(pv.getMoveSpeed());
+            }
+
+            // Apply force to the clone 
+            Rigidbody2D cloneRb = newClone.GetComponent<Rigidbody2D>();
+            if (cloneRb != null)
+            {
+                cloneRb.AddForce(positions[i] * forceMagnitude, ForceMode2D.Impulse);
+            }
+        }
+
+        movement.SetCanMove(true);
+        transform.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+
+        yield return null;
+    }
+
+    IEnumerator CloneLifespan(GameObject clone)
+    {
+        yield return new WaitForSeconds(cloneDuration);
+        if (clone != null)
+            Destroy(clone);
     }
 
     //////////////////////////////////
