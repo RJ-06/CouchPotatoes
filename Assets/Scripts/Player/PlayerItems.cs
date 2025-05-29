@@ -47,6 +47,11 @@ public class PlayerItems : MonoBehaviour
     [SerializeField] float cloneDuration;
     [SerializeField] GameObject playerClonePrefab;
 
+    //Giant item
+    [SerializeField] float giantSizeBoost;
+    [SerializeField] float giantDamageBoost;
+    [SerializeField] float giantSlowdown;
+
     // Other
     bool canAttack = true;
 
@@ -104,6 +109,15 @@ public class PlayerItems : MonoBehaviour
             pv.setMovementMultiplier(0.5f);
             Destroy(slownessItem.gameObject);
             StartCoroutine("SlownessTime");
+        }
+
+        Transform giantItem = transform.Find("GiantItem(Clone)");
+        if (giantItem != null)
+        {
+            transform.parent.gameObject.transform.localScale *= giantSizeBoost;
+            pv.setMovementMultiplier(pv.getMovementMultiplier() * giantSlowdown);
+            pv.setAttackPoints((int)(pv.getAttackPoints() * giantDamageBoost));
+            Destroy(giantItem.gameObject);
         }
 
         Transform cloneItem = transform.Find("CloneItem(Clone)");
