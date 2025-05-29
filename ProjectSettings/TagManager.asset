@@ -12,6 +12,7 @@ TagManager:
   - Moving Platform
   - Platform Gate
   - Fallable Always
+  - Fallable Prevent Walk Off
   layers:
   - Default
   - TransparentFX
