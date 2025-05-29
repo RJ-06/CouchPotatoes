@@ -280,7 +280,7 @@ public class PlayerItems : MonoBehaviour
         for (int i = 1; i < 4; i++)
         {
             // Spawn clone on right side of item
-            GameObject newClone = Instantiate(playerClonePrefab, transform.position, transform.rotation);
+            GameObject newClone = Instantiate(playerClonePrefab, gameObject.transform.position, transform.rotation);
 
             // Copy the sprite renderer of the player to its clone
             SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();

@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Clone
       objectReference: {fileID: 0}
+    - target: {fileID: 6144178735891011915, guid: fb77eccfd5c93c6498ce7ff8a1f8c725, type: 3}
+      propertyPath: m_TagString
+      value: Player Clone
+      objectReference: {fileID: 0}
     - target: {fileID: 8020586627722750465, guid: fb77eccfd5c93c6498ce7ff8a1f8c725, type: 3}
       propertyPath: m_Enabled
       value: 1
