@@ -47,6 +47,13 @@ public class PlayerItems : MonoBehaviour
     [SerializeField] float cloneDuration;
     [SerializeField] GameObject playerClonePrefab;
 
+    //Giant item
+    [SerializeField] float giantDuration;
+    [SerializeField] float giantSizeBoost;
+    [SerializeField] float giantHealthBoost;
+    [SerializeField] float giantDamageBoost;
+    [SerializeField] float giantSlowdown;
+
     // Other
     bool canAttack = true;
 
@@ -104,6 +111,16 @@ public class PlayerItems : MonoBehaviour
             pv.setMovementMultiplier(0.5f);
             Destroy(slownessItem.gameObject);
             StartCoroutine("SlownessTime");
+        }
+
+        Transform giantItem = transform.Find("GiantItem(Clone)");
+        if (giantItem != null)
+        {
+            transform.parent.gameObject.transform.localScale *= giantSizeBoost;
+            pv.setMovementMultiplier(pv.getMovementMultiplier() * giantSlowdown);
+            pv.setAttackPoints((int)(pv.getAttackPoints() * giantDamageBoost));
+            pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
+            Destroy(giantItem.gameObject);
         }
 
         Transform cloneItem = transform.Find("CloneItem(Clone)");
@@ -221,6 +238,15 @@ public class PlayerItems : MonoBehaviour
     {
         yield return new WaitForSeconds(slownessDuration);
         pv.setMovementMultiplier(1f);
+    }
+
+    IEnumerator GiantTime() 
+    {
+        yield return new WaitForSeconds(giantDuration);
+        transform.parent.gameObject.transform.localScale /= giantSizeBoost;
+        pv.setMovementMultiplier(pv.getMovementMultiplier() / giantSlowdown);
+        pv.setAttackPoints((int)(pv.getAttackPoints() / giantDamageBoost));
+        //pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
     }
 
     IEnumerator MakeClones(GameObject clone)
