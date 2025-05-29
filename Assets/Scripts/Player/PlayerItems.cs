@@ -48,7 +48,9 @@ public class PlayerItems : MonoBehaviour
     [SerializeField] GameObject playerClonePrefab;
 
     //Giant item
+    [SerializeField] float giantDuration;
     [SerializeField] float giantSizeBoost;
+    [SerializeField] float giantHealthBoost;
     [SerializeField] float giantDamageBoost;
     [SerializeField] float giantSlowdown;
 
@@ -117,6 +119,7 @@ public class PlayerItems : MonoBehaviour
             transform.parent.gameObject.transform.localScale *= giantSizeBoost;
             pv.setMovementMultiplier(pv.getMovementMultiplier() * giantSlowdown);
             pv.setAttackPoints((int)(pv.getAttackPoints() * giantDamageBoost));
+            pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
             Destroy(giantItem.gameObject);
         }
 
@@ -235,6 +238,15 @@ public class PlayerItems : MonoBehaviour
     {
         yield return new WaitForSeconds(slownessDuration);
         pv.setMovementMultiplier(1f);
+    }
+
+    IEnumerator GiantTime() 
+    {
+        yield return new WaitForSeconds(giantDuration);
+        transform.parent.gameObject.transform.localScale /= giantSizeBoost;
+        pv.setMovementMultiplier(pv.getMovementMultiplier() / giantSlowdown);
+        pv.setAttackPoints((int)(pv.getAttackPoints() / giantDamageBoost));
+        //pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
     }
 
     IEnumerator MakeClones(GameObject clone)
