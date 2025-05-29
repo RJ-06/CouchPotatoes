@@ -5774,8 +5774,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveTime: 5
   idleTime: 2
-  firstPoint: {x: -10, y: 6}
-  secondPoint: {x: 10, y: 6}
+  movementPoints:
+  - {x: -10, y: 6}
+  - {x: 0, y: 9}
+  - {x: 10, y: 6}
   colliderBounds: {fileID: 1492866870}
 --- !u!1 &576956896
 GameObject:
@@ -43782,8 +43784,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveTime: 5
   idleTime: 2
-  firstPoint: {x: 10, y: -5}
-  secondPoint: {x: -10, y: -5}
+  movementPoints:
+  - {x: 10, y: -5}
+  - {x: 0, y: -8}
+  - {x: -10, y: -5}
   colliderBounds: {fileID: 782458780}
 --- !u!1 &1777485067
 GameObject:
