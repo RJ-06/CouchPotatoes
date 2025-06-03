@@ -6,7 +6,7 @@ public class FireItem : ItemAttributes
     ////////// VARIABLES //////////
     ///////////////////////////////
     
-    [SerializeField] ItemManager itemManager;
+    //[SerializeField] ItemManager itemManager;
     [SerializeField] FireEffect fireEffect;
 
     void Start()
