@@ -159,6 +159,7 @@ public class PlayerItems : MonoBehaviour
             pv.setMovementMultiplier(pv.getMovementMultiplier() * giantSlowdown);
             pv.setAttackPoints((int)(pv.getAttackPoints() * giantDamageBoost));
             pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
+            StartCoroutine(GiantTime());
             Destroy(giantItem.gameObject);
         }
 
