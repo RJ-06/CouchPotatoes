@@ -176,6 +176,23 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d902b1fd85e2c1627aae9c32ec94e2bd, type: 3}
+--- !u!1 &972092859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4598889735738413788, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+  m_PrefabInstance: {fileID: 8061801030945436806}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &972092866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972092859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &989145270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -473,6 +490,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3303451555118402906, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: Damping.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3303451555118402906, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: Damping.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3303451555118402906, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: Lookahead.Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3303451555118402906, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: Composition.DeadZone.Size.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3303451555118402906, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: Composition.DeadZone.Size.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3303451555118402906, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: Composition.DeadZone.Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3303451555118402906, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: Composition.HardLimits.Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3303451555118402906, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: Composition.HardLimits.Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3303451555118402906, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: Composition.HardLimits.Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702583855402230813, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702583855402230813, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: OrthoSizeRange.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702583855402230813, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: OrthoSizeRange.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709691868437578515, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: orthographic size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6514029856569113705, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: m_Name
       value: Game Manager
@@ -480,7 +549,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4598889735738413788, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 972092866}
   m_SourcePrefab: {fileID: 100100000, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
