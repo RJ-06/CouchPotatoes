@@ -12,18 +12,22 @@ public class TwoPointMovement : MonoBehaviour
     [SerializeField] List<Vector2> movementPoints;
     [SerializeField] TilemapCollider2D colliderBounds;
     private List<PlayerMovement> players;
-    private bool initialized = false;
+    private Vector2 previousPos, currentVelocity;
+    private bool initialized = false, playerInside = false;
 
     void Start()
     {
+        previousPos = transform.position;
+
         players = new List<PlayerMovement>();
         // Check for players inside the platform on scene load (might not be necessary)
-        List<GameObject> allPlayers = transform.parent.gameObject.GetComponent<GameManager>().GetPlayers();
+        List<GameObject> allPlayers = FindAnyObjectByType<GameManager>().GetPlayers();
         foreach (GameObject player in allPlayers)
         {
             if (PlayerInsidePlatform(player) && !players.Contains(player.GetComponent<PlayerMovement>()))
             {
                 players.Add(player.GetComponent<PlayerMovement>());
+                playerInside = true;
                 Debug.Log("A player is initially inside a platform");
             }
         }
@@ -33,9 +37,9 @@ public class TwoPointMovement : MonoBehaviour
     void Update()
     {
         // Check for players inside the platform as first game starts
-        if (!initialized && transform.parent.gameObject.GetComponent<GameManager>().GetFirstGameStarted())
+        if (!initialized && FindAnyObjectByType<GameManager>().GetFirstGameStarted())
         {
-            List<GameObject> allPlayers = transform.parent.gameObject.GetComponent<GameManager>().GetPlayers();
+            List<GameObject> allPlayers = FindAnyObjectByType<GameManager>().GetPlayers();
             foreach (GameObject player in allPlayers)
             {
                 if (player != null && PlayerInsidePlatform(player)
@@ -49,6 +53,12 @@ public class TwoPointMovement : MonoBehaviour
             StartCoroutine(Move(moveTime, idleTime));
             initialized = true;
         }
+    }
+
+    void LateUpdate()
+    {
+        currentVelocity = (((Vector2)transform.position - previousPos) / Time.deltaTime) * 1.427f;
+        previousPos = transform.position;
     }
 
     private IEnumerator Move(float timeToMove, float timeToIdle)
@@ -76,9 +86,7 @@ public class TwoPointMovement : MonoBehaviour
                         if (PlayerInsidePlatform(player.gameObject))
                         {
                             // Move the player relative to the platform's movement (no sliding)
-                            float newPosX = player.gameObject.transform.position.x + (currentPos.x - previousPos.x);
-                            float newPosY = player.gameObject.transform.position.y + (currentPos.y - previousPos.y);
-                            player.gameObject.transform.position = new Vector2(newPosX, newPosY);
+                            player.SetOffsetVelocity(currentVelocity);
                         }
                     }
                     yield return null;
@@ -102,9 +110,7 @@ public class TwoPointMovement : MonoBehaviour
                     if (PlayerInsidePlatform(player.gameObject))
                     {
                         // Move the player relative to the platform's movement (no sliding)
-                        float newPosX = player.gameObject.transform.position.x + (currentPos.x - previousPos.x);
-                        float newPosY = player.gameObject.transform.position.y + (currentPos.y - previousPos.y);
-                        player.gameObject.transform.position = new Vector2(newPosX, newPosY);
+                        player.SetOffsetVelocity(currentVelocity);
                     }
                 }
                 yield return null;
@@ -119,7 +125,10 @@ public class TwoPointMovement : MonoBehaviour
         {
             Debug.Log("That something is a player");
             if (!players.Contains(other.gameObject.GetComponent<PlayerMovement>()))
+            {
                 players.Add(other.gameObject.GetComponent<PlayerMovement>());
+                other.gameObject.GetComponent<PlayerMovement>().SetInsidePlatform(true);
+            }
         }
     }
 
@@ -127,7 +136,10 @@ public class TwoPointMovement : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            PlayerMovement playerLeaving = players.Find(player => player == other.gameObject);
             players.Remove(players.Find(player => player == other.gameObject));
+            playerLeaving.SetOffsetVelocity(Vector2.zero);
+            playerLeaving.SetInsidePlatform(false);
         }
     }
 
@@ -149,9 +161,11 @@ public class TwoPointMovement : MonoBehaviour
         if (containsTop && containsBottom && containsLeft && containsRight)
         {
             Debug.Log("A player is fully inside a moving platform");
+            player.GetComponent<PlayerMovement>().SetInsidePlatform(true);
             return true;
         }
 
+        player.GetComponent<PlayerMovement>().SetInsidePlatform(false);
         return false;
     }
 }

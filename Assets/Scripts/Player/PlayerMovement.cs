@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -29,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private bool canMove = true;
     public Vector2 lastMoveDir = new Vector2(0, -1);
     private Vector2 moveDir;
+    private Vector2 offsetVelocity = Vector2.zero;
 
     // Players pushing other players
     private bool pushed = false;
@@ -39,7 +41,11 @@ public class PlayerMovement : MonoBehaviour
     private bool fallInProgress = false;
     private bool isDashing = false;
     private bool hitByShockwave = false;
+    private bool insidePlatform = false;
     private float dashSpeedMultiplier = 2.0f;
+
+    // Gate related stuff
+    private bool onLandGate = false, onMovingGate = false;
 
     private void Start()
     {
@@ -51,6 +57,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        ApplyMovementSpeed();
+
         if (hitByShockwave)
         {
             fallingColliderObject.SetActive(true);  // Allow player to fall if they are hit off by a shockwave
@@ -68,6 +76,8 @@ public class PlayerMovement : MonoBehaviour
         {
             pushedVelocity = Vector2.zero;
         }
+
+        if (!onLandGate || !onMovingGate) gameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
 
 
@@ -107,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
     ////////// MOVEMENT //////////
     //////////////////////////////
 
-    private void ApplyMovementSpeed()  // Set current speed based on whether dashing is triggered or not
+    public void ApplyMovementSpeed()  // Set current speed based on whether dashing is triggered or not
     {
         if (pv == null) return;  // Prevent null reference on controller join
 
@@ -120,6 +130,12 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = moveDir * speed;
 
         ClampSpeed();
+
+        // Account for velocities not from the player (e.g. a moving platform)
+        if (insidePlatform)
+        {
+            rb.linearVelocity += offsetVelocity;
+        }
     }
 
     private void ClampSpeed() // Make sure the player doesn't go over the max speed while moving
@@ -195,6 +211,15 @@ public class PlayerMovement : MonoBehaviour
             fallInProgress = true;
             StartCoroutine(Fall());
         }*/
+
+        if (other.gameObject.CompareTag("Land Gate"))
+        {
+            onLandGate = true;
+        }
+        if (other.gameObject.CompareTag("Moving Platform Gate"))
+        {
+            onMovingGate = true;
+        }
     }
 
 
@@ -277,4 +302,15 @@ public class PlayerMovement : MonoBehaviour
     public void SetHitByShockwave(bool b) => hitByShockwave = b;
 
     public bool GetHitByShockwave() => hitByShockwave;
+
+    public bool GetOnLandGate() => onLandGate;
+    public void SetOnLandGate(bool state) => onLandGate = state;
+    public bool GetOnMovingGate() => onMovingGate;
+    public void SetOnMovingGate(bool state) => onMovingGate = state;
+
+    public Vector2 GetOffsetVelocity() => offsetVelocity;
+    public void SetOffsetVelocity(Vector2 velocity) => offsetVelocity = velocity;
+
+    public bool GetInsidePlatform() => insidePlatform;
+    public void SetInsidePlatform(bool state) => insidePlatform = state;
 }
