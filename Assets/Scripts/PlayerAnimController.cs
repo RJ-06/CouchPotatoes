@@ -22,8 +22,13 @@ public class PlayerAnimController : MonoBehaviour
     [SerializeField] Sprite[] playerFive;
     [SerializeField] Sprite[] playerSix;
 
-
     Sprite[][] sprites;
+
+    [SerializeField] SpriteRenderer hatSprite;
+    [SerializeField] Sprite[] hats;
+    [SerializeField] float[] hatOffset;
+    [SerializeField] Transform hatTransform;
+    int currHat = 0;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -51,7 +56,7 @@ public class PlayerAnimController : MonoBehaviour
 
     void faceDirection()
     {
-        if (dirFacing == Vector2.zero) 
+        if (dirFacing == Vector2.zero)
         {
             playerSprite.sprite = sprites[currSprite][0];
         }
@@ -76,9 +81,19 @@ public class PlayerAnimController : MonoBehaviour
     void OnChangeSkin()
     {
         currSprite++;
-        if (currSprite >= 6) 
+        if (currSprite >= 6)
         {
             currSprite = 0;
         }
+    }
+
+    void OnChangeHat() 
+    {
+        currHat++;
+        if (currHat >= hats.Length)
+        {
+            currHat = 0;
+        }
+        hatSprite.sprite = hats[currHat];
     }
 }
