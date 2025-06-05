@@ -262,7 +262,7 @@ public class PlayerItems : MonoBehaviour
             Vector2 normalizedShootDir = shootDir.normalized;
             Vector3 attackPos = new Vector3(
                 transform.position.x + normalizedShootDir.x,
-                transform.position.y + normalizedShootDir.y,
+                transform.position.y + normalizedShootDir.y + 0.5f,
                 transform.position.z
                 );
             Quaternion rot = Quaternion.LookRotation(Vector3.forward, shootDir);
@@ -275,7 +275,7 @@ public class PlayerItems : MonoBehaviour
             Vector2 normalizedShootDir = movement.lastMoveDir.normalized;
             Vector3 attackPos = new Vector3(
                 transform.position.x + normalizedShootDir.x,
-                transform.position.y + normalizedShootDir.y,
+                transform.position.y + normalizedShootDir.y + 0.5f,
                 transform.position.z
                 );
             Quaternion rot = Quaternion.LookRotation(Vector3.forward, movement.lastMoveDir);
