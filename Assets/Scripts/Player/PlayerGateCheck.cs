@@ -30,5 +30,6 @@ public class PlayerGateCheck : MonoBehaviour
         }
     }
 
+    public bool GetInGate() => inGate;
     public void SetInGate(bool state) => inGate = state;
 }

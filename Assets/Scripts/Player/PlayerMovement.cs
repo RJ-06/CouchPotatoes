@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerVals pv;
     private Rigidbody2D rb;
     private BoxCollider2D bc;
+    private PlayerGateCheck gc;
     private PlayerPotato potato;
     public GameObject fallingColliderObject;  // Child of player that turns on a collider when a player is vulnerable to falling
     public GameObject fallingAlwaysColliderObject;
@@ -52,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         pv = GetComponent<PlayerVals>();
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
+        gc = GetComponentInChildren<PlayerGateCheck>();
         potato = GetComponent<PlayerPotato>();
     }
 
@@ -65,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
             pushedVelocity = rb.linearVelocity;
             ExecutePush(0.2f);
         }
-        else if (!pushed && moveDir == Vector2.zero && !isPusher && !pv.getClone())
+        else if (!pushed && moveDir == Vector2.zero && !isPusher && !pv.getClone() && !gc.GetInGate() && !insidePlatform)
         {
             fallingColliderObject.SetActive(true);
             pushedVelocity = rb.linearVelocity; // Store pushed velocity before executing the push

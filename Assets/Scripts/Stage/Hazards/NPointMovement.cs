@@ -57,7 +57,7 @@ public class TwoPointMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        currentVelocity = (((Vector2)transform.position - previousPos) / Time.deltaTime) * 1.427f;
+        currentVelocity = (((Vector2)transform.position - previousPos) / Time.deltaTime);
         previousPos = transform.position;
     }
 
