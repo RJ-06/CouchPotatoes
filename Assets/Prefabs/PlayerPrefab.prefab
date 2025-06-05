@@ -444,10 +444,10 @@ MonoBehaviour:
   ConfusionItem: {fileID: 4343722360355832344, guid: 4f66447468b043a42992c62d38f13c3d, type: 3}
   iceItem: {fileID: 0}
   frenzyPowerup: {fileID: 0}
-  weakCooldown: 0
+  weakCooldown: 0.2
   weakCooldownTimer: 0
   shootDir: {x: 0, y: 0}
-  shockwaveCooldown: 5
+  shockwaveCooldown: 4
   shockwaveCooldownTimer: 0
   confusionDuration: 7.5
   frenzyBoost: 0
@@ -462,9 +462,9 @@ MonoBehaviour:
   playerClonePrefab: {fileID: 1049262611600795804, guid: 246718464d0d349538aa7fa1155921cd, type: 3}
   giantDuration: 8
   giantSizeBoost: 3
-  giantHealthBoost: 1.3
-  giantDamageBoost: 2
-  giantSlowdown: 0.9
+  giantHealthBoost: 1.5
+  giantDamageBoost: 3
+  giantSlowdown: 1.2
 --- !u!114 &7046214573460959820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,6 +619,11 @@ MonoBehaviour:
   - {fileID: -6822733216736672845, guid: 704ce01d2eace5644bd4de71b77b738a, type: 3}
   - {fileID: 1329128403346581833, guid: 704ce01d2eace5644bd4de71b77b738a, type: 3}
   - {fileID: 1166170823391951218, guid: 704ce01d2eace5644bd4de71b77b738a, type: 3}
+  hatSprite: {fileID: 0}
+  hats: []
+  hatOffset: []
+  hatTransform: {fileID: 0}
+  currHat: 0
 --- !u!1 &6417111034159420714
 GameObject:
   m_ObjectHideFlags: 0

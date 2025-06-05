@@ -14,6 +14,7 @@ TagManager:
   - Fallable Always
   - Fallable Prevent Walk Off
   - Player Clone
+  - attack
   layers:
   - Default
   - TransparentFX

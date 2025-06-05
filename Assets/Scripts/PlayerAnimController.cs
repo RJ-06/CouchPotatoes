@@ -11,7 +11,7 @@ public class PlayerAnimController : MonoBehaviour
     SpriteRenderer playerSprite;
     PlayerMovement playerMovement;
     Vector2 dirFacing;
-    [SerializeField] int currSprite = 0;
+    public int currSprite = 0;
 
     //DIFFERENT POTATOES
     [Tooltip("0: down, 1: right, 2: left, 3: up")]
@@ -28,7 +28,7 @@ public class PlayerAnimController : MonoBehaviour
     [SerializeField] Sprite[] hats;
     [SerializeField] float[] hatOffset;
     [SerializeField] Transform hatTransform;
-    int currHat = 0;
+    public int currHat = 0;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -94,6 +94,6 @@ public class PlayerAnimController : MonoBehaviour
         {
             currHat = 0;
         }
-        hatSprite.sprite = hats[currHat];
+        //hatSprite.sprite = hats[currHat];
     }
 }
