@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
             pushedVelocity = rb.linearVelocity;
             ExecutePush(0.2f);
         }
-        else if (!pushed && moveDir == Vector2.zero && !isPusher && !pv.getClone() && !gc.GetInGate() && !insidePlatform && !isDashing)
+        else if (!pushed && moveDir == Vector2.zero && !isPusher && !pv.getClone() && !gc.GetInGate() && !insidePlatform)
         {
             fallingColliderObject.SetActive(true);
             pushedVelocity = rb.linearVelocity; // Store pushed velocity before executing the push
