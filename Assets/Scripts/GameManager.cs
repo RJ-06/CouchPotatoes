@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,9 +19,11 @@ public class GameManager : MonoBehaviour
     private SpriteRenderer potatoSprite;
     [SerializeField] Sprite happyPotato, expressionlessPotato, redPotato, veryRedPotato;
     [SerializeField] TextMeshProUGUI timer;
-    [SerializeField] List<Vector2> spawnPoints;
+    [SerializeField] List<UnityEngine.Vector2> spawnPoints;
     [SerializeField] Tilemap possibleFallPoints;
     [SerializeField] Tilemap possibleRespawnPoints;
+    [SerializeField] Tilemap possibleItemSpawns;
+    private List<UnityEngine.Vector2> itemSpawnPositions = new List<UnityEngine.Vector2>();
     private PlayerInputManager pInputManager;
     public List<GameObject> players = new List<GameObject>();
     private List<GameObject> deadPlayers = new List<GameObject>();
@@ -56,7 +59,7 @@ public class GameManager : MonoBehaviour
     /////////////////////////////////
 
     // Floating grass island
-    [SerializeField] public List<Vector2> floatingGrassIslandRespawnPoints = new List<Vector2>();
+    [SerializeField] public List<UnityEngine.Vector2> floatingGrassIslandRespawnPoints = new List<UnityEngine.Vector2>();
 
     void Start()
     {
@@ -67,6 +70,16 @@ public class GameManager : MonoBehaviour
             if (child.CompareTag("Player"))
             {
                 players.Add(child.gameObject);
+            }
+        }
+
+        // Initialize item spawnpoints
+        foreach (Vector3Int pos in possibleItemSpawns.cellBounds.allPositionsWithin)
+        {
+            TileBase tile = possibleItemSpawns.GetTile(pos);
+            if (tile != null)
+            {
+                itemSpawnPositions.Add(new UnityEngine.Vector2(pos.x, pos.y));
             }
         }
 
@@ -241,14 +254,10 @@ public class GameManager : MonoBehaviour
 
     void ChooseWhereToPlaceItem()
     {
-        float[,] positions = {{-21f, -21f, 21f, 21f},
-                              {  8f,  -8f,  8f, -8f}};
-        int index = Random.Range(0, 4);
+        int i = Random.Range(0, itemSpawnPositions.Count - 1);
+        UnityEngine.Vector2 position = itemSpawnPositions[i];
 
-        // Place an item at the area with the largest distance sum
-        Vector3 position = new Vector3(positions[0, index], positions[1, index], -0.5f);
-
-        Instantiate(itemsToSpawn[Random.Range(0, itemsToSpawn.Length)], position, Quaternion.identity);
+        Instantiate(itemsToSpawn[Random.Range(0, itemsToSpawn.Length)], position, UnityEngine.Quaternion.identity);
         ++numItems;
     }
 
@@ -286,7 +295,7 @@ public class GameManager : MonoBehaviour
         player.GetComponent<CircleCollider2D>().enabled = false;
         player.GetComponent<PlayerMovement>().SetCanMove(false);
         player.GetComponent<PlayerItems>().SetCanAttack(false);
-        player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        player.GetComponent<Rigidbody2D>().linearVelocity = UnityEngine.Vector2.zero;
     }
 
     private void ReactivatePlayer(GameObject player)
@@ -358,7 +367,7 @@ public class GameManager : MonoBehaviour
         {
             ReactivatePlayer(deadPlayers[i]);
             deadPlayers[i].GetComponent<PlayerVals>().setHealth(100);
-            deadPlayers[i].transform.localScale = new Vector3(1f, 1f, 1f);
+            deadPlayers[i].transform.localScale = new UnityEngine.Vector3(1f, 1f, 1f);
             players.Add(deadPlayers[i]);
             deadPlayers.Remove(deadPlayers[i]);
             --i;
@@ -378,7 +387,7 @@ public class GameManager : MonoBehaviour
         SFXSource.PlayOneShot(clip);
     }
 
-    public List<Vector2> GetSpawnPoints() => spawnPoints;
+    public List<UnityEngine.Vector2> GetSpawnPoints() => spawnPoints;
 
     public List<GameObject> GetPlayers() => players;
 
