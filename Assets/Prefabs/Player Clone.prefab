@@ -19,7 +19,7 @@ PrefabInstance:
     - target: {fileID: 4245267014425260069, guid: fb77eccfd5c93c6498ce7ff8a1f8c725, type: 3}
       propertyPath: playerClonePrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1049262611600795804}
     - target: {fileID: 4685031436231118590, guid: fb77eccfd5c93c6498ce7ff8a1f8c725, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

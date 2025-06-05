@@ -305,8 +305,10 @@ public class PlayerItems : MonoBehaviour
 
     IEnumerator GiantTime() 
     {
+        Debug.Log("Giant coroutine started");
         yield return new WaitForSeconds(giantDuration);
-        transform.parent.gameObject.transform.localScale /= giantSizeBoost;
+        Debug.Log("Giant time has ended");
+        gameObject.transform.localScale /= giantSizeBoost;
         pv.setMovementMultiplier(pv.getMovementMultiplier() / giantSlowdown);
         pv.setAttackPoints((int)(pv.getAttackPoints() / giantDamageBoost));
         //pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
