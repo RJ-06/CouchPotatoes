@@ -14,11 +14,14 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/RahulTest.unity
     guid: dccab237e7aa1e94dae499ee7b53b652
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/TestMainMenu.unity
     guid: 5dcc3320480ac4662ac35da41f5e74b3
   - enabled: 1
     path: Assets/Scenes/TestPotato.unity
     guid: 8743e709731b74115952a087eba39fec
+  - enabled: 1
+    path: Assets/Scenes/Stages/Simple Moving Platforms.unity
+    guid: 3ce8f6835ab4a1817b8531df98e15453
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
