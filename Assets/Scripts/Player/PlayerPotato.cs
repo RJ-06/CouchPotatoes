@@ -77,11 +77,11 @@ public class PlayerPotato : MonoBehaviour
             StopCoroutine(FollowPlayer());
             if (shootDir != Vector2.zero) // Use right stick direction if given
             {
-            rb.AddForce(maxThrowForce * shootDir);
+                rb.AddForce(maxThrowForce * shootDir);
             }
             else // Use previous direction moved if the potato isn't aimed
             {
-            rb.AddForce(maxThrowForce * movement.lastMoveDir);
+                rb.AddForce(maxThrowForce * movement.lastMoveDir);
             }
             StartCoroutine(ReturnToPlayer());
             potatoThrown = true;
@@ -104,14 +104,14 @@ public class PlayerPotato : MonoBehaviour
         {
             for (float i = 1f; i <= 100f; ++i)
             {
-            // Potato bobs up and down with an offset determined by a sine wave
-            bobOffset = new Vector2(0, 0.15f * Mathf.Sin(0.02f * Mathf.PI * i));
-            if (potatoThrown)  // Stop bobbing when thrown
-            {
-                bobbing = false;
-                yield break;
-            }
-            yield return new WaitForSeconds(0.01f);
+                // Potato bobs up and down with an offset determined by a sine wave
+                bobOffset = new Vector2(0, 0.15f * Mathf.Sin(0.02f * Mathf.PI * i));
+                if (potatoThrown)  // Stop bobbing when thrown
+                {
+                    bobbing = false;
+                    yield break;
+                }
+                yield return new WaitForSeconds(0.01f);
             }
         }
     }
@@ -123,11 +123,11 @@ public class PlayerPotato : MonoBehaviour
         // Set position to just behind the player, incorporating the bobbing and smooth return if needed
         if (initYOffset != 0)
         {
-            potato.transform.position = oldPlayerPosition + new Vector2(xOffset - xShift, yOffset + 0.5f * ((initYOffset - yOffset) / initYOffset)) + bobOffset;
+            potato.transform.position = oldPlayerPosition + new Vector2(xOffset - xShift, yOffset + 0.5f * ((initYOffset - yOffset) / initYOffset) + 0.5f) + bobOffset;
         }
         else
         {
-            potato.transform.position = oldPlayerPosition + new Vector2(xOffset - xShift, yOffset + 0.5f) + bobOffset;
+            potato.transform.position = oldPlayerPosition + new Vector2(xOffset - xShift, yOffset + 1f) + bobOffset;
         }
         xOffset -= xShift;
         yOffset -= yShift;
@@ -144,7 +144,7 @@ public class PlayerPotato : MonoBehaviour
         float exp = 0f;
         while (!atPlayer)
         {
-            Vector2 returnForce = (float)Math.Pow(2, exp) * mult * new Vector2(transform.position.x - potato.transform.position.x, transform.position.y + 0.5f - potato.transform.position.y).normalized;
+            Vector2 returnForce = (float)Math.Pow(2, exp) * mult * new Vector2(transform.position.x - potato.transform.position.x, transform.position.y + 1f - potato.transform.position.y).normalized;
             rb.linearVelocity = 0.8f * rb.linearVelocity;
             rb.AddForce(returnForce);
             exp += 0.15f;
@@ -221,4 +221,11 @@ public class PlayerPotato : MonoBehaviour
     public GameObject Potato() => potato;
 
     public bool GetPotatoThrown() => potatoThrown;
+
+    public void SetPotatoIndicator(bool state) {
+        if (state) 
+            potatoIndicator.SetActive(true);
+        else
+            potatoIndicator.SetActive(false);
+    }
 }
