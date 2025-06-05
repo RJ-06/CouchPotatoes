@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 5870009079913388645}
   - component: {fileID: -7497946494477336491}
   - component: {fileID: 8325008625678693045}
+  - component: {fileID: 640563510581205228}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -614,7 +615,7 @@ MonoBehaviour:
   rb: {fileID: 5852215728364785576}
   potato: {fileID: 1846692597506183403}
   potatoIndicator: {fileID: 6417111034159420714}
-  explosion: {fileID: 1417973234630308483}
+  explosion: {fileID: 1693871183269093839}
   maxThrowForce: 700
   maxThrowTime: 2
   getPotato:
@@ -744,6 +745,19 @@ MonoBehaviour:
   hats: []
   hatOffset: []
   hatTransform: {fileID: 0}
+  currHat: 0
+--- !u!114 &640563510581205228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6144178735891011915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c73696f4a70cda45a9a0d04729dcf0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6417111034159420714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,11 +1066,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 274169583053368624, guid: 301924bc60f5488448d333a324392204, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 274169583053368624, guid: 301924bc60f5488448d333a324392204, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.85
       objectReference: {fileID: 0}
     - target: {fileID: 274169583053368624, guid: 301924bc60f5488448d333a324392204, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1111,8 +1125,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 52611299103312962}
     - target: {fileID: 3226132030645962808, guid: 301924bc60f5488448d333a324392204, type: 3}
+      propertyPath: damageDeal
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 3226132030645962808, guid: 301924bc60f5488448d333a324392204, type: 3}
       propertyPath: endScaleSize
-      value: 4
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3226132030645962808, guid: 301924bc60f5488448d333a324392204, type: 3}
+      propertyPath: startScaleSize
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1122,17 +1144,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2936498922053540167}
   m_SourcePrefab: {fileID: 100100000, guid: 301924bc60f5488448d333a324392204, type: 3}
---- !u!114 &1417973234630308483 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3226132030645962808, guid: 301924bc60f5488448d333a324392204, type: 3}
-  m_PrefabInstance: {fileID: 4568940140894829243}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1693871183269093839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aa7248460b590641a9f0572ad6d04c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1693871183269093839 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2948155729309686644, guid: 301924bc60f5488448d333a324392204, type: 3}
@@ -1172,8 +1183,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: 1.0048171}
+  m_Radius: 0.37683523
 --- !u!4 &4370225644287809419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 274169583053368624, guid: 301924bc60f5488448d333a324392204, type: 3}

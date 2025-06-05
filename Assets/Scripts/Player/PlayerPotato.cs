@@ -20,7 +20,8 @@ public class PlayerPotato : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] GameObject potato;
     [SerializeField] GameObject potatoIndicator;
-    [SerializeField] Explosion explosion;
+    [SerializeField] GameObject explosion;
+    Explosion explodeScript;
     private GameManager gm;
 
 
@@ -46,6 +47,7 @@ public class PlayerPotato : MonoBehaviour
 
     void Start()
     {
+        explodeScript = explosion.GetComponent<Explosion>();
         movement = GetComponent<PlayerMovement>();
         gm = FindFirstObjectByType<GameManager>();
         gm.players.Add(gameObject);
@@ -212,8 +214,8 @@ public class PlayerPotato : MonoBehaviour
     public void ExplodePotato()
     {
         bobbing = false;
-        // explosion.enabled = true;
-        // explosion.ResetAndExplode();
+        explosion.SetActive(true);
+        explodeScript.ResetAndExplode();
     }
 
     public GameObject Potato() => potato;
