@@ -3425,6 +3425,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5021024167452658248, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: explosionEffect
+      value: 
+      objectReference: {fileID: 5221102966673552758, guid: 301924bc60f5488448d333a324392204, type: 3}
+    - target: {fileID: 5021024167452658248, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: possibleFallPoints
       value: 
       objectReference: {fileID: 1217968576}

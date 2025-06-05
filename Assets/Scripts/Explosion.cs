@@ -25,39 +25,40 @@ public class Explosion : MonoBehaviour
     void Awake()
     {
         ResetAndExplode();
+        Destroy(this.gameObject, timeForExplosion);
     }
 
     public void ResetAndExplode()
     {
 
         gameObject.SetActive(true);
-        transform.localScale = new Vector2(startScaleSize, startScaleSize);
+        //transform.localScale = new Vector2(startScaleSize, startScaleSize);
         // fx.effects[0].Invoke();
         // fx.playParticle("PotatoExplode");
-        timer = 0;
+        //timer = 0;
         doExplode = true;
         //playerList.Clear();
     }
 
-    void FixedUpdate()
-    {
-        if (!doExplode) return;
+    //void FixedUpdate()
+    //{
+    //    if (!doExplode) return;
 
-        scale = transform.localScale.x;
-        timer += Time.fixedDeltaTime;
-        while (timer < timeForExplosion) 
-        {
-            Mathf.Lerp(scale, endScaleSize, Time.fixedDeltaTime);
-        }
-        transform.localScale = new Vector2(scale, scale);
-        if (scale >= endScaleSize) 
-        {
-            transform.localScale = new Vector2(startScaleSize, startScaleSize);
-            gameObject.SetActive(false);
-            doExplode = false;
+    //    scale = transform.localScale.x;
+    //    timer += Time.fixedDeltaTime;
+    //    while (timer < timeForExplosion) 
+    //    {
+    //        Mathf.Lerp(scale, endScaleSize, Time.fixedDeltaTime);
+    //    }
+    //    transform.localScale = new Vector2(scale, scale);
+    //    if (scale >= endScaleSize) 
+    //    {
+    //        transform.localScale = new Vector2(startScaleSize, startScaleSize);
+    //        gameObject.SetActive(false);
+    //        doExplode = false;
 
-        }
-    }
+    //    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D col)
     {

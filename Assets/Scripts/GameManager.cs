@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     private bool firstGameStarted = false;
     private bool exploded = true;
     private bool playerNamesAssigned = false;
+    [SerializeField] GameObject explosionEffect;
 
     [Header("---------- Audio Source ----------")]
     [SerializeField] AudioSource musicSource;
@@ -319,6 +320,7 @@ public class GameManager : MonoBehaviour
         //PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
         //PlayerWithPotato().SetActive(false);
         //PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
+        Instantiate(explosionEffect, PlayerWithPotato().GetComponent<Transform>().position, UnityEngine.Quaternion.identity);
 
         exploded = true;
         //--playersLeft;

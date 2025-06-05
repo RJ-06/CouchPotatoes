@@ -39,6 +39,8 @@ public class PlayerPotato : MonoBehaviour
     public UnityEvent getPotato;
     [SerializeField] UnityEvent givePotato;
 
+    [SerializeField] GameObject explosionEffect;
+
 
     // Potato bobbing :D
     private Vector2 bobOffset;
@@ -213,9 +215,11 @@ public class PlayerPotato : MonoBehaviour
 
     public void ExplodePotato()
     {
+        Instantiate(explosionEffect, potato.transform.position, Quaternion.identity);
         bobbing = false;
         explosion.SetActive(true);
         explodeScript.ResetAndExplode();
+        
     }
 
     public GameObject Potato() => potato;

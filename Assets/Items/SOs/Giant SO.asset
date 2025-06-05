@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e583fa6d6364ff9faaa8bd75744c25f, type: 3}
   m_Name: Giant SO
   m_EditorClassIdentifier: 
-  itemName: Slowness
+  itemName: Giant
   itemPrefab: {fileID: 4343722360355832344, guid: f36e7019a28790449a5904d4dfc83a82, type: 3}
   pickupPrefab: {fileID: 2869585867297294824, guid: 2f7bb3b59fae7a2448b9348b99bee9be, type: 3}
