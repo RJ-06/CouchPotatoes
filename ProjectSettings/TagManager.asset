@@ -14,7 +14,8 @@ TagManager:
   - Fallable Always
   - Fallable Prevent Walk Off
   - Player Clone
-  - attack
+  - Moving Platform Gate
+  - Land Gate
   layers:
   - Default
   - TransparentFX
