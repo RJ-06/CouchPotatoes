@@ -649,6 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemManager: {fileID: -7497946494477336491}
+  healthbar: {fileID: 8998425045708692367}
   ShockwavePrefab: {fileID: 9203247207447412739, guid: 699f35a124f56f398b0096574a65eb1a, type: 3}
   weakAttackPrefab: {fileID: 706087334615091427, guid: 4ec413589416a6d41a4b120123028c5d, type: 3}
   ConfusionItem: {fileID: 4343722360355832344, guid: 4f66447468b043a42992c62d38f13c3d, type: 3}
@@ -1523,3 +1524,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 445906414178784637, guid: 5cacf93063d7349ef8618ab1ec639f26, type: 3}
   m_PrefabInstance: {fileID: 6189202583007224465}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8998425045708692367 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2955668753672747294, guid: 5cacf93063d7349ef8618ab1ec639f26, type: 3}
+  m_PrefabInstance: {fileID: 6189202583007224465}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 380fe05ea475d49fa839f5cf4d5e1e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

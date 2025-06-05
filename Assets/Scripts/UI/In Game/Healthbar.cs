@@ -51,7 +51,7 @@ public class Healthbar : MonoBehaviour
         prevHealth = slider.value;
     }
 
-    private void ShowHealthBar()
+    public void ShowHealthBar()
     {
         if (fadeCoroutine != null)
         {

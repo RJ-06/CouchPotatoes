@@ -160,7 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68553c60ba3870b4eaf28becf991fef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weakDamage: 7
+  itemManager: {fileID: 0}
+  weakDamage: 3
   knockbackForceStrength: 100
 --- !u!95 &1986673978988012941
 Animator:

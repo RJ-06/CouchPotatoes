@@ -26,6 +26,7 @@ public class PlayerItems : MonoBehaviour
     [SerializeField] float weakCooldownTimer;
     private bool weakUsed = false;
     public Vector2 shootDir;
+    private bool iceItemExists = false;
 
     // Shockwave attack
     [SerializeField] float shockwaveCooldown;
@@ -142,6 +143,13 @@ public class PlayerItems : MonoBehaviour
             pv.setAttackCooldown(pv.getAttackCooldown() * frenzyCooldownDecrease);
             pv.setDashCooldown(pv.getDashCooldown() * frenzyCooldownDecrease);
             Destroy(frenzyItem.gameObject);
+        }
+        Transform heartItem = transform.Find("HeartItem(Clone)");
+        if (heartItem != null)
+        {
+            pv.IncrementHealth((int)pv.getMaxHealth() / 2);
+            //if (pv.getHealth() > pv.getMaxHealth()) pv.setHealth((int)pv.getMaxHealth());
+            Destroy(heartItem.gameObject);
         }
         Transform slownessItem = transform.Find("SlownessItem(Clone)");
         if (slownessItem != null)
@@ -401,10 +409,16 @@ public class PlayerItems : MonoBehaviour
 
     public ItemManager GetItemManager() => itemManager;
 
-    public void SetIceItem(IceItem item) => iceItem = item;
+    public void SetIceItem(IceItem item)
+    {
+        iceItem = item;
+        iceItemExists = true;
+    }
 
     public bool GetCanAttack() => canAttack;
     public void SetCanAttack(bool state) => canAttack = state;
+
+    public bool CheckIceItem() => iceItemExists;
 
     /////////////////////////////////
     /////// POTATO GUN ATTACK ///////
