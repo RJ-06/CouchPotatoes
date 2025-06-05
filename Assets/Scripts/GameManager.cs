@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
         {
             currentPlayer = PlayerWithPotato();
             potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
+            currentPlayer.GetComponent<PlayerPotato>().SetPotatoIndicator(true);
         }
 
         if (!exploded)
