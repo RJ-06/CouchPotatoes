@@ -836,7 +836,13 @@ MonoBehaviour:
   - {fileID: -1105769402514687780, guid: f7eb32efa2e647942945c2bec8552791, type: 3}
   - {fileID: -7986455004737779015, guid: f7eb32efa2e647942945c2bec8552791, type: 3}
   - {fileID: 3823000925417960572, guid: f7eb32efa2e647942945c2bec8552791, type: 3}
-  hatOffset: []
+  hatOffset:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   hatTransform: {fileID: 6141291859914732943}
   currHat: 0
 --- !u!114 &640563510581205228
