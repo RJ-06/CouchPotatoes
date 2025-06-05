@@ -213,7 +213,7 @@ public class PlayerItems : MonoBehaviour
             {
                 shockwaveUsed = true;
                 shockwaveCooldownTimer = shockwaveCooldown;
-                GameObject newShockwave = Instantiate(ShockwavePrefab, transform.position, Quaternion.identity, this.transform);
+                GameObject newShockwave = Instantiate(ShockwavePrefab, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, this.transform);
 
                 // Apply necessary buffs to the new shockwave
                 if (shockwaveItem.GetComponent<ShockwaveItem>().getIceBuff())
