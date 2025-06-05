@@ -94,6 +94,6 @@ public class PlayerAnimController : MonoBehaviour
         {
             currHat = 0;
         }
-        //hatSprite.sprite = hats[currHat];
+        hatSprite.sprite = hats[currHat];
     }
 }
