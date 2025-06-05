@@ -8,6 +8,8 @@ public class DamageableObj : MonoBehaviour
 
     [SerializeField] FXManager fx;
 
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Check if the collider's tag is in the list of tags that can damage this object

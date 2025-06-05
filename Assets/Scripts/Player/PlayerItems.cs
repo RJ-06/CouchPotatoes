@@ -346,16 +346,16 @@ public class PlayerItems : MonoBehaviour
             GameObject newClone = Instantiate(playerClonePrefab, gameObject.transform.position, transform.rotation);
 
             // Copy the sprite renderer of the player to its clone
-            SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();
+            //SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();
             SpriteRenderer cloneSprite = newClone.GetComponent<SpriteRenderer>();
-            if (playerSprite != null)
-            {
-                cloneSprite.sprite = playerSprite.sprite;
-                cloneSprite.material = playerSprite.material;
-                cloneSprite.color = playerSprite.color;
-                cloneSprite.flipX = playerSprite.flipX;
-                cloneSprite.flipY = playerSprite.flipY;
-            }
+            //if (playerSprite != null)
+            //{
+            //    cloneSprite.sprite = playerSprite.sprite;
+            //    cloneSprite.material = playerSprite.material;
+            //    cloneSprite.color = playerSprite.color;
+            //    cloneSprite.flipX = playerSprite.flipX;
+            //    cloneSprite.flipY = playerSprite.flipY;
+            //}
 
             // Make clones a little transluscent
             Color cloneColor = cloneSprite.color;
@@ -377,6 +377,8 @@ public class PlayerItems : MonoBehaviour
                 cloneRb.AddForce(positions[i] * forceMagnitude, ForceMode2D.Impulse);
             }
         }
+
+        clone.GetComponent<PlayerAnimController>().currSprite = GetComponent<PlayerAnimController>().currSprite;
 
         movement.SetCanMove(true);
         transform.gameObject.GetComponent<BoxCollider2D>().enabled = true;
