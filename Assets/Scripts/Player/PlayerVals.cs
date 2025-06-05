@@ -43,7 +43,7 @@ public class PlayerVals : MonoBehaviour
 
         // Place player at a spawn point
         List<Vector2> spawnPoints = FindAnyObjectByType<GameManager>().GetSpawnPoints();
-        transform.position = spawnPoints[(numPlayers - 1) % spawnPoints.Count];
+        if (gameObject.CompareTag("Player")) transform.position = spawnPoints[(numPlayers - 1) % spawnPoints.Count];
 
         currentMoveSpeed = baseMoveSpeed;
         currentHealthPoints = baseHealthPoints;

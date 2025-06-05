@@ -84,8 +84,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shockwave: {fileID: 3588859280043437282}
   shockwaveRadius: 6
-  shockwaveSpeed: 2
+  shockwaveSpeed: 5
   shockwaveStrength: 5
+  shockwaveDamage: 0
   poweredUp: 0
 --- !u!212 &3503797232041605769
 SpriteRenderer:

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 274169583053368624}
   - component: {fileID: 1815653389689050506}
   - component: {fileID: 3226132030645962808}
+  - component: {fileID: 4638314920086756128}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2948155729309686644}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5892923, y: -3.8722665, z: 0.030874602}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.236, y: 3.236, z: 3.236}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -77,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.81886786, g: 0.17767876, b: 0.17767876, a: 0.5411765}
+  m_Sprite: {fileID: 8166446451564633753, guid: adc7848b8cfe3fec5a5ee0459eaafd91, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -104,4 +105,25 @@ MonoBehaviour:
   endScaleSize: 0
   timeForExplosion: 0.5
   damageDeal: 90
-  fx: {fileID: 0}
+--- !u!95 &4638314920086756128
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2948155729309686644}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: -6143415922736020472, guid: adc7848b8cfe3fec5a5ee0459eaafd91, type: 3}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

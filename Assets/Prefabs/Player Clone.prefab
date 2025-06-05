@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5846119943237020874, guid: fb77eccfd5c93c6498ce7ff8a1f8c725, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5870009079913388645, guid: fb77eccfd5c93c6498ce7ff8a1f8c725, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -68,11 +72,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Clone
       objectReference: {fileID: 0}
+    - target: {fileID: 6144178735891011915, guid: fb77eccfd5c93c6498ce7ff8a1f8c725, type: 3}
+      propertyPath: m_TagString
+      value: Player Clone
+      objectReference: {fileID: 0}
     - target: {fileID: 8020586627722750465, guid: fb77eccfd5c93c6498ce7ff8a1f8c725, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8325008625678693045, guid: fb77eccfd5c93c6498ce7ff8a1f8c725, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4184248540268549510, guid: fb77eccfd5c93c6498ce7ff8a1f8c725, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1923057518515910806, guid: fb77eccfd5c93c6498ce7ff8a1f8c725, type: 3}
     m_AddedGameObjects: []

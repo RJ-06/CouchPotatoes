@@ -12,6 +12,7 @@ public class ShockwaveAttack : MonoBehaviour
     [SerializeField] float shockwaveRadius;
     [SerializeField] float shockwaveSpeed;
     [SerializeField] float shockwaveStrength;
+    [SerializeField] float shockwaveDamage;
     [SerializeField] bool poweredUp = false;
     private IceEffect iceEffect;
 
@@ -35,6 +36,7 @@ public class ShockwaveAttack : MonoBehaviour
     {
         if (!other.CompareTag("Player") || other.gameObject == transform.parent) return;
 
+        other.GetComponent<PlayerVals>().IncrementHealth(-12);
         var target = other.GetComponent<PlayerMovement>();
         if (playerMovements.Contains(target)) return; // Prevent duplicate triggers
 

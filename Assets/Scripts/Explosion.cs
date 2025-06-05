@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Explosion : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Explosion : MonoBehaviour
     [SerializeField] float endScaleSize;
     [SerializeField] float timeForExplosion;
     [SerializeField] int damageDeal;
+    //[SerializeField] Animator animator;
 
     // [SerializeField] FXManager fx;
 
@@ -34,7 +36,7 @@ public class Explosion : MonoBehaviour
         // fx.playParticle("PotatoExplode");
         timer = 0;
         doExplode = true;
-        playerList.Clear();
+        //playerList.Clear();
     }
 
     void FixedUpdate()

@@ -91,6 +91,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 972737137039443890, guid: 4ae808e0c8dce1eafb6bd8d65ac5753e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7100767947021455613}
+    - targetCorrespondingSourceObject: {fileID: 972737137039443890, guid: 4ae808e0c8dce1eafb6bd8d65ac5753e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7529737436956476845}
   m_SourcePrefab: {fileID: 100100000, guid: 4ae808e0c8dce1eafb6bd8d65ac5753e, type: 3}
 --- !u!1 &2869585867297294824 stripped
 GameObject:
@@ -141,8 +144,8 @@ SpriteRenderer:
   m_SortingLayerID: -1941634979
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.654902, g: 0.972549, b: 1, a: 1}
+  m_Sprite: {fileID: 1797890893065300308, guid: 15be416ee86c193358c63d5036602c4a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -152,3 +155,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7529737436956476845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2869585867297294824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e9d75397f5b5a646b624c6fe42c08fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

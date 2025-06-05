@@ -50,7 +50,7 @@ public class IceEffect : MonoBehaviour
         playerFrozen.GetComponent<PlayerMovement>().SetCanMove(false);
         // I'd imagine it sucks to get frozen solid. 1/3 health loss *maniacal laugh*
         Debug.Log("Health lost");
-        playerFrozen.GetComponent<PlayerVals>().IncrementHealth((int)(-1 * playerFrozen.GetComponent<PlayerVals>().getMaxHealth() / 3f));
+        playerFrozen.GetComponent<PlayerVals>().IncrementHealth(-13);
 
         Debug.Log("Waiting for " + freezeDuration + " seconds");
         yield return new WaitForSeconds(freezeDuration);

@@ -25,7 +25,7 @@ public class PlayerItems : MonoBehaviour
     [SerializeField] float weakCooldown;
     [SerializeField] float weakCooldownTimer;
     private bool weakUsed = false;
-    private Vector2 shootDir;
+    public Vector2 shootDir;
 
     // Shockwave attack
     [SerializeField] float shockwaveCooldown;
@@ -42,6 +42,18 @@ public class PlayerItems : MonoBehaviour
 
     // Slowness item
     [SerializeField] float slownessDuration;
+
+    // Potato gun item
+    [SerializeField] float potatoGunCooldown;
+    [SerializeField] float potatoGunCooldownTimer;
+    private bool potatoGunUsed = false;
+    private Transform potatoGunItem;
+    GameObject potatoGunEquipped = null;
+
+    [SerializeField] GameObject PotatoProjectilePrefab;
+    [SerializeField] GameObject PotatoGunPrefab;
+    [SerializeField] GameObject ShellEjectPrefab;
+    Animator animator;
 
     // Clone item
     [SerializeField] float cloneDuration;
@@ -65,6 +77,23 @@ public class PlayerItems : MonoBehaviour
         shockwaveCooldown = pv.getAttackCooldown();
     }
 
+    private void Update()
+    {
+        
+        if (potatoGunItem == null)
+            potatoGunItem = transform.Find("PotatoGunItem(Clone)");
+
+        if (potatoGunItem != null)
+        {
+            if (!potatoGunEquipped)
+            {
+                potatoGunEquipped = Instantiate(PotatoGunPrefab, this.transform.position + new Vector3(0f, -0.2f, 10), Quaternion.identity, this.transform);
+                animator = potatoGunEquipped.GetComponent<Animator>();
+            }
+        }
+    }
+
+
     void FixedUpdate()
     {
         // Handle cooldowns and attack executions
@@ -85,6 +114,16 @@ public class PlayerItems : MonoBehaviour
         {
             weakUsed = false;
         }
+
+        if (potatoGunUsed && Mathf.Abs(potatoGunCooldownTimer) >= 0.0001)
+        {
+            potatoGunCooldownTimer -= Time.fixedDeltaTime;
+        }
+        else if (potatoGunUsed)
+        {
+            potatoGunUsed = false;
+        }
+
 
         Transform confIt = transform.Find("ConfusionItem(Clone)");
         if (confIt != null)
@@ -116,10 +155,11 @@ public class PlayerItems : MonoBehaviour
         Transform giantItem = transform.Find("GiantItem(Clone)");
         if (giantItem != null)
         {
-            transform.parent.gameObject.transform.localScale *= giantSizeBoost;
+            transform.gameObject.transform.localScale *= giantSizeBoost;
             pv.setMovementMultiplier(pv.getMovementMultiplier() * giantSlowdown);
             pv.setAttackPoints((int)(pv.getAttackPoints() * giantDamageBoost));
             pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
+            StartCoroutine(GiantTime());
             Destroy(giantItem.gameObject);
         }
 
@@ -173,6 +213,27 @@ public class PlayerItems : MonoBehaviour
                     newShockwave.GetComponent<ShockwaveAttack>().ApplyIceEffect(iceItem);
                 }
             }
+            else if (potatoGunItem != null)
+            {
+                if (!potatoGunUsed)
+                {
+                    potatoGunUsed = true;
+                    potatoGunCooldownTimer = potatoGunCooldown;
+                    PotatoGunAttack();
+                    animator.SetTrigger("Shot");
+
+
+                    GameObject shellEject = Instantiate(ShellEjectPrefab, potatoGunEquipped.transform.position, Quaternion.identity);
+
+                    float shellEjectAngle = potatoGunEquipped.transform.eulerAngles.y == 0 ? 125.0f : 55.0f;
+                    float gunAngle = potatoGunEquipped.transform.eulerAngles.z;
+                    Vector2 shellEjectDir = new Vector2(Mathf.Cos((gunAngle + shellEjectAngle) * Mathf.Deg2Rad), Mathf.Sin((gunAngle + shellEjectAngle) * Mathf.Deg2Rad));
+                    shellEject.GetComponent<Rigidbody2D>().AddForce(shellEjectDir * 25.0f);
+                    shellEject.GetComponent<Rigidbody2D>().AddTorque(Random.Range(500.0f, 2000.0f));
+                    Destroy(shellEject, 1.0f);
+                }
+                
+            }
             else if (shockwaveItem == null && !weakUsed) // No other attack available, so do weak attack
             {
                 weakCooldownTimer = weakCooldown;
@@ -217,10 +278,12 @@ public class PlayerItems : MonoBehaviour
 
     }
 
-    private void OnAim(InputValue val) // Aim the potato with the right joystick on controller
+    public void OnAim(InputValue val) // Aim the potato with the right joystick on controller
     {
-        shootDir = val.Get<Vector2>();
+        shootDir = val.Get<Vector2>() * pv.getSpeedSensitivityMultiplier();
     }
+
+
 
 
     /////////////////////////////////
@@ -280,19 +343,24 @@ public class PlayerItems : MonoBehaviour
         for (int i = 1; i < 4; i++)
         {
             // Spawn clone on right side of item
-            GameObject newClone = Instantiate(playerClonePrefab, transform.position, transform.rotation);
+            GameObject newClone = Instantiate(playerClonePrefab, gameObject.transform.position, transform.rotation);
 
             // Copy the sprite renderer of the player to its clone
-            SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();
+            //SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();
             SpriteRenderer cloneSprite = newClone.GetComponent<SpriteRenderer>();
-            if (playerSprite != null)
-            {
-                cloneSprite.sprite = playerSprite.sprite;
-                cloneSprite.material = playerSprite.material;
-                cloneSprite.color = playerSprite.color;
-                cloneSprite.flipX = playerSprite.flipX;
-                cloneSprite.flipY = playerSprite.flipY;
-            }
+            //if (playerSprite != null)
+            //{
+            //    cloneSprite.sprite = playerSprite.sprite;
+            //    cloneSprite.material = playerSprite.material;
+            //    cloneSprite.color = playerSprite.color;
+            //    cloneSprite.flipX = playerSprite.flipX;
+            //    cloneSprite.flipY = playerSprite.flipY;
+            //}
+
+            // Make clones a little transluscent
+            Color cloneColor = cloneSprite.color;
+            cloneColor.a = 0.85f;
+            cloneSprite.color = cloneColor;
 
             // Set up clone behavior
             CloneBehavior cloneBehavior = newClone.GetComponent<CloneBehavior>();
@@ -309,6 +377,8 @@ public class PlayerItems : MonoBehaviour
                 cloneRb.AddForce(positions[i] * forceMagnitude, ForceMode2D.Impulse);
             }
         }
+
+        clone.GetComponent<PlayerAnimController>().currSprite = GetComponent<PlayerAnimController>().currSprite;
 
         movement.SetCanMove(true);
         transform.gameObject.GetComponent<BoxCollider2D>().enabled = true;
@@ -333,5 +403,33 @@ public class PlayerItems : MonoBehaviour
 
     public bool GetCanAttack() => canAttack;
     public void SetCanAttack(bool state) => canAttack = state;
+
+    /////////////////////////////////
+    /////// POTATO GUN ATTACK ///////
+    /////////////////////////////////
+
+    private void PotatoGunAttack()
+    {
+        Vector3 initPos;
+
+        if (shootDir != Vector2.zero)
+        {
+            Vector2 normalizedShootDir = shootDir.normalized;
+            initPos = new Vector3(
+                transform.position.x + normalizedShootDir.x,
+                transform.position.y + normalizedShootDir.y,
+                transform.position.z
+                );
+        }
+        else
+        {
+            Vector2 playerLastMoveDir = this.GetComponent<PlayerMovement>().lastMoveDir;
+            initPos = transform.position + new Vector3(playerLastMoveDir.x, playerLastMoveDir.y, 0);
+        }
+
+        Instantiate(PotatoProjectilePrefab, initPos, Quaternion.Euler(new Vector3(0, 0, 0)), this.transform);
+
+    }
 }
+
 

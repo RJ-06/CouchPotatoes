@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "changeHat",
+                    "type": "Button",
+                    "id": "fc45543b-6d10-430b-901b-66d9d3ae660c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -297,6 +306,17 @@
                 },
                 {
                     "name": "",
+                    "id": "f3718be7-7dbe-479f-97bb-af7e397fe21f",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4044f374-67ac-41e8-8f32-ad2db8518ddd",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -479,6 +499,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1cf1f471-4c1f-451a-8f94-7cced5c81968",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "changeHat",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f173ac8-817c-468b-9d3f-e59aab4a5102",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "changeHat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
