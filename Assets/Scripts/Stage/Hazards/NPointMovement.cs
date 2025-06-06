@@ -37,7 +37,7 @@ public class TwoPointMovement : MonoBehaviour
     void Update()
     {
         // Check for players inside the platform as first game starts
-        if (!initialized && FindAnyObjectByType<GameManager>().GetFirstGameStarted())
+        if (!initialized && FindAnyObjectByType<GameManager>().GetStageHazardsActivated())
         {
             List<GameObject> allPlayers = FindAnyObjectByType<GameManager>().GetPlayers();
             foreach (GameObject player in allPlayers)

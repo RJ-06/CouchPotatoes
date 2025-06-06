@@ -96,7 +96,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnStart()
     {
-        FindAnyObjectByType<GameManager>().StartGame();
+        if(!FindAnyObjectByType<GameManager>().GetFirstGameStarted())
+            FindAnyObjectByType<GameManager>().StartGame();
     }
 
     private void OnPause()
@@ -304,8 +305,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetDashing(bool dashing)
     {
-        playerSource.clip = dashSound;
-        playerSource.Play();
+        if (dashing)
+        {
+            playerSource.clip = dashSound;
+            playerSource.Play();
+        }
         isDashing = dashing;
         ApplyMovementSpeed();
     }

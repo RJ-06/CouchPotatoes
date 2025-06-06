@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public float time;
     private int numItems = 0, playerNum = 0, numOfPlayers, playersLeft;
     private bool firstGameStarted = false;
+    private bool stageHazardsActivated = false;
     private bool exploded = true;
     private bool playerNamesAssigned = false;
     [SerializeField] GameObject explosionEffect;
@@ -118,13 +119,11 @@ public class GameManager : MonoBehaviour
             // Potato explodes on 0
             if (time <= 0f)
             {
-                timer.text = "0";
                 StartCoroutine(Explode());
                 // Update timer otherwise
             }
             else if (PlayerWithPotato() != null)
             {
-                timer.text = time.ToString();
                 time -= Time.fixedDeltaTime;
             }
 
@@ -165,6 +164,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        firstGameStarted = true;
+
         // Make sure games can't start without multiple players
         if (players.Count < 2)
         {
@@ -205,6 +206,7 @@ public class GameManager : MonoBehaviour
         ChoosePlayerToGivePotato();
 
         currentPlayer = PlayerWithPotato();
+        currentPlayer.gameObject.GetComponent<PlayerPotato>().SetPotatoIndicator(true);
         potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
 
         // Start item spawning
@@ -221,8 +223,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         timer.text = "Go!";
         yield return new WaitForSeconds(0.5f);
-        firstGameStarted = true;
+        stageHazardsActivated = true;
         ExecuteGame();
+        yield return new WaitForSeconds(1f);
+        timer.text = "";
     }
 
     void ChoosePlayerToGivePotato()
@@ -269,9 +273,8 @@ public class GameManager : MonoBehaviour
     public void KillPlayer(GameObject player)
     {
         deadPlayers.Add(player);
-        players.Remove(player);
 
-        players.Remove(player);
+
         DeactivatePlayer(player);
 
         --playersLeft;
@@ -280,12 +283,14 @@ public class GameManager : MonoBehaviour
         {
             PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
             PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
+            StartCoroutine(DelayCameraRemoval(player, 2f));
             StartCoroutine(BetweenPotatoExplosions());
         }
         else if (PlayerWithPotato() == null)
         {
             StartCoroutine(BetweenPotatoExplosions());
         }
+        else players.Remove(player);
     }
 
     private void DeactivatePlayer(GameObject player)
@@ -338,6 +343,12 @@ public class GameManager : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    private IEnumerator DelayCameraRemoval(GameObject player, float f)
+    {
+        yield return new WaitForSeconds(f);
+        players.Remove(player);
     }
 
     private IEnumerator BetweenPotatoExplosions()
@@ -398,6 +409,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> GetPlayers() => players;
 
     public bool GetFirstGameStarted() => firstGameStarted;
+    public bool GetStageHazardsActivated() => stageHazardsActivated;
     
     public PauseMenu GetPauseScript() => pauseScript;
 }

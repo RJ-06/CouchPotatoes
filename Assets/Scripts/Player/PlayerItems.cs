@@ -274,7 +274,7 @@ public class PlayerItems : MonoBehaviour
             Quaternion rot = Quaternion.LookRotation(Vector3.forward, shootDir);
             GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, rot, transform.gameObject.transform);
 
-            Destroy(weakAttack, 1f);
+            Destroy(weakAttack, 0.3f);
         }
         else
         {

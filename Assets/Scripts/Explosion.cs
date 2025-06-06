@@ -17,13 +17,17 @@ public class Explosion : MonoBehaviour
     [SerializeField] int damageDeal;
     //[SerializeField] Animator animator;
 
-    [SerializeField] FXManager fx;
-
+    //[SerializeField] FXManager fx;
+    [SerializeField] AudioSource explosionSource;
+    [SerializeField] AudioClip explosionClip;
+ 
     System.Collections.Generic.List<PlayerVals> playerList;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        explosionSource.clip = explosionClip;
+        explosionSource.Play();
         ResetAndExplode();
         Destroy(this.gameObject, timeForExplosion);
     }
@@ -37,6 +41,7 @@ public class Explosion : MonoBehaviour
         // fx.playParticle("PotatoExplode");
         //timer = 0;
         doExplode = true;
+        
         //playerList.Clear();
     }
 
