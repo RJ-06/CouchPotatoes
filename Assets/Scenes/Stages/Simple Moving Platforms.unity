@@ -3462,7 +3462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5021024167452658248, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: itemsToSpawn.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5021024167452658248, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: 'itemsToSpawn.Array.data[4]'
@@ -3471,7 +3471,7 @@ PrefabInstance:
     - target: {fileID: 5021024167452658248, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: 'itemsToSpawn.Array.data[5]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2869585867297294824, guid: c8bf72449a7922c38a3242b91b019f6a, type: 3}
     - target: {fileID: 5021024167452658248, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: spawnPoints.Array.data[0].x
       value: -15
@@ -3491,6 +3491,14 @@ PrefabInstance:
     - target: {fileID: 8853861835647593830, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: m_GridSnapping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8853861835647593830, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: m_RefResolutionX
+      value: 640
+      objectReference: {fileID: 0}
+    - target: {fileID: 8853861835647593830, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: m_RefResolutionY
+      value: 360
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

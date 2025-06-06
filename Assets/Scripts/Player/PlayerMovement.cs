@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerPotato potato;
     public GameObject fallingColliderObject;  // Child of player that turns on a collider when a player is vulnerable to falling
     public GameObject fallingAlwaysColliderObject;
+    private bool velocityOverride = false;
 
     // Related directly to player movement
     private bool canMove = true;
@@ -66,7 +67,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ApplyMovementSpeed();
+        if (!velocityOverride)
+        {
+            ApplyMovementSpeed();
+        }
 
         if (hitByShockwave)
         {
@@ -96,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnStart()
     {
-        if(!FindAnyObjectByType<GameManager>().GetFirstGameStarted())
+        if (!FindAnyObjectByType<GameManager>().GetFirstGameStarted())
             FindAnyObjectByType<GameManager>().StartGame();
     }
 
@@ -113,6 +117,9 @@ public class PlayerMovement : MonoBehaviour
             // Move player
             if (value.Get<Vector2>() != new Vector2(0, 0))
             {
+                Debug.Log(pv.getMovementMultiplier());
+                Debug.Log(pv.getSpeedSensitivityMultiplier());
+                Debug.Log(value.Get<Vector2>());
                 moveDir = pv.getMovementMultiplier() * pv.getSpeedSensitivityMultiplier() * value.Get<Vector2>();
                 lastMoveDir = value.Get<Vector2>().normalized;
             }
@@ -300,6 +307,7 @@ public class PlayerMovement : MonoBehaviour
         {
             fallingColliderObject.SetActive(false);
             hitByShockwave = false;
+            velocityOverride = false;
         }
     }
 
@@ -328,4 +336,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool GetInsidePlatform() => insidePlatform;
     public void SetInsidePlatform(bool state) => insidePlatform = state;
+
+    public void SetVelocityOverride(bool state) => velocityOverride = state;
 }

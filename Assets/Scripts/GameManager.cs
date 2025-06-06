@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        DebugManager.instance.enableRuntimeUI = false;
         
         pInputManager = GetComponent<PlayerInputManager>();
         // Add each player in game to list
@@ -295,6 +297,7 @@ public class GameManager : MonoBehaviour
 
     private void DeactivatePlayer(GameObject player)
     {
+        player.GetComponent<PlayerPotato>().onGivePotato();
         player.GetComponent<SpriteRenderer>().enabled = false;
         SpriteRenderer[] children = player.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer child in children)
@@ -305,11 +308,11 @@ public class GameManager : MonoBehaviour
         player.GetComponent<CircleCollider2D>().enabled = false;
         player.GetComponent<PlayerMovement>().SetCanMove(false);
         player.GetComponent<PlayerItems>().SetCanAttack(false);
-        player.GetComponent<Rigidbody2D>().linearVelocity = UnityEngine.Vector2.zero;
     }
 
     private void ReactivatePlayer(GameObject player)
     {
+        player.SetActive(true);
         player.GetComponent<PlayerPotato>().onGivePotato();
         player.GetComponent<SpriteRenderer>().enabled = true;
         SpriteRenderer[] children = player.GetComponentsInChildren<SpriteRenderer>();
@@ -317,7 +320,8 @@ public class GameManager : MonoBehaviour
         {
             child.enabled = true;
         }
-        player.GetComponent<Collider2D>().enabled = true;
+        player.GetComponent<BoxCollider2D>().enabled = true;
+        player.GetComponent<CircleCollider2D>().enabled = true;
         player.GetComponent<PlayerMovement>().SetCanMove(true);
         player.GetComponent<PlayerItems>().SetCanAttack(true);
     }
@@ -348,6 +352,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator DelayCameraRemoval(GameObject player, float f)
     {
         yield return new WaitForSeconds(f);
+        player.SetActive(false);
         players.Remove(player);
     }
 

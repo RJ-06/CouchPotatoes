@@ -20,7 +20,7 @@ public class PlayerVals : MonoBehaviour
     // Start game with these values
     float currentMoveSpeed;
     float movementMultiplier = 1f;
-    float speedSensitivityMultiplier = 1f;
+    float speedSensitivityMultiplier = 3f;
     int currentHealthPoints;
     float currentDashSpeed;
     int currentAttackPoints;
