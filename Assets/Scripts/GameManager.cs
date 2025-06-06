@@ -269,9 +269,8 @@ public class GameManager : MonoBehaviour
     public void KillPlayer(GameObject player)
     {
         deadPlayers.Add(player);
-        players.Remove(player);
 
-        players.Remove(player);
+
         DeactivatePlayer(player);
 
         --playersLeft;
@@ -280,12 +279,14 @@ public class GameManager : MonoBehaviour
         {
             PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
             PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
+            StartCoroutine(DelayCameraRemoval(player, 2f));
             StartCoroutine(BetweenPotatoExplosions());
         }
         else if (PlayerWithPotato() == null)
         {
             StartCoroutine(BetweenPotatoExplosions());
         }
+        else players.Remove(player);
     }
 
     private void DeactivatePlayer(GameObject player)
@@ -338,6 +339,12 @@ public class GameManager : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    private IEnumerator DelayCameraRemoval(GameObject player, float f)
+    {
+        yield return new WaitForSeconds(f);
+        players.Remove(player);
     }
 
     private IEnumerator BetweenPotatoExplosions()
