@@ -496,8 +496,8 @@
                 {
                     "name": "",
                     "id": "f05c0a62-8e83-462e-8903-311b01ccc44e",
-                    "path": "<Gamepad>/leftStickPress",
-                    "interactions": "Hold",
+                    "path": "<Gamepad>/capture",
+                    "interactions": "Hold(duration=2,pressPoint=0.5)",
                     "processors": "",
                     "groups": "",
                     "action": "ForceReload",
