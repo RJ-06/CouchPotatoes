@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakDamage: 3
-  knockbackForceStrength: 100
+  knockbackForceStrength: 20
 --- !u!1 &2341448213027937147
 GameObject:
   m_ObjectHideFlags: 0

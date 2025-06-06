@@ -7,7 +7,7 @@ public class WeakAttack : MonoBehaviour
     ///////////////////////////////
     
     [SerializeField] int weakDamage = 7;
-    [SerializeField] float knockbackForceStrength = 0.5f;
+    [SerializeField] float knockbackForceStrength;
     private float damageMult = 1f;
     private IceEffect iceEffect;
     private bool attacked = false, iceBuffExists = false;
@@ -33,11 +33,10 @@ public class WeakAttack : MonoBehaviour
     {
         if (!attacked)
         {
-            Debug.Log(other.CompareTag("Player"));
-            Debug.Log(other.gameObject != transform.parent);
             if (other.CompareTag("Player") && other.gameObject != transform.parent)
             {
                 PlayerVals target = other.GetComponent<PlayerVals>();
+                PlayerMovement movement = other.GetComponent<PlayerMovement>();
                 target.IncrementHealth(-weakDamage * (int)damageMult);
 
                 // Handle freeze if necessary
@@ -51,9 +50,12 @@ public class WeakAttack : MonoBehaviour
                 }
 
                 Rigidbody2D targetrb = other.GetComponent<Rigidbody2D>();
-                Vector3 knockbackDir = other.transform.position - transform.position;
-                targetrb.AddForce(knockbackDir.normalized * knockbackForceStrength);
+                Vector3 knockbackDir = other.transform.position - transform.parent.transform.position;
+                movement.SetVelocityOverride(true);
+                movement.SetPushedVelocity(knockbackDir.normalized * knockbackForceStrength);
+                targetrb.linearVelocity = knockbackDir.normalized * knockbackForceStrength;
                 attacked = true;
+                movement.ExecutePush(0.5f);
             }
         }
     }
