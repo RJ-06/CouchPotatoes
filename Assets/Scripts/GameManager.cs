@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public float time;
     private int numItems = 0, playerNum = 0, numOfPlayers, playersLeft;
     private bool firstGameStarted = false;
+    private bool stageHazardsActivated = false;
     private bool exploded = true;
     private bool playerNamesAssigned = false;
     [SerializeField] GameObject explosionEffect;
@@ -163,6 +164,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        firstGameStarted = true;
+
         // Make sure games can't start without multiple players
         if (players.Count < 2)
         {
@@ -203,6 +206,7 @@ public class GameManager : MonoBehaviour
         ChoosePlayerToGivePotato();
 
         currentPlayer = PlayerWithPotato();
+        currentPlayer.gameObject.GetComponent<PlayerPotato>().SetPotatoIndicator(true);
         potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
 
         // Start item spawning
@@ -219,7 +223,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         timer.text = "Go!";
         yield return new WaitForSeconds(0.5f);
-        firstGameStarted = true;
+        stageHazardsActivated = true;
         ExecuteGame();
         yield return new WaitForSeconds(1f);
         timer.text = "";
@@ -405,6 +409,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> GetPlayers() => players;
 
     public bool GetFirstGameStarted() => firstGameStarted;
+    public bool GetStageHazardsActivated() => stageHazardsActivated;
     
     public PauseMenu GetPauseScript() => pauseScript;
 }

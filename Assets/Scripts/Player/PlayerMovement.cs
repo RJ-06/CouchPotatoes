@@ -96,7 +96,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnStart()
     {
-        FindAnyObjectByType<GameManager>().StartGame();
+        if(!FindAnyObjectByType<GameManager>().GetFirstGameStarted())
+            FindAnyObjectByType<GameManager>().StartGame();
     }
 
     private void OnPause()
