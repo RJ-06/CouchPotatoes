@@ -541,8 +541,8 @@ MonoBehaviour:
   fallingColliderObject: {fileID: 6971401597865304155}
   fallingAlwaysColliderObject: {fileID: 499782812711603051}
   lastMoveDir: {x: 0, y: 0}
-  playerSource: {fileID: 0}
-  dashSound: {fileID: 0}
+  playerSource: {fileID: 6197002391577738857}
+  dashSound: {fileID: 8300000, guid: 900b6323ae1fec65cb6b942f5e818bbf, type: 3}
 --- !u!114 &470051026499905831
 MonoBehaviour:
   m_ObjectHideFlags: 0
