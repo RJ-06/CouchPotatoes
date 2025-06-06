@@ -17,7 +17,7 @@ public class Explosion : MonoBehaviour
     [SerializeField] int damageDeal;
     //[SerializeField] Animator animator;
 
-    // [SerializeField] FXManager fx;
+    [SerializeField] FXManager fx;
 
     System.Collections.Generic.List<PlayerVals> playerList;
 

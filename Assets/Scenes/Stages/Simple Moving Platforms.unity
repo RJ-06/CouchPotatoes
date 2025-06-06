@@ -3490,6 +3490,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5021024167452658248, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: startAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 60057c5fe7b27cd51a6601728d88ebdf, type: 3}
+    - target: {fileID: 5021024167452658248, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: explodeEffect
+      value: 
+      objectReference: {fileID: 8300000, guid: db9c73908cb6fd8b4a268e14068c1faf, type: 3}
+    - target: {fileID: 5021024167452658248, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: explosionEffect
       value: 
       objectReference: {fileID: 5221102966673552758, guid: 301924bc60f5488448d333a324392204, type: 3}

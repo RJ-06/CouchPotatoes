@@ -48,8 +48,15 @@ public class PlayerMovement : MonoBehaviour
     // Gate related stuff
     private bool onLandGate = false, onMovingGate = false;
 
+    [Header("---SOUND EFFECTS---")]
+    [SerializeField] AudioSource playerSource;
+    [SerializeField] AudioClip dashSound;
+
+
+
     private void Start()
     {
+        //playerSource = GetComponent<AudioSource>();
         pv = GetComponent<PlayerVals>();
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
@@ -297,6 +304,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetDashing(bool dashing)
     {
+        playerSource.clip = dashSound;
+        playerSource.Play();
         isDashing = dashing;
         ApplyMovementSpeed();
     }

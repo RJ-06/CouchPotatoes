@@ -54,6 +54,9 @@ public class GameManager : MonoBehaviour
     public AudioClip testSFX;
     private bool mainMusicStarted = false;
 
+    [SerializeField] AudioClip startAudio;
+    [SerializeField] AudioClip explodeEffect;
+    //[SerializeField] AudioClip
 
     /////////////////////////////////
     ////////// STAGE INFO ///////////
@@ -64,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        
         pInputManager = GetComponent<PlayerInputManager>();
         // Add each player in game to list
         foreach (Transform child in transform)

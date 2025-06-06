@@ -57,10 +57,18 @@ public class FXManager : MonoBehaviour
         Debug.Log(particleDict);
         Debug.Log(soundEffectDict);
 
-        particleDict[s].Play();
+        if (particleDict.ContainsKey(s)) 
+        { particleDict[s].Play(); 
+        }
+        if (soundEffectDict.ContainsKey(s))
+        {
+            audioSource.clip = soundEffectDict[s];
+            audioSource.Play();
+        }
+
         //if (!soundEffectDict.ContainsKey(s)) return;
-        audioSource.clip = soundEffectDict[s];
-        audioSource.Play();
+
+        
         
     }
 

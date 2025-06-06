@@ -39,16 +39,21 @@ public class PlayerPotato : MonoBehaviour
     public UnityEvent getPotato;
     [SerializeField] UnityEvent givePotato;
 
-    [SerializeField] GameObject explosionEffect;
-
 
     // Potato bobbing :D
     private Vector2 bobOffset;
     private float xOffset = 0f, yOffset = 0f, initYOffset, xShift, yShift;
     private bool bobbing = false;
 
+    [Header("---Sound Effects---")]
+    [SerializeField] AudioSource playerSource;
+    [SerializeField] AudioClip throwSound;
+    [SerializeField] AudioClip catchSound;
+
+
     void Start()
     {
+        playerSource = GetComponent<AudioSource>();
         explodeScript = explosion.GetComponent<Explosion>();
         movement = GetComponent<PlayerMovement>();
         gm = FindFirstObjectByType<GameManager>();
@@ -76,6 +81,8 @@ public class PlayerPotato : MonoBehaviour
     {
         if (!potatoThrown && player.getHasPotato())
         {
+            playerSource.clip = throwSound;
+            playerSource.Play();
             StopCoroutine(FollowPlayer());
             if (shootDir != Vector2.zero) // Use right stick direction if given
             {
@@ -163,6 +170,9 @@ public class PlayerPotato : MonoBehaviour
         yOffset = potato.transform.position.y - transform.position.y;
         initYOffset = yOffset;
         potatoThrown = false;
+
+        playerSource.clip = catchSound;
+        playerSource.Play();
         yield break;
     }
 
@@ -177,6 +187,9 @@ public class PlayerPotato : MonoBehaviour
 
     public void onGetPotato()
     {
+        playerSource.clip = catchSound;
+        playerSource.Play();
+
         player.setHasPotato(true);
         potato.SetActive(true);
         potatoIndicator.SetActive(true);
@@ -215,7 +228,6 @@ public class PlayerPotato : MonoBehaviour
 
     public void ExplodePotato()
     {
-        Instantiate(explosionEffect, potato.transform.position, Quaternion.identity);
         bobbing = false;
         explosion.SetActive(true);
         explodeScript.ResetAndExplode();

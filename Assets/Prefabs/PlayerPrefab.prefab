@@ -541,6 +541,8 @@ MonoBehaviour:
   fallingColliderObject: {fileID: 6971401597865304155}
   fallingAlwaysColliderObject: {fileID: 499782812711603051}
   lastMoveDir: {x: 0, y: 0}
+  playerSource: {fileID: 0}
+  dashSound: {fileID: 0}
 --- !u!114 &470051026499905831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -767,7 +769,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  explosionEffect: {fileID: 0}
+  playerSource: {fileID: 6197002391577738857}
+  throwSound: {fileID: 8300000, guid: 900b6323ae1fec65cb6b942f5e818bbf, type: 3}
+  catchSound: {fileID: 8300000, guid: bf818fafd05a08dac8b87f6c5c6b2cfc, type: 3}
 --- !u!58 &5870009079913388645
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1192,6 +1196,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5547554393509722689, guid: e9c2c9c6eda4a2d44ba595e548bdf2ba, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547554393509722689, guid: e9c2c9c6eda4a2d44ba595e548bdf2ba, type: 3}
       propertyPath: fxType.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1260,6 +1268,11 @@ Transform:
 --- !u!198 &3226937693816057421 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6957591223335721038, guid: e9c2c9c6eda4a2d44ba595e548bdf2ba, type: 3}
+  m_PrefabInstance: {fileID: 5496140758995203587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &6197002391577738857 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1893229491267356778, guid: e9c2c9c6eda4a2d44ba595e548bdf2ba, type: 3}
   m_PrefabInstance: {fileID: 5496140758995203587}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6189202583007224465
