@@ -118,13 +118,11 @@ public class GameManager : MonoBehaviour
             // Potato explodes on 0
             if (time <= 0f)
             {
-                timer.text = "0";
                 StartCoroutine(Explode());
                 // Update timer otherwise
             }
             else if (PlayerWithPotato() != null)
             {
-                timer.text = time.ToString();
                 time -= Time.fixedDeltaTime;
             }
 
@@ -223,6 +221,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         firstGameStarted = true;
         ExecuteGame();
+        yield return new WaitForSeconds(1f);
+        timer.text = "";
     }
 
     void ChoosePlayerToGivePotato()
