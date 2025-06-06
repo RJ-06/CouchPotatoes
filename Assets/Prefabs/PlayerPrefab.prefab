@@ -687,7 +687,7 @@ MonoBehaviour:
   ConfusionItem: {fileID: 4343722360355832344, guid: 4f66447468b043a42992c62d38f13c3d, type: 3}
   iceItem: {fileID: 0}
   frenzyPowerup: {fileID: 0}
-  weakCooldown: 0
+  weakCooldown: 0.3
   weakCooldownTimer: 0
   shootDir: {x: 0, y: 0}
   shockwaveCooldown: 5

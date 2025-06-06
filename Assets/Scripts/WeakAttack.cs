@@ -53,9 +53,8 @@ public class WeakAttack : MonoBehaviour
                 Rigidbody2D targetrb = other.GetComponent<Rigidbody2D>();
                 Vector3 knockbackDir = other.transform.position - transform.position;
                 targetrb.AddForce(knockbackDir.normalized * knockbackForceStrength);
-                Destroy(gameObject);
+                attacked = true;
             }
-            attacked = true;
         }
     }
 }

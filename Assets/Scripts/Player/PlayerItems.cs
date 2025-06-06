@@ -107,13 +107,15 @@ public class PlayerItems : MonoBehaviour
             shockwaveUsed = false;
         }
 
-        if (weakUsed && Mathf.Abs(weakCooldownTimer) >= 0.00001)
+        if (weakUsed && weakCooldownTimer >= 0.00001)
         {
             weakCooldownTimer -= Time.fixedDeltaTime;
+            Debug.Log("Incrementing weak cooldown timer");
         }
         else if (weakUsed)
         {
             weakUsed = false;
+            Debug.Log("Weak cooldown finished");
         }
 
         if (potatoGunUsed && Mathf.Abs(potatoGunCooldownTimer) >= 0.0001)
@@ -244,8 +246,12 @@ public class PlayerItems : MonoBehaviour
             }
             else if (shockwaveItem == null && !weakUsed) // No other attack available, so do weak attack
             {
-                weakCooldownTimer = weakCooldown;
-                WeakAttack();
+                if (!weakUsed)
+                {
+                    weakCooldownTimer = weakCooldown;
+                    weakUsed = true;
+                    WeakAttack();
+                }
             }
         }
     }
@@ -274,14 +280,14 @@ public class PlayerItems : MonoBehaviour
         {
             Vector2 normalizedShootDir = movement.lastMoveDir.normalized;
             Vector3 attackPos = new Vector3(
-                transform.position.x + normalizedShootDir.x,
-                transform.position.y + normalizedShootDir.y + 0.5f,
+                transform.position.x + normalizedShootDir.x * 0.7f,
+                transform.position.y + normalizedShootDir.y * 0.7f + 0.5f,
                 transform.position.z
                 );
             Quaternion rot = Quaternion.LookRotation(Vector3.forward, movement.lastMoveDir);
             GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, rot, transform.gameObject.transform);
 
-            Destroy(weakAttack, 1f);
+            Destroy(weakAttack, 0.3f);
         }
 
     }
