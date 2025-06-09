@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2768465300147758121}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 6.2704277, y: -1.889004, z: -0.030513622}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50,7 +50,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4901,7 +4901,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3907356893482720304, guid: 0564a446b6acb374d96408a3b6730557, type: 3}
       propertyPath: m_Name
-      value: FXManager Variant
+      value: Explosion
       objectReference: {fileID: 0}
     - target: {fileID: 5537910450331728897, guid: 0564a446b6acb374d96408a3b6730557, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4970,7 +4970,7 @@ PrefabInstance:
     - target: {fileID: 6841893912952080945, guid: 0564a446b6acb374d96408a3b6730557, type: 3}
       propertyPath: 'soundEffectList.Array.data[0]'
       value: 
-      objectReference: {fileID: 8300000, guid: 7f82fd561e4e6ec488d50ffc575bc5ef, type: 3}
+      objectReference: {fileID: 8300000, guid: db9c73908cb6fd8b4a268e14068c1faf, type: 3}
     - target: {fileID: 6841893912952080945, guid: 0564a446b6acb374d96408a3b6730557, type: 3}
       propertyPath: effects.Array.data[0].m_PersistentCalls.m_Calls.Array.size
       value: 1

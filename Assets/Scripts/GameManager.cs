@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
@@ -18,9 +20,11 @@ public class GameManager : MonoBehaviour
     private SpriteRenderer potatoSprite;
     [SerializeField] Sprite happyPotato, expressionlessPotato, redPotato, veryRedPotato;
     [SerializeField] TextMeshProUGUI timer;
-    [SerializeField] List<Vector2> spawnPoints;
+    [SerializeField] List<UnityEngine.Vector2> spawnPoints;
     [SerializeField] Tilemap possibleFallPoints;
     [SerializeField] Tilemap possibleRespawnPoints;
+    [SerializeField] Tilemap possibleItemSpawns;
+    private List<UnityEngine.Vector2> itemSpawnPositions = new List<UnityEngine.Vector2>();
     private PlayerInputManager pInputManager;
     public List<GameObject> players = new List<GameObject>();
     private List<GameObject> deadPlayers = new List<GameObject>();
@@ -36,8 +40,10 @@ public class GameManager : MonoBehaviour
     public float time;
     private int numItems = 0, playerNum = 0, numOfPlayers, playersLeft;
     private bool firstGameStarted = false;
+    private bool stageHazardsActivated = false;
     private bool exploded = true;
     private bool playerNamesAssigned = false;
+    [SerializeField] GameObject explosionEffect;
 
     [Header("---------- Audio Source ----------")]
     [SerializeField] AudioSource musicSource;
@@ -50,16 +56,21 @@ public class GameManager : MonoBehaviour
     public AudioClip testSFX;
     private bool mainMusicStarted = false;
 
+    [SerializeField] AudioClip startAudio;
+    [SerializeField] AudioClip explodeEffect;
+    //[SerializeField] AudioClip
 
     /////////////////////////////////
     ////////// STAGE INFO ///////////
     /////////////////////////////////
 
     // Floating grass island
-    [SerializeField] public List<Vector2> floatingGrassIslandRespawnPoints = new List<Vector2>();
+    [SerializeField] public List<UnityEngine.Vector2> floatingGrassIslandRespawnPoints = new List<UnityEngine.Vector2>();
 
     void Start()
     {
+        DebugManager.instance.enableRuntimeUI = false;
+        
         pInputManager = GetComponent<PlayerInputManager>();
         // Add each player in game to list
         foreach (Transform child in transform)
@@ -67,6 +78,16 @@ public class GameManager : MonoBehaviour
             if (child.CompareTag("Player"))
             {
                 players.Add(child.gameObject);
+            }
+        }
+
+        // Initialize item spawnpoints
+        foreach (Vector3Int pos in possibleItemSpawns.cellBounds.allPositionsWithin)
+        {
+            TileBase tile = possibleItemSpawns.GetTile(pos);
+            if (tile != null)
+            {
+                itemSpawnPositions.Add(new UnityEngine.Vector2(pos.x, pos.y));
             }
         }
 
@@ -100,13 +121,11 @@ public class GameManager : MonoBehaviour
             // Potato explodes on 0
             if (time <= 0f)
             {
-                timer.text = "0";
                 StartCoroutine(Explode());
                 // Update timer otherwise
             }
             else if (PlayerWithPotato() != null)
             {
-                timer.text = time.ToString();
                 time -= Time.fixedDeltaTime;
             }
 
@@ -147,6 +166,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        firstGameStarted = true;
+
         // Make sure games can't start without multiple players
         if (players.Count < 2)
         {
@@ -187,6 +208,7 @@ public class GameManager : MonoBehaviour
         ChoosePlayerToGivePotato();
 
         currentPlayer = PlayerWithPotato();
+        currentPlayer.gameObject.GetComponent<PlayerPotato>().SetPotatoIndicator(true);
         potatoSprite = PlayerWithPotato().GetComponent<PlayerPotato>().Potato().GetComponent<SpriteRenderer>();
 
         // Start item spawning
@@ -203,8 +225,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         timer.text = "Go!";
         yield return new WaitForSeconds(0.5f);
-        firstGameStarted = true;
+        stageHazardsActivated = true;
         ExecuteGame();
+        yield return new WaitForSeconds(1f);
+        timer.text = "";
     }
 
     void ChoosePlayerToGivePotato()
@@ -241,23 +265,18 @@ public class GameManager : MonoBehaviour
 
     void ChooseWhereToPlaceItem()
     {
-        float[,] positions = {{-21f, -21f, 21f, 21f},
-                              {  8f,  -8f,  8f, -8f}};
-        int index = Random.Range(0, 4);
+        int i = Random.Range(0, itemSpawnPositions.Count - 1);
+        UnityEngine.Vector2 position = itemSpawnPositions[i];
 
-        // Place an item at the area with the largest distance sum
-        Vector3 position = new Vector3(positions[0, index], positions[1, index], -0.5f);
-
-        Instantiate(itemsToSpawn[Random.Range(0, itemsToSpawn.Length)], position, Quaternion.identity);
+        Instantiate(itemsToSpawn[Random.Range(0, itemsToSpawn.Length)], position, UnityEngine.Quaternion.identity);
         ++numItems;
     }
 
     public void KillPlayer(GameObject player)
     {
         deadPlayers.Add(player);
-        players.Remove(player);
 
-        players.Remove(player);
+
         DeactivatePlayer(player);
 
         --playersLeft;
@@ -266,16 +285,19 @@ public class GameManager : MonoBehaviour
         {
             PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
             PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
+            StartCoroutine(DelayCameraRemoval(player, 2f));
             StartCoroutine(BetweenPotatoExplosions());
         }
         else if (PlayerWithPotato() == null)
         {
             StartCoroutine(BetweenPotatoExplosions());
         }
+        else players.Remove(player);
     }
 
     private void DeactivatePlayer(GameObject player)
     {
+        player.GetComponent<PlayerPotato>().onGivePotato();
         player.GetComponent<SpriteRenderer>().enabled = false;
         SpriteRenderer[] children = player.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer child in children)
@@ -286,11 +308,11 @@ public class GameManager : MonoBehaviour
         player.GetComponent<CircleCollider2D>().enabled = false;
         player.GetComponent<PlayerMovement>().SetCanMove(false);
         player.GetComponent<PlayerItems>().SetCanAttack(false);
-        player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
     }
 
     private void ReactivatePlayer(GameObject player)
     {
+        player.SetActive(true);
         player.GetComponent<PlayerPotato>().onGivePotato();
         player.GetComponent<SpriteRenderer>().enabled = true;
         SpriteRenderer[] children = player.GetComponentsInChildren<SpriteRenderer>();
@@ -298,7 +320,8 @@ public class GameManager : MonoBehaviour
         {
             child.enabled = true;
         }
-        player.GetComponent<Collider2D>().enabled = true;
+        player.GetComponent<BoxCollider2D>().enabled = true;
+        player.GetComponent<CircleCollider2D>().enabled = true;
         player.GetComponent<PlayerMovement>().SetCanMove(true);
         player.GetComponent<PlayerItems>().SetCanAttack(true);
     }
@@ -310,6 +333,7 @@ public class GameManager : MonoBehaviour
         //PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
         //PlayerWithPotato().SetActive(false);
         //PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
+        Instantiate(explosionEffect, PlayerWithPotato().GetComponent<Transform>().position, UnityEngine.Quaternion.identity);
 
         exploded = true;
         //--playersLeft;
@@ -323,6 +347,13 @@ public class GameManager : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    private IEnumerator DelayCameraRemoval(GameObject player, float f)
+    {
+        yield return new WaitForSeconds(f);
+        player.SetActive(false);
+        players.Remove(player);
     }
 
     private IEnumerator BetweenPotatoExplosions()
@@ -358,7 +389,7 @@ public class GameManager : MonoBehaviour
         {
             ReactivatePlayer(deadPlayers[i]);
             deadPlayers[i].GetComponent<PlayerVals>().setHealth(100);
-            deadPlayers[i].transform.localScale = new Vector3(1f, 1f, 1f);
+            deadPlayers[i].transform.localScale = new UnityEngine.Vector3(1f, 1f, 1f);
             players.Add(deadPlayers[i]);
             deadPlayers.Remove(deadPlayers[i]);
             --i;
@@ -378,11 +409,12 @@ public class GameManager : MonoBehaviour
         SFXSource.PlayOneShot(clip);
     }
 
-    public List<Vector2> GetSpawnPoints() => spawnPoints;
+    public List<UnityEngine.Vector2> GetSpawnPoints() => spawnPoints;
 
     public List<GameObject> GetPlayers() => players;
 
     public bool GetFirstGameStarted() => firstGameStarted;
+    public bool GetStageHazardsActivated() => stageHazardsActivated;
     
     public PauseMenu GetPauseScript() => pauseScript;
 }

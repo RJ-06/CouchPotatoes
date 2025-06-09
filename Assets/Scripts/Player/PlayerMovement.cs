@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerPotato potato;
     public GameObject fallingColliderObject;  // Child of player that turns on a collider when a player is vulnerable to falling
     public GameObject fallingAlwaysColliderObject;
+    private bool velocityOverride = false;
 
     // Related directly to player movement
     private bool canMove = true;
@@ -48,8 +49,15 @@ public class PlayerMovement : MonoBehaviour
     // Gate related stuff
     private bool onLandGate = false, onMovingGate = false;
 
+    [Header("---SOUND EFFECTS---")]
+    [SerializeField] AudioSource playerSource;
+    [SerializeField] AudioClip dashSound;
+
+
+
     private void Start()
     {
+        //playerSource = GetComponent<AudioSource>();
         pv = GetComponent<PlayerVals>();
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
@@ -59,7 +67,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ApplyMovementSpeed();
+        if (!velocityOverride)
+        {
+            ApplyMovementSpeed();
+        }
 
         if (hitByShockwave)
         {
@@ -67,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
             pushedVelocity = rb.linearVelocity;
             ExecutePush(0.2f);
         }
-        else if (!pushed && moveDir == Vector2.zero && !isPusher && !pv.getClone() && !gc.GetInGate() && !insidePlatform && !isDashing)
+        else if (!pushed && moveDir == Vector2.zero && !isPusher && !pv.getClone() && !gc.GetInGate() && !insidePlatform)
         {
             fallingColliderObject.SetActive(true);
             pushedVelocity = rb.linearVelocity; // Store pushed velocity before executing the push
@@ -89,7 +100,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnStart()
     {
-        FindAnyObjectByType<GameManager>().StartGame();
+        if (!FindAnyObjectByType<GameManager>().GetFirstGameStarted())
+            FindAnyObjectByType<GameManager>().StartGame();
     }
 
     private void OnPause()
@@ -102,9 +114,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canMove)
         {
+            velocityOverride = false;
+
             // Move player
             if (value.Get<Vector2>() != new Vector2(0, 0))
             {
+                Debug.Log(pv.getMovementMultiplier());
+                Debug.Log(pv.getSpeedSensitivityMultiplier());
+                Debug.Log(value.Get<Vector2>());
                 moveDir = pv.getMovementMultiplier() * pv.getSpeedSensitivityMultiplier() * value.Get<Vector2>();
                 lastMoveDir = value.Get<Vector2>().normalized;
             }
@@ -282,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Allow a player to be pushed and retain some momentum, gradually coming to a stop
     // Lower stopFactor equates to a faster stop, stopFactor < 1f (or the player will speed up)
-    private void ExecutePush(float stopFactor)
+    public void ExecutePush(float stopFactor)
     {
         // Slow down the player gradually
         pushedVelocity *= stopFactor;
@@ -292,11 +309,17 @@ public class PlayerMovement : MonoBehaviour
         {
             fallingColliderObject.SetActive(false);
             hitByShockwave = false;
+            velocityOverride = false;
         }
     }
 
     public void SetDashing(bool dashing)
     {
+        if (dashing)
+        {
+            playerSource.clip = dashSound;
+            playerSource.Play();
+        }
         isDashing = dashing;
         ApplyMovementSpeed();
     }
@@ -315,4 +338,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool GetInsidePlatform() => insidePlatform;
     public void SetInsidePlatform(bool state) => insidePlatform = state;
+
+    public void SetVelocityOverride(bool state) => velocityOverride = state;
+
+    public void SetPushedVelocity(Vector2 velocity) => pushedVelocity = velocity;
 }

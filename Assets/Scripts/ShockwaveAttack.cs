@@ -43,7 +43,7 @@ public class ShockwaveAttack : MonoBehaviour
         Vector2 direction = (other.transform.position - transform.position).normalized;
         Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * shockwaveStrength * 150;
-        // rb.AddForce(direction * shockwaveStrength * 150);
+        //rb.AddForce(direction * shockwaveStrength * 1000);
 
         // Add buffed effects if applicable
         if (iceEffect != null)
@@ -54,6 +54,7 @@ public class ShockwaveAttack : MonoBehaviour
 
         playerMovements.Add(target);
         target.SetCanMove(false);
+        target.SetVelocityOverride(true);
         target.SetHitByShockwave(true);
     }
 

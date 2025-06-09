@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ForceReload",
+                    "type": "Button",
+                    "id": "7515413e-d38e-4ab4-af56-c501be90ea77",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -521,6 +530,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "changeHat",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c579d201-041b-42ff-b6a7-a34b0a123fba",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "Hold(duration=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ForceReload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

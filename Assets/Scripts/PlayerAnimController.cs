@@ -34,6 +34,7 @@ public class PlayerAnimController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        hatSprite.transform.position = hatTransform.position;
         sprites = new Sprite[6][];
         playerSprite = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
@@ -94,6 +95,7 @@ public class PlayerAnimController : MonoBehaviour
         {
             currHat = 0;
         }
-        //hatSprite.sprite = hats[currHat];
+        hatSprite.sprite = hats[currHat];
+        hatSprite.transform.position = new Vector2(hatTransform.position.x, hatTransform.position.y + hatOffset[currSprite]);
     }
 }

@@ -26,6 +26,7 @@ public class PlayerItems : MonoBehaviour
     [SerializeField] float weakCooldownTimer;
     private bool weakUsed = false;
     public Vector2 shootDir;
+    private bool iceItemExists = false;
 
     // Shockwave attack
     [SerializeField] float shockwaveCooldown;
@@ -106,13 +107,15 @@ public class PlayerItems : MonoBehaviour
             shockwaveUsed = false;
         }
 
-        if (weakUsed && Mathf.Abs(weakCooldownTimer) >= 0.00001)
+        if (weakUsed && weakCooldownTimer >= 0.00001)
         {
             weakCooldownTimer -= Time.fixedDeltaTime;
+            Debug.Log("Incrementing weak cooldown timer");
         }
         else if (weakUsed)
         {
             weakUsed = false;
+            Debug.Log("Weak cooldown finished");
         }
 
         if (potatoGunUsed && Mathf.Abs(potatoGunCooldownTimer) >= 0.0001)
@@ -142,6 +145,13 @@ public class PlayerItems : MonoBehaviour
             pv.setAttackCooldown(pv.getAttackCooldown() * frenzyCooldownDecrease);
             pv.setDashCooldown(pv.getDashCooldown() * frenzyCooldownDecrease);
             Destroy(frenzyItem.gameObject);
+        }
+        Transform heartItem = transform.Find("HeartItem(Clone)");
+        if (heartItem != null)
+        {
+            pv.IncrementHealth((int)pv.getMaxHealth() / 2);
+            //if (pv.getHealth() > pv.getMaxHealth()) pv.setHealth((int)pv.getMaxHealth());
+            Destroy(heartItem.gameObject);
         }
         Transform slownessItem = transform.Find("SlownessItem(Clone)");
         if (slownessItem != null)
@@ -205,7 +215,7 @@ public class PlayerItems : MonoBehaviour
             {
                 shockwaveUsed = true;
                 shockwaveCooldownTimer = shockwaveCooldown;
-                GameObject newShockwave = Instantiate(ShockwavePrefab, transform.position, Quaternion.identity, this.transform);
+                GameObject newShockwave = Instantiate(ShockwavePrefab, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, this.transform);
 
                 // Apply necessary buffs to the new shockwave
                 if (shockwaveItem.GetComponent<ShockwaveItem>().getIceBuff())
@@ -236,8 +246,12 @@ public class PlayerItems : MonoBehaviour
             }
             else if (shockwaveItem == null && !weakUsed) // No other attack available, so do weak attack
             {
-                weakCooldownTimer = weakCooldown;
-                WeakAttack();
+                if (!weakUsed)
+                {
+                    weakCooldownTimer = weakCooldown;
+                    weakUsed = true;
+                    WeakAttack();
+                }
             }
         }
     }
@@ -254,26 +268,26 @@ public class PlayerItems : MonoBehaviour
             Vector2 normalizedShootDir = shootDir.normalized;
             Vector3 attackPos = new Vector3(
                 transform.position.x + normalizedShootDir.x,
-                transform.position.y + normalizedShootDir.y,
+                transform.position.y + normalizedShootDir.y + 0.5f,
                 transform.position.z
                 );
             Quaternion rot = Quaternion.LookRotation(Vector3.forward, shootDir);
             GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, rot, transform.gameObject.transform);
 
-            Destroy(weakAttack, 1f);
+            Destroy(weakAttack, 0.3f);
         }
         else
         {
             Vector2 normalizedShootDir = movement.lastMoveDir.normalized;
             Vector3 attackPos = new Vector3(
-                transform.position.x + normalizedShootDir.x,
-                transform.position.y + normalizedShootDir.y,
+                transform.position.x + normalizedShootDir.x * 0.7f,
+                transform.position.y + normalizedShootDir.y * 0.7f + 0.5f,
                 transform.position.z
                 );
             Quaternion rot = Quaternion.LookRotation(Vector3.forward, movement.lastMoveDir);
             GameObject weakAttack = Instantiate(weakAttackPrefab, attackPos, rot, transform.gameObject.transform);
 
-            Destroy(weakAttack, 1f);
+            Destroy(weakAttack, 0.3f);
         }
 
     }
@@ -305,8 +319,10 @@ public class PlayerItems : MonoBehaviour
 
     IEnumerator GiantTime() 
     {
+        Debug.Log("Giant coroutine started");
         yield return new WaitForSeconds(giantDuration);
-        transform.parent.gameObject.transform.localScale /= giantSizeBoost;
+        Debug.Log("Giant time has ended");
+        gameObject.transform.localScale /= giantSizeBoost;
         pv.setMovementMultiplier(pv.getMovementMultiplier() / giantSlowdown);
         pv.setAttackPoints((int)(pv.getAttackPoints() / giantDamageBoost));
         //pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
@@ -399,10 +415,16 @@ public class PlayerItems : MonoBehaviour
 
     public ItemManager GetItemManager() => itemManager;
 
-    public void SetIceItem(IceItem item) => iceItem = item;
+    public void SetIceItem(IceItem item)
+    {
+        iceItem = item;
+        iceItemExists = true;
+    }
 
     public bool GetCanAttack() => canAttack;
     public void SetCanAttack(bool state) => canAttack = state;
+
+    public bool CheckIceItem() => iceItemExists;
 
     /////////////////////////////////
     /////// POTATO GUN ATTACK ///////
