@@ -286,13 +286,13 @@ public class GameManager : MonoBehaviour
             PlayerWithPotato().GetComponent<PlayerPotato>().ExplodePotato();
             PlayerWithPotato().GetComponent<PlayerPotato>().onGivePotato();
             StartCoroutine(DelayCameraRemoval(player, 2f));
-            StartCoroutine(BetweenPotatoExplosions());
+            StartCoroutine(BetweenPotatoExplosions(player));
         }
         else if (PlayerWithPotato() == null)
         {
-            StartCoroutine(BetweenPotatoExplosions());
+            StartCoroutine(BetweenPotatoExplosions(null));
         }
-        else players.Remove(player);
+        players.Remove(player);
     }
 
     private void DeactivatePlayer(GameObject player)
@@ -356,19 +356,13 @@ public class GameManager : MonoBehaviour
         players.Remove(player);
     }
 
-    private IEnumerator BetweenPotatoExplosions()
+    private IEnumerator BetweenPotatoExplosions(GameObject playerDead)
     {
-        for (int i = 0; i < players.Count; ++i)
-        {
-            if (!players[i].activeSelf)
-            {
-                timer.text = players[i].name + " exploded!";
-            }
-        }
+        if (playerDead != null) timer.text = playerDead.name + " exploded!";
         yield return new WaitForSeconds(2f);
 
         // Handle win condition (if only one player is alive)
-        if (playersLeft == 1)
+        if (playersLeft <= 1)
         {
             foreach (GameObject player in players)
             {
