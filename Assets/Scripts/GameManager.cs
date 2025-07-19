@@ -297,6 +297,7 @@ public class GameManager : MonoBehaviour
 
     private void DeactivatePlayer(GameObject player)
     {
+        // player.SetActive(false);
         player.GetComponent<PlayerPotato>().onGivePotato();
         player.GetComponent<SpriteRenderer>().enabled = false;
         SpriteRenderer[] children = player.GetComponentsInChildren<SpriteRenderer>();
@@ -305,7 +306,9 @@ public class GameManager : MonoBehaviour
             child.enabled = false;
         }
         player.GetComponent<BoxCollider2D>().enabled = false;
+        Debug.Log("Dead player's box collider was deactivated");
         player.GetComponent<CircleCollider2D>().enabled = false;
+        player.GetComponent<PlayerMovement>().SetAlive(false);
         player.GetComponent<PlayerMovement>().SetCanMove(false);
         player.GetComponent<PlayerItems>().SetCanAttack(false);
     }
@@ -322,6 +325,7 @@ public class GameManager : MonoBehaviour
         }
         player.GetComponent<BoxCollider2D>().enabled = true;
         player.GetComponent<CircleCollider2D>().enabled = true;
+        player.GetComponent<PlayerMovement>().SetAlive(true);
         player.GetComponent<PlayerMovement>().SetCanMove(true);
         player.GetComponent<PlayerItems>().SetCanAttack(true);
     }

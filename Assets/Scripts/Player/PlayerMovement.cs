@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject fallingColliderObject;  // Child of player that turns on a collider when a player is vulnerable to falling
     public GameObject fallingAlwaysColliderObject;
     private bool velocityOverride = false;
+    private bool isAlive = true;
 
     // Related directly to player movement
     private bool canMove = true;
@@ -90,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
             pushedVelocity = Vector2.zero;
         }
 
-        if (!onLandGate || !onMovingGate) gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        if ((!onLandGate || !onMovingGate) && isAlive) gameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
 
 
@@ -277,6 +278,7 @@ public class PlayerMovement : MonoBehaviour
         gameObject.transform.position = PickRespawnPoint();
         fallInProgress = false;
         bc.enabled = true;
+        Debug.Log("Error possible in PlayerMovement");
         SetCanMove(true);
     }
 
@@ -342,4 +344,7 @@ public class PlayerMovement : MonoBehaviour
     public void SetVelocityOverride(bool state) => velocityOverride = state;
 
     public void SetPushedVelocity(Vector2 velocity) => pushedVelocity = velocity;
+
+    public bool GetAlive() => isAlive;
+    public void SetAlive(bool state) => isAlive = state;
 }

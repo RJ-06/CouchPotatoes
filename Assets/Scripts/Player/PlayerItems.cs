@@ -398,6 +398,7 @@ public class PlayerItems : MonoBehaviour
 
         movement.SetCanMove(true);
         transform.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        Debug.Log("Error possible in PlayerItems");
 
         yield return null;
     }
