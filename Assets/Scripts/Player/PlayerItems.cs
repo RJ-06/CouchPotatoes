@@ -322,7 +322,7 @@ public class PlayerItems : MonoBehaviour
         Debug.Log("Giant coroutine started");
         yield return new WaitForSeconds(giantDuration);
         Debug.Log("Giant time has ended");
-        gameObject.transform.localScale /= giantSizeBoost;
+        gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
         pv.setMovementMultiplier(pv.getMovementMultiplier() / giantSlowdown);
         pv.setAttackPoints((int)(pv.getAttackPoints() / giantDamageBoost));
         //pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
