@@ -363,7 +363,7 @@ public class PlayerItems : MonoBehaviour
 
             // Copy the sprite renderer of the player to its clone
             //SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();
-            SpriteRenderer cloneSprite = newClone.GetComponent<SpriteRenderer>();
+            SpriteRenderer cloneSprite = newClone.GetComponent<PlayerVals>().GetSprite().GetComponent<SpriteRenderer>();
             //if (playerSprite != null)
             //{
             //    cloneSprite.sprite = playerSprite.sprite;

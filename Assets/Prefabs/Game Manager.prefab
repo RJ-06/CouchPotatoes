@@ -19853,6 +19853,7 @@ MonoBehaviour:
   - {x: 0, y: 0}
   possibleFallPoints: {fileID: 4926108596945106989}
   possibleRespawnPoints: {fileID: 3605909464539257759}
+  possibleItemSpawns: {fileID: 0}
   players: []
   itemsToSpawn:
   - {fileID: 1451091749043144713, guid: de69259eb9c9d914e9cc2bbbaf8919c2, type: 3}
@@ -19866,11 +19867,14 @@ MonoBehaviour:
   minTimeToExplode: 10
   maxTimeToExplode: 35
   time: 0
+  explosionEffect: {fileID: 0}
   musicSource: {fileID: 2641056173695465962}
   SFXSource: {fileID: 8171997127999862291}
   pauseScript: {fileID: 6836856744874073631}
   mainBackground: {fileID: 8300000, guid: 87a6bbc29e9c7e74a94570c5548c955d, type: 3}
   testSFX: {fileID: 0}
+  startAudio: {fileID: 0}
+  explodeEffect: {fileID: 0}
   floatingGrassIslandRespawnPoints:
   - {x: -17.5, y: 9.5}
   - {x: -14.5, y: 10.5}

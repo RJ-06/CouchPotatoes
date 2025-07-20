@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D bc;
     private PlayerGateCheck gc;
     private PlayerPotato potato;
+    [SerializeField] GameObject sprite;
     public GameObject fallingColliderObject;  // Child of player that turns on a collider when a player is vulnerable to falling
     public GameObject fallingAlwaysColliderObject;
     private bool velocityOverride = false;
@@ -111,6 +112,13 @@ public class PlayerMovement : MonoBehaviour
         FindAnyObjectByType<GameManager>().GetPauseScript().optionsMenu.GetComponent<OptionsManager>().SetPlayerThatPaused(pv);
     }
 
+    private void OnChangeSkin()
+    {
+        sprite.GetComponent<PlayerAnimController>().ChangeCurrSprite(sprite.GetComponent<PlayerAnimController>().GetCurrSprite() + 1);
+        if (sprite.GetComponent<PlayerAnimController>().GetCurrSprite() >= 6)
+            sprite.GetComponent<PlayerAnimController>().ChangeCurrSprite(0);
+    }
+
     private void OnMovement(InputValue value)
     {
         if (canMove)
@@ -120,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
             // Move player
             if (value.Get<Vector2>() != new Vector2(0, 0))
             {
-                Debug.Log(pv.getMovementMultiplier());
+                Debug.Log(pv.getMovementMultiplier()); // NOT WORKING
                 Debug.Log(pv.getSpeedSensitivityMultiplier());
                 Debug.Log(value.Get<Vector2>());
                 moveDir = pv.getMovementMultiplier() * pv.getSpeedSensitivityMultiplier() * value.Get<Vector2>();

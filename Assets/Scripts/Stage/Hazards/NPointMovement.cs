@@ -146,8 +146,8 @@ public class TwoPointMovement : MonoBehaviour
     public bool PlayerInsidePlatform(GameObject player)
     {
         // Get dimensions of player
-        float width = player.GetComponent<SpriteRenderer>().bounds.size.x;
-        float height = player.GetComponent<SpriteRenderer>().bounds.size.y;
+        float width = player.GetComponent<PlayerVals>().GetSprite().GetComponent<SpriteRenderer>().bounds.size.x;
+        float height = player.GetComponent<PlayerVals>().GetSprite().GetComponent<SpriteRenderer>().bounds.size.y;
 
         // Check boundaries of player in comparison to the platform
         bool containsTop = colliderBounds.bounds.Contains(new Vector3(player.transform.position.x,

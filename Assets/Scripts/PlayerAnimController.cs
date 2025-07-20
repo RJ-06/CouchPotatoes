@@ -8,8 +8,8 @@ public class PlayerAnimController : MonoBehaviour
     ///////////////////////////////
 
     // Player components
-    SpriteRenderer playerSprite;
-    PlayerMovement playerMovement;
+    [SerializeField] SpriteRenderer playerSprite;
+    [SerializeField] PlayerMovement playerMovement;
     Vector2 dirFacing;
     public int currSprite = 0;
 
@@ -36,8 +36,6 @@ public class PlayerAnimController : MonoBehaviour
     {
         hatSprite.transform.position = hatTransform.position;
         sprites = new Sprite[6][];
-        playerSprite = GetComponent<SpriteRenderer>();
-        playerMovement = GetComponent<PlayerMovement>();
 
         sprites[0] = playerOne;
         sprites[1] = playerTwo;
@@ -79,16 +77,7 @@ public class PlayerAnimController : MonoBehaviour
         }
     }
 
-    void OnChangeSkin()
-    {
-        currSprite++;
-        if (currSprite >= 6)
-        {
-            currSprite = 0;
-        }
-    }
-
-    void OnChangeHat() 
+    void OnChangeHat()
     {
         currHat++;
         if (currHat >= hats.Length)
@@ -97,5 +86,11 @@ public class PlayerAnimController : MonoBehaviour
         }
         hatSprite.sprite = hats[currHat];
         hatSprite.transform.position = new Vector2(hatTransform.position.x, hatTransform.position.y + hatOffset[currSprite]);
+    }
+
+    public int GetCurrSprite() => currSprite;
+    public void ChangeCurrSprite(int num)
+    {
+        currSprite = num;
     }
 }

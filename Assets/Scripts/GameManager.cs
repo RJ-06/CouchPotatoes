@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour
     void ChoosePlayerToGivePotato()
     {
         int num = Random.Range(0, playersLeft);
-        while (!players[num].GetComponent<SpriteRenderer>().enabled)
+        while (!players[num].activeSelf)
         { // Ignore players that aren't alive
             int increment = Random.Range(0, 1);
             if (increment == 0) ++num;
@@ -299,7 +299,7 @@ public class GameManager : MonoBehaviour
     {
         // player.SetActive(false);
         player.GetComponent<PlayerPotato>().onGivePotato();
-        player.GetComponent<SpriteRenderer>().enabled = false;
+        //player.GetComponent<PlayerVals>().GetSprite().GetComponent<SpriteRenderer>().enabled = false;
         SpriteRenderer[] children = player.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer child in children)
         {
@@ -317,7 +317,7 @@ public class GameManager : MonoBehaviour
     {
         player.SetActive(true);
         player.GetComponent<PlayerPotato>().onGivePotato();
-        player.GetComponent<SpriteRenderer>().enabled = true;
+        //player.GetComponent<SpriteRenderer>().enabled = true;
         SpriteRenderer[] children = player.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer child in children)
         {

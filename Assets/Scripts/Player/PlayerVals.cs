@@ -6,6 +6,7 @@ public class PlayerVals : MonoBehaviour
 {
     // External stuff
     public GameManager gameManager;
+    [SerializeField] GameObject sprite;
 
     // Start game with these values
     [SerializeField] float baseMoveSpeed;
@@ -54,6 +55,8 @@ public class PlayerVals : MonoBehaviour
         currentAttackCooldown = baseAttackCooldown;
         currentMaxSpeed = baseMaxSpeed;
     }
+
+    public GameObject GetSprite() => sprite;
 
     public float getMoveSpeed() => currentMoveSpeed;
     public void setMoveSpeed(float nSpeed) => currentMoveSpeed = nSpeed;
