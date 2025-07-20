@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
             pushedVelocity = Vector2.zero;
         }
 
-        if ((!onLandGate || !onMovingGate) && isAlive) gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        if ((!onLandGate || !onMovingGate) && isAlive && !fallInProgress) gameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
 
 
