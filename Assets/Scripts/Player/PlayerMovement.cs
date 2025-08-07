@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private void Start()
+    private void Awake()
     {
         //playerSource = GetComponent<AudioSource>();
         pv = GetComponent<PlayerVals>();
@@ -121,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMovement(InputValue value)
     {
+        Debug.Log(pv.getMovementMultiplier());
         if (canMove)
         {
             velocityOverride = false;
@@ -128,10 +129,7 @@ public class PlayerMovement : MonoBehaviour
             // Move player
             if (value.Get<Vector2>() != new Vector2(0, 0))
             {
-                Debug.Log(pv.getMovementMultiplier()); // NOT WORKING
-                Debug.Log(pv.getSpeedSensitivityMultiplier());
-                Debug.Log(value.Get<Vector2>());
-                moveDir = pv.getMovementMultiplier() * pv.getSpeedSensitivityMultiplier() * value.Get<Vector2>();
+                moveDir = pv.getSpeedSensitivityMultiplier() * value.Get<Vector2>();
                 lastMoveDir = value.Get<Vector2>().normalized;
             }
             else moveDir = new Vector2(0, 0);
@@ -158,6 +156,8 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = moveDir * speed;
 
         ClampSpeed();
+
+        rb.linearVelocity *= pv.getMovementMultiplier();
 
         // Account for velocities not from the player (e.g. a moving platform)
         if (insidePlatform)

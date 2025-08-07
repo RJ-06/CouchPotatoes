@@ -27,7 +27,6 @@ public class PlayerGateCheck : MonoBehaviour
         {
             inGate = false;
             playerCollider.enabled = true;
-            Debug.Log("Error possible in PlayerGateCheck");
         }
     }
 
