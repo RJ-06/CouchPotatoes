@@ -9,32 +9,33 @@ public class SelectCharacter : MonoBehaviour
     [SerializeField] Image selectedCharSprite;
     [SerializeField] Image selectedHatSprite;
 
-    [SerializeField] Image[] characterSprites;
+    [SerializeField] Sprite[] characterSprites;
     private int selectedCharacterIndex = 0;
-    [SerializeField] Image[] hatSprites;
+    [SerializeField] Sprite[] hatSprites;
     private int selectedHatIndex = 0;
 
     private void Start()
     {
-        selectedCharSprite = characterSprites[selectedCharacterIndex];
-        selectedHatSprite = hatSprites[selectedHatIndex];
+        selectedCharSprite.sprite = characterSprites[selectedCharacterIndex];
+        selectedHatSprite.sprite = hatSprites[selectedHatIndex];
     }
 
 
-    public void OnCharacterJoin(int charNumber) 
+    public void OnCharacterJoin(int charNumber)
     {
         playerIndex = charNumber;
-        updateCharacterText();
+        UpdateCharacterText();
 
     }
 
-    public void OnClickCharLeft() 
+    public void OnClickCharLeft()
     {
         selectedCharacterIndex--;
-        if (selectedCharacterIndex < 0) 
+        if (selectedCharacterIndex < 0)
         {
-            selectedCharacterIndex = characterSprites.Length - 1; 
+            selectedCharacterIndex = characterSprites.Length - 1;
         }
+        UpdateSelection();
     }
 
     public void OnClickCharRight()
@@ -44,6 +45,7 @@ public class SelectCharacter : MonoBehaviour
         {
             selectedCharacterIndex = 0;
         }
+        UpdateSelection();
     }
 
     public void OnClickHatLeft()
@@ -53,6 +55,7 @@ public class SelectCharacter : MonoBehaviour
         {
             selectedHatIndex = hatSprites.Length - 1;
         }
+        UpdateSelection();
     }
 
     public void OnClickHatRight()
@@ -62,10 +65,17 @@ public class SelectCharacter : MonoBehaviour
         {
             selectedHatIndex = 0;
         }
+        UpdateSelection();
     }
 
-    void updateCharacterText() 
+    void UpdateCharacterText()
     {
         characterNumberText.text = "Player: " + (playerIndex + 1).ToString();
+    }
+
+    private void UpdateSelection() 
+    {
+        selectedCharSprite.sprite = characterSprites[selectedCharacterIndex];
+        selectedHatSprite.sprite = hatSprites[selectedHatIndex];
     }
 }
