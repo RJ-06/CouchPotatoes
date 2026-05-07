@@ -67,6 +67,8 @@ public class GameManager : MonoBehaviour
     // Floating grass island
     [SerializeField] public List<UnityEngine.Vector2> floatingGrassIslandRespawnPoints = new List<UnityEngine.Vector2>();
 
+    public static string winningPlayer = "";
+
     void Start()
     {
         DebugManager.instance.enableRuntimeUI = false;
@@ -92,6 +94,7 @@ public class GameManager : MonoBehaviour
         }
 
         timer.text = "Press tab to start";
+        winningPlayer = "";
     }
 
     void FixedUpdate()
@@ -370,7 +373,12 @@ public class GameManager : MonoBehaviour
         {
             foreach (GameObject player in players)
             {
-                if (player.activeSelf) timer.text = player.name + " won!";
+                if (player.activeSelf) 
+                {
+                    timer.text = player.name + " won!";
+                    winningPlayer = player.name;
+                }
+                
             }
             yield return new WaitForSeconds(3f);
             timer.text = "Respawning players...";
@@ -392,6 +400,7 @@ public class GameManager : MonoBehaviour
             deadPlayers.Remove(deadPlayers[i]);
             --i;
         }
+        winningPlayer = "";
     }
 
     public void IncrementTime(float timeIncr) => time += timeIncr;
