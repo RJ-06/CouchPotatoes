@@ -27,6 +27,7 @@ public class Explosion : MonoBehaviour
     void Awake()
     {
         explosionSource.clip = explosionClip;
+        playerList = new System.Collections.Generic.List<PlayerVals>();
         explosionSource.Play();
         ResetAndExplode();
         Destroy(this.gameObject, timeForExplosion);
@@ -41,8 +42,8 @@ public class Explosion : MonoBehaviour
         // fx.playParticle("PotatoExplode");
         //timer = 0;
         doExplode = true;
-        
-        //playerList.Clear();
+        if (playerList == null) playerList = new System.Collections.Generic.List<PlayerVals>();
+        playerList.Clear();
     }
 
     //void FixedUpdate()
@@ -72,6 +73,6 @@ public class Explosion : MonoBehaviour
         var target = col.GetComponent<PlayerVals>();
         if (playerList.Contains(target)) return; // Prevent duplicate triggers
         playerList.Add(target);
-        target.IncrementHealth(damageDeal);
+        target.IncrementHealth(-damageDeal);
     }
 }

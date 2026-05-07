@@ -35,8 +35,7 @@ public class ShockwaveAttack : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player") || other.gameObject == transform.parent) return;
-
-        other.GetComponent<PlayerVals>().IncrementHealth(-12);
+        other.GetComponent<PlayerVals>().IncrementHealth(-Mathf.RoundToInt(shockwaveDamage));
         var target = other.GetComponent<PlayerMovement>();
         if (playerMovements.Contains(target)) return; // Prevent duplicate triggers
 
@@ -65,8 +64,11 @@ public class ShockwaveAttack : MonoBehaviour
         yield return new WaitForSeconds(0.5f); // Stun time after shockwave
         foreach (var player in playerMovements)
         {
-            // Only stop the stun if the player isn't frozen
+            // Restore movement for players not frozen
             if (!player.gameObject.GetComponent<PlayerVals>().getFrozen()) player.SetCanMove(true);
+            // Clear override and hit state regardless
+            player.SetVelocityOverride(false);
+            player.SetHitByShockwave(false);
         }
         playerMovements.Clear();
         Destroy(gameObject);

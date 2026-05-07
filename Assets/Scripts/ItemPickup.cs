@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class ItemPickup : MonoBehaviour
 {
     [SerializeField] ItemSO itemSO;
 
@@ -11,7 +11,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
             if (!other.gameObject.GetComponent<PlayerVals>().getClone())
             {
                 GameObject item = Instantiate(itemSO.itemPrefab, other.gameObject.transform);
-                item.GetComponent<Renderer>().sortingLayerID = SortingLayer.NameToID("Item Pickup");
+                var rend = item.GetComponent<Renderer>();
+                if (rend != null) rend.sortingLayerID = SortingLayer.NameToID("Item Pickup");
                 Destroy(gameObject);
             }
         }

@@ -57,6 +57,7 @@ public class IceEffect : MonoBehaviour
 
         playerFrozen.GetComponent<PlayerMovement>().SetCanMove(true);
         playerFrozen.GetComponent<SpriteRenderer>().color = Color.white;
+        playerFrozen.GetComponent<PlayerVals>().setFrozen(false);
         Debug.Log("Freeze coroutine finished");
     }
 }

@@ -26,11 +26,12 @@ public class FireEffect : ItemAttributes
         StartCoroutine(BurnCoroutine(playerBurned));
     }    private IEnumerator BurnCoroutine(GameObject playerBurned){
         float elapsed = 0f;
-
-        while (elapsed < burnDuration){
-            elapsed += Time.deltaTime;
-            playerBurned.GetComponent<PlayerVals>().IncrementHealth(-1);
+        while (elapsed < burnDuration)
+        {
+            // Apply damage once per second based on burnDamagePerSecond
+            playerBurned.GetComponent<PlayerVals>().IncrementHealth(-Mathf.RoundToInt(burnDamagePerSecond));
             Debug.Log(playerBurned.GetComponent<PlayerVals>().getHealth());
+            elapsed += 1f;
             yield return new WaitForSeconds(1f);
         }
     }

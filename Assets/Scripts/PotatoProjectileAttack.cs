@@ -21,8 +21,7 @@ public class PotatoProjectileAttack : MonoBehaviour
     void Start()
     {
         src = GetComponent<AudioSource>();
-        src.PlayOneShot(shotSound);
-        src.PlayOneShot(shellSound);
+        if (src != null && shotSound != null) src.PlayOneShot(shotSound);
 
         Vector2 projectileDir;
         Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), this.transform.parent.gameObject.GetComponent<BoxCollider2D>(), true);
@@ -59,11 +58,18 @@ public class PotatoProjectileAttack : MonoBehaviour
             
         if (!collision.gameObject.CompareTag("Player") || collision.gameObject == transform.parent) return;
 
-        Vector2 knockbackDir = collision.gameObject.transform.position - transform.position;
+        Vector2 knockbackDir = (collision.gameObject.transform.position - transform.position).normalized;
 
         collision.gameObject.GetComponent<PlayerVals>().IncrementHealth(-potatoProjectileDamage);
 
-        collision.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackDir * knockbackForceStrength);
+        Rigidbody2D targetRb = collision.gameObject.GetComponent<Rigidbody2D>();
+        if (targetRb != null)
+        {
+            targetRb.AddForce(knockbackDir * knockbackForceStrength, ForceMode2D.Impulse);
+        }
+
+        // Play shell sound on impact
+        if (src != null && shellSound != null) src.PlayOneShot(shellSound);
 
         Destroy(gameObject);
     }

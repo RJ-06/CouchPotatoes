@@ -60,6 +60,9 @@ public class PlayerItems : MonoBehaviour
     [SerializeField] float cloneDuration;
     [SerializeField] GameObject playerClonePrefab;
 
+    // Confusion guard
+    private bool confusionApplied = false;
+
     //Giant item
     [SerializeField] float giantDuration;
     [SerializeField] float giantSizeBoost;
@@ -129,12 +132,13 @@ public class PlayerItems : MonoBehaviour
 
 
         Transform confIt = transform.Find("ConfusionItem(Clone)");
-        if (confIt != null)
+        if (confIt != null && !confusionApplied)
         {
             transform.gameObject.GetComponent<Rigidbody2D>().linearVelocity *= -1f;
             pv.setMovementMultiplier(pv.getMovementMultiplier() * -1f);
             Debug.Log("movemult: " + pv.getMovementMultiplier() + "; movespeed: " + pv.getMoveSpeed());
             Destroy(confIt.gameObject);
+            confusionApplied = true;
             StartCoroutine("ConfusionTime");
 
         }
@@ -176,27 +180,8 @@ public class PlayerItems : MonoBehaviour
         Transform cloneItem = transform.Find("CloneItem(Clone)");
         if (cloneItem != null)
         {
-            // Get the item's position
-            //Vector3 itemPosition = cloneItem.position;
-
-            // Move player to left side of item
-            //transform.position = itemPosition;
-
-            GameObject clone = new GameObject();
-            StartCoroutine(MakeClones(clone));
-
-            // Set the initial moving direction of the clone as opposite to the player
-            CloneBehavior cloneBehavior = clone.GetComponent<CloneBehavior>();
-            if (cloneBehavior != null)
-            {
-                cloneBehavior.SetInitialDirection(-movement.lastMoveDir.normalized);
-                cloneBehavior.SetMoveSpeed(pv.getMoveSpeed());
-            }
-
-
-
+            StartCoroutine(MakeClones());
             Destroy(cloneItem.gameObject);
-            StartCoroutine(CloneLifespan(clone));
         }
     }
 
@@ -294,6 +279,7 @@ public class PlayerItems : MonoBehaviour
 
     public void OnAim(InputValue val) // Aim the potato with the right joystick on controller
     {
+        if (pv == null) return;
         shootDir = val.Get<Vector2>() * pv.getSpeedSensitivityMultiplier();
     }
 
@@ -308,6 +294,7 @@ public class PlayerItems : MonoBehaviour
     {
         yield return new WaitForSeconds(confusionDuration);
         pv.setMovementMultiplier(1f);
+        confusionApplied = false;
         Debug.Log("movemult: " + pv.getMovementMultiplier() + "; movespeed: " + pv.getMoveSpeed());
     }
 
@@ -328,7 +315,7 @@ public class PlayerItems : MonoBehaviour
         //pv.setHealth((int)(pv.getHealth() + (int)(pv.getMaxHealth() * giantHealthBoost)));
     }
 
-    IEnumerator MakeClones(GameObject clone)
+    IEnumerator MakeClones()
     {
         transform.gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         movement.SetCanMove(false);
@@ -356,45 +343,50 @@ public class PlayerItems : MonoBehaviour
         float forceMagnitude = 18f;
         playerRb.AddForce(positions[0] * forceMagnitude, ForceMode2D.Impulse);
 
+        // Cache player sprite renderer for copying
+        SpriteRenderer playerSprite = pv.GetSprite()?.GetComponent<SpriteRenderer>();
+
         for (int i = 1; i < 4; i++)
         {
-            // Spawn clone on right side of item
-            GameObject newClone = Instantiate(playerClonePrefab, gameObject.transform.position, transform.rotation);
+            // Spawn clone at random offset position 1.5 units away
+            Vector3 randomOffset = (Vector3)Random.insideUnitCircle.normalized * 1.5f;
+            Vector3 cloneSpawnPos = gameObject.transform.position + randomOffset;
+            GameObject newClone = Instantiate(playerClonePrefab, cloneSpawnPos, transform.rotation);
 
-            // Copy the sprite renderer of the player to its clone
-            //SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();
-            SpriteRenderer cloneSprite = newClone.GetComponent<PlayerVals>().GetSprite().GetComponent<SpriteRenderer>();
-            //if (playerSprite != null)
-            //{
-            //    cloneSprite.sprite = playerSprite.sprite;
-            //    cloneSprite.material = playerSprite.material;
-            //    cloneSprite.color = playerSprite.color;
-            //    cloneSprite.flipX = playerSprite.flipX;
-            //    cloneSprite.flipY = playerSprite.flipY;
-            //}
+            // Copy the sprite renderer of the player to its clone if available
+            SpriteRenderer cloneSprite = newClone.GetComponent<PlayerVals>()?.GetSprite()?.GetComponent<SpriteRenderer>();
+            if (cloneSprite != null && playerSprite != null)
+            {
+                cloneSprite.sprite = playerSprite.sprite;
+                cloneSprite.material = playerSprite.material;
+                cloneSprite.color = playerSprite.color;
+                cloneSprite.flipX = playerSprite.flipX;
+                cloneSprite.flipY = playerSprite.flipY;
 
-            // Make clones a little transluscent
-            Color cloneColor = cloneSprite.color;
-            cloneColor.a = 0.85f;
-            cloneSprite.color = cloneColor;
+                // Make clones a little translucent
+                Color cloneColor = cloneSprite.color;
+                cloneColor.a = 0.85f;
+                cloneSprite.color = cloneColor;
+            }
 
-            // Set up clone behavior
+            // Set up clone behavior with random direction
             CloneBehavior cloneBehavior = newClone.GetComponent<CloneBehavior>();
             if (cloneBehavior != null)
             {
-                cloneBehavior.SetInitialDirection(positions[i].normalized);
+                cloneBehavior.SetInitialDirection(randomOffset.normalized);
                 cloneBehavior.SetMoveSpeed(pv.getMoveSpeed());
             }
 
-            // Apply force to the clone 
+            // Apply force to the clone in the random direction
             Rigidbody2D cloneRb = newClone.GetComponent<Rigidbody2D>();
             if (cloneRb != null)
             {
-                cloneRb.AddForce(positions[i] * forceMagnitude, ForceMode2D.Impulse);
+                cloneRb.AddForce(randomOffset.normalized * forceMagnitude, ForceMode2D.Impulse);
             }
-        }
 
-        clone.GetComponent<PlayerAnimController>().currSprite = GetComponent<PlayerAnimController>().currSprite;
+            // Destroy clone after lifespan
+            Destroy(newClone, cloneDuration);
+        }
 
         movement.SetCanMove(true);
         transform.gameObject.GetComponent<BoxCollider2D>().enabled = true;

@@ -21,7 +21,9 @@ public class StageProps : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        foreach(GameObject g in props)
+        // Count currently active props
+        count = 0;
+        foreach (GameObject g in props)
         {
             if (g)
             {
@@ -31,16 +33,17 @@ public class StageProps : MonoBehaviour
 
         if (count < limObjects)
         {
-            timeToSpawn += Time.deltaTime;
+            spawnTimer += Time.deltaTime;
             if (spawnTimer >= timeToSpawn)
             {
                 timeToSpawn = spawnFreq + Random.Range(-spawnVariability, spawnVariability);
                 spawnTimer = 0;
                 int randPos;
-                while (true) 
+                // Find a non-null prop position
+                while (true)
                 {
                     randPos = Random.Range(0, propPositions.Length);
-                    if (propPositions[randPos] == null) 
+                    if (propPositions[randPos] != null)
                     {
                         break;
                     }

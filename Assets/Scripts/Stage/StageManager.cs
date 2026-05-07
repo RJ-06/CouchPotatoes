@@ -30,7 +30,7 @@ public class StageManager : MonoBehaviour
     void FixedUpdate()
     {
         timer += Time.deltaTime;
-        if (timer >= timingList[ind] && ind < eventList.Length) 
+        if (ind < timingList.Length && ind < eventList.Length && timer >= timingList[ind])
         {
             timer = 0;
             eventList[ind].Invoke();

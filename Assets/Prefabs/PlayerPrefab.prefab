@@ -837,6 +837,7 @@ MonoBehaviour:
   explosion: {fileID: 5221102966673552758, guid: 301924bc60f5488448d333a324392204, type: 3}
   maxThrowForce: 700
   maxThrowTime: 2
+  maxPotatoSpeed: 10
   getPotato:
     m_PersistentCalls:
       m_Calls:

@@ -3524,6 +3524,10 @@ PrefabInstance:
       propertyPath: spawnPoints.Array.data[1].x
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 5709691868437578515, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: orthographic size
+      value: 8.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6514029856569113705, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: m_Name
       value: Game Manager
@@ -3534,7 +3538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8853861835647593830, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: m_GridSnapping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8853861835647593830, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: m_RefResolutionX

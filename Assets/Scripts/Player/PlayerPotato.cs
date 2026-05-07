@@ -29,7 +29,9 @@ public class PlayerPotato : MonoBehaviour
     [InspectorLabel("Deal with holding potato to throw longer")]
     [SerializeField] float maxThrowForce;
     [SerializeField] float maxThrowTime;
+    [SerializeField] float maxPotatoSpeed;
     private bool potatoThrown = false;
+    
     private bool atPlayer = false;
     private Vector2 shootDir;
 
@@ -42,8 +44,9 @@ public class PlayerPotato : MonoBehaviour
 
     // Potato bobbing :D
     private Vector2 bobOffset;
-    private float xOffset = 0f, yOffset = 0f, initYOffset, xShift, yShift;
+    private float xOffset = 0f, yOffset = 0f, initYOffset;
     private bool bobbing = false;
+    private const float POTATO_FOLLOW_LERP_SPEED = 0.15f; // Smoothing factor for potato following
 
     [Header("---Sound Effects---")]
     [SerializeField] AudioSource playerSource;
@@ -56,7 +59,7 @@ public class PlayerPotato : MonoBehaviour
         playerSource = GetComponent<AudioSource>();
         explodeScript = explosion.GetComponent<Explosion>();
         movement = GetComponent<PlayerMovement>();
-        gm = FindFirstObjectByType<GameManager>();
+        gm = FindAnyObjectByType<GameManager>();
         gm.players.Add(gameObject);
     }
 
@@ -66,10 +69,17 @@ public class PlayerPotato : MonoBehaviour
         {
             if (!bobbing) StartCoroutine(BobUpAndDown());
             bobbing = true;
-            xShift = xOffset / 10;
-            yShift = yOffset / 10;
-            StartCoroutine(FollowPlayer());
+            
+            // Calculate target position for the potato to follow
+            Vector2 playerPos = transform.position;
+            Vector2 targetOffset = new Vector2(-0.5f, 1f); // Fixed offset behind player
+            Vector2 targetPosition = playerPos + targetOffset + bobOffset;
+            
+            // Smoothly lerp the potato to follow the player
+            potato.transform.position = Vector2.Lerp(potato.transform.position, targetPosition, POTATO_FOLLOW_LERP_SPEED);
         }
+        Vector2.ClampMagnitude(rb.linearVelocity, maxPotatoSpeed);
+        
     }
 
 
@@ -83,7 +93,6 @@ public class PlayerPotato : MonoBehaviour
         {
             playerSource.clip = throwSound;
             playerSource.Play();
-            StopCoroutine(FollowPlayer());
             if (shootDir != Vector2.zero) // Use right stick direction if given
             {
                 rb.AddForce(maxThrowForce * shootDir);
@@ -125,24 +134,6 @@ public class PlayerPotato : MonoBehaviour
         }
     }
 
-    private IEnumerator FollowPlayer()
-    {
-        Vector2 oldPlayerPosition = transform.position;
-        yield return new WaitForSeconds(0.05f);
-        // Set position to just behind the player, incorporating the bobbing and smooth return if needed
-        if (initYOffset != 0)
-        {
-            potato.transform.position = oldPlayerPosition + new Vector2(xOffset - xShift, yOffset + 0.5f * ((initYOffset - yOffset) / initYOffset) + 0.5f) + bobOffset;
-        }
-        else
-        {
-            potato.transform.position = oldPlayerPosition + new Vector2(xOffset - xShift, yOffset + 1f) + bobOffset;
-        }
-        xOffset -= xShift;
-        yOffset -= yShift;
-        if (initYOffset - yOffset <= 0.01) initYOffset = 0;
-    }
-
     private IEnumerator ReturnToPlayer()
     {
         yield return new WaitForSeconds(0.5f);
@@ -164,11 +155,6 @@ public class PlayerPotato : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
         rb.linearVelocity = Vector2.zero;
-
-        // Set up offsets to manually return potato into position once it's close (for smoothness)
-        xOffset = potato.transform.position.x - transform.position.x;
-        yOffset = potato.transform.position.y - transform.position.y;
-        initYOffset = yOffset;
         potatoThrown = false;
 
         playerSource.clip = catchSound;
@@ -178,10 +164,7 @@ public class PlayerPotato : MonoBehaviour
 
     private IEnumerator SmoothReturn()
     {
-        // Set up offsets so the potato returns smoothly upon starting to follow the player again
-        xOffset = potato.transform.position.x - transform.position.x;
-        yOffset = potato.transform.position.y - transform.position.y;
-        initYOffset = yOffset;
+        // No longer needed with lerp-based following
         yield break;
     }
 

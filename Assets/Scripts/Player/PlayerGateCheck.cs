@@ -19,6 +19,11 @@ public class PlayerGateCheck : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Moving Platform Gate") || collision.gameObject.CompareTag("Land Gate"))
+        {
+            inGate = true;
+            if (playerCollider != null) playerCollider.enabled = false;
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
