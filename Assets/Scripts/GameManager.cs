@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public List<UnityEngine.Vector2> floatingGrassIslandRespawnPoints = new List<UnityEngine.Vector2>();
 
     public static string winningPlayer = "";
+    [SerializeField] string winScreenSceneName;
 
     void Start()
     {
@@ -381,6 +382,7 @@ public class GameManager : MonoBehaviour
                 
             }
             yield return new WaitForSeconds(3f);
+            WinScreenManager.ChangeScene(winScreenSceneName);
             timer.text = "Respawning players...";
             RestoreAllPlayers();
             playersLeft = playerNum;

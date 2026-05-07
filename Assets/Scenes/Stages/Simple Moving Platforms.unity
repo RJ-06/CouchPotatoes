@@ -3501,6 +3501,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1577236172}
     - target: {fileID: 5021024167452658248, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
+      propertyPath: winScreenSceneName
+      value: RoundEndScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021024167452658248, guid: cfb2cb0fa92770441b9c98d35c8eb44f, type: 3}
       propertyPath: possibleRespawnPoints
       value: 
       objectReference: {fileID: 2030673269}
