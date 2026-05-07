@@ -13,7 +13,8 @@ public class WinScreenManager : MonoBehaviour
         playerHasWon = GameManager.winningPlayer;
         if (winnerText != null) 
         {
-            winnerText.text = playerHasWon + "has won!";
+            winnerText.text = playerHasWon + " has won!";
+            Debug.Log(winnerText.text);
 
         }
     }

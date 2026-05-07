@@ -69,17 +69,22 @@ public class PlayerPotato : MonoBehaviour
         {
             if (!bobbing) StartCoroutine(BobUpAndDown());
             bobbing = true;
-            
+
             // Calculate target position for the potato to follow
             Vector2 playerPos = transform.position;
             Vector2 targetOffset = new Vector2(0, 0.75f); // Fixed offset behind player
             Vector2 targetPosition = playerPos + targetOffset + bobOffset;
-            
+
             // Smoothly lerp the potato to follow the player
             potato.transform.position = Vector2.Lerp(potato.transform.position, targetPosition, POTATO_FOLLOW_LERP_SPEED);
+            rb.linearVelocity = Vector2.zero;
         }
-        Vector2.ClampMagnitude(rb.linearVelocity, maxPotatoSpeed);
-        
+        else 
+        {
+            rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, maxPotatoSpeed);
+        }
+            
+
     }
 
 
@@ -151,8 +156,13 @@ public class PlayerPotato : MonoBehaviour
 
             // Stop coroutine if potato transfers
             if (!player.getHasPotato()) yield break;
+            if (Vector2.Distance(transform.position, potato.transform.position) <= 1.5f)
+            {
+                atPlayer = true;
+                break;
+            }
 
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForFixedUpdate();
         }
         rb.linearVelocity = Vector2.zero;
         potatoThrown = false;

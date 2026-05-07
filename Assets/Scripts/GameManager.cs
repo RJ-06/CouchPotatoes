@@ -384,7 +384,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(3f);
             WinScreenManager.ChangeScene(winScreenSceneName);
             timer.text = "Respawning players...";
-            RestoreAllPlayers();
+            //RestoreAllPlayers();
             playersLeft = playerNum;
         }
         yield return new WaitForSeconds(2f);
