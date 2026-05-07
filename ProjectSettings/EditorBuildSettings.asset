@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RoundEndScreen.unity
     guid: d381b1aee08bc8d4db5dcd1062e3558f
+  - enabled: 1
+    path: Assets/Scenes/TestPotato 2.unity
+    guid: acaeda66d251e6b47aecae3b38c02b1e
   m_configObjects: {}

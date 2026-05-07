@@ -72,7 +72,7 @@ public class PlayerPotato : MonoBehaviour
             
             // Calculate target position for the potato to follow
             Vector2 playerPos = transform.position;
-            Vector2 targetOffset = new Vector2(-0.5f, 1f); // Fixed offset behind player
+            Vector2 targetOffset = new Vector2(0, 0.75f); // Fixed offset behind player
             Vector2 targetPosition = playerPos + targetOffset + bobOffset;
             
             // Smoothly lerp the potato to follow the player

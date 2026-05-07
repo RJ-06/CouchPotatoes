@@ -48,7 +48,10 @@ public class ShockwaveAttack : MonoBehaviour
         if (iceEffect != null)
         {
             int freezeFactor = Random.Range(0, 9);
-            if (freezeFactor >= 5)iceEffect.ApplyFreeze(other.gameObject, 5f);
+            if (freezeFactor >= 5) {
+                iceEffect.ApplyFreeze(other.gameObject, 5f);
+                Debug.Log("Froze a player");
+            }
         }
 
         playerMovements.Add(target);
