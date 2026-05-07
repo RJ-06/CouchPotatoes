@@ -228,7 +228,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Fallable") && !fallInProgress)
+        Debug.Log("First condition(" + other.gameObject + ": " + other.gameObject.CompareTag("Fallable"));
+        Debug.Log("Second condition(" + other.gameObject.transform.parent.gameObject + "): " + other.gameObject.transform.parent.gameObject.CompareTag("Moving Platform"));
+        Debug.Log("Third condition: " + !gc.GetInGate());
+        bool movingPlatformFall = other.gameObject.CompareTag("Fallable") && other.gameObject.transform.parent.gameObject.CompareTag("Moving Platform") && !gc.GetInGate();
+
+        if ((other.gameObject.CompareTag("Fallable") || movingPlatformFall) && !fallInProgress)
         {
             fallInProgress = true;
             StartCoroutine(Fall());
